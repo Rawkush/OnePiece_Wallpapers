@@ -19,7 +19,7 @@ import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.util.List;
 
-public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.CategoryViewHolder>{
+public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wallpaperViewHolder>{
     private Context mCtx;
     private List<Wallpaper> wallpaperList;
 
@@ -30,13 +30,13 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.Cate
 
     @NonNull
     @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public wallpaperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_wallpaper, parent,false);
-        return new CategoryViewHolder(view);
+        return new wallpaperViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull wallpaperViewHolder holder, int position) {
     Wallpaper w = wallpaperList.get(position);
         Glide.with(mCtx)
                 .load(w.url)
@@ -49,11 +49,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.Cate
         return wallpaperList.size();
     }
 
-    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class wallpaperViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView imageView;
 
-        public CategoryViewHolder(View itemView) {
+        public wallpaperViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view);
             itemView.setOnClickListener(this);
@@ -68,8 +68,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.Cate
             Bitmap bitmap = imageView.getDrawingCache();
 
             Intent intent = new Intent(mCtx, displayImage.class);
-            intent.putExtra("BitmapImage", bitmap);
-
+            Wallpaper.image=bitmap;
+            mCtx.startActivity(intent);
         }
     }
 }

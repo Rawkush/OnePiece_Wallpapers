@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 public class displayImage extends AppCompatActivity {
 
@@ -15,9 +16,7 @@ public class displayImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_image);
 
-        Intent intent =getIntent();
-        Bitmap bitmap = (Bitmap) intent.getParcelableExtra("BitmapImage");
-
+        Bitmap bitmap = Wallpaper.image;
         ImageView img = (ImageView) findViewById(R.id.displayImageView);
         img.setImageBitmap(bitmap);
     }
