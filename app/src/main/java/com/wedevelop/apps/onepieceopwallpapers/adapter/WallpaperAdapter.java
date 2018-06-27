@@ -1,0 +1,75 @@
+package com.wedevelop.apps.onepieceopwallpapers.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.activity.displayImage;
+import com.wedevelop.apps.onepieceopwallpapers.models.Category;
+import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
+
+import java.util.List;
+
+public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.CategoryViewHolder>{
+    private Context mCtx;
+    private List<Wallpaper> wallpaperList;
+
+    public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
+        this.mCtx = mCtx;
+        this.wallpaperList = wallpaperList;
+    }
+
+    @NonNull
+    @Override
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_wallpaper, parent,false);
+        return new CategoryViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    Wallpaper w = wallpaperList.get(position);
+        Glide.with(mCtx)
+                .load(w.url)
+                .into(holder.imageView);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return wallpaperList.size();
+    }
+
+    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        ImageView imageView;
+
+        public CategoryViewHolder(View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.image_view);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            // caching the image loaded from the glide into imageView
+            imageView.buildDrawingCache();
+            Bitmap bitmap = imageView.getDrawingCache();
+
+            Intent intent = new Intent(mCtx, displayImage.class);
+            intent.putExtra("BitmapImage", bitmap);
+
+        }
+    }
+}
