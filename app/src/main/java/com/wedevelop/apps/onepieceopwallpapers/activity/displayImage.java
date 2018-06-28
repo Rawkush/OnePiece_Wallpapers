@@ -15,8 +15,8 @@ import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 public class displayImage extends AppCompatActivity {
 
-    FloatingActionButton fab_more, fab_download, fab_set_wall;
-    Animation FabOpenAnimation,FabCloseAnimation,FabRclockwiseAnimatioin,FabAnticlockwiseAnimation;
+    FloatingActionButton fab_more, fab_download, fab_set_wall,fab_share; // fab buttons on layout
+    Animation OpenAnimation,CloseAnimation,clockwiseAnimatioin,AnticlockwiseAnimation;
     Boolean isOpen= false;
 
     @Override
@@ -26,12 +26,13 @@ public class displayImage extends AppCompatActivity {
         fab_more=(FloatingActionButton)findViewById(R.id.fab_more);
         fab_download=(FloatingActionButton) findViewById(R.id.fab_download);
         fab_set_wall=(FloatingActionButton) findViewById(R.id.fab_set_wall);
+        fab_share=(FloatingActionButton)findViewById(R.id.fab_set_wall);
         //initialising the animation variable
-        FabOpenAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
+        OpenAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
 
-        FabCloseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
-        FabRclockwiseAnimatioin= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
-        FabAnticlockwiseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
+        CloseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
+        clockwiseAnimatioin= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
+        AnticlockwiseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
 
         Bitmap bitmap = Wallpaper.image;
         ImageView img = (ImageView) findViewById(R.id.displayImageView);
@@ -41,17 +42,21 @@ public class displayImage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isOpen){
-                    fab_download.startAnimation(FabCloseAnimation);
-                    fab_set_wall.startAnimation(FabCloseAnimation);
-                    fab_more.startAnimation(FabAnticlockwiseAnimation);
+                    fab_download.startAnimation(CloseAnimation);
+                    fab_set_wall.startAnimation(CloseAnimation);
+                    fab_more.startAnimation(AnticlockwiseAnimation);
+                    fab_share.startAnimation(CloseAnimation);
+                    fab_share.setClickable(false);
                     fab_set_wall.setClickable(false);
                     fab_download.setClickable(false);
                     isOpen=false;
                 }
                 else{
-                    fab_download.startAnimation(FabOpenAnimation);
-                    fab_set_wall.startAnimation(FabOpenAnimation);
-                    fab_more.startAnimation(FabRclockwiseAnimatioin);
+                    fab_download.startAnimation(OpenAnimation);
+                    fab_set_wall.startAnimation(OpenAnimation);
+                    fab_more.startAnimation(clockwiseAnimatioin);
+                    fab_share.startAnimation(OpenAnimation);
+                    fab_share.setClickable(true);
                     fab_set_wall.setClickable(true);
                     fab_download.setClickable(true);
                     isOpen=true;
