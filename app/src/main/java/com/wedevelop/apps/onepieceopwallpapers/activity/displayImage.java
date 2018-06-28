@@ -54,12 +54,12 @@ public class displayImage extends AppCompatActivity {
                     fab_share.setClickable(false);
                     fab_set_wall.setClickable(false);
                     fab_download.setClickable(false);
-                    LinearFabLayout.setVisibility(0);
+                    LinearFabLayout.setVisibility(View.INVISIBLE);
                     isOpen=false;
 
                 }
                 else{
-                    LinearFabLayout.setVisibility(1);
+                    LinearFabLayout.setVisibility(View.VISIBLE);
                     fab_download.startAnimation(OpenAnimation);
                     fab_set_wall.startAnimation(OpenAnimation);
                     fab_more.startAnimation(clockwiseAnimation);
