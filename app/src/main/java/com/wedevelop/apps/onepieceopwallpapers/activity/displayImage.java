@@ -28,7 +28,7 @@ public class displayImage extends AppCompatActivity {
         fab_more=(FloatingActionButton)findViewById(R.id.fab_more);
         fab_download=(FloatingActionButton) findViewById(R.id.fab_download);
         fab_set_wall=(FloatingActionButton) findViewById(R.id.fab_set_wall);
-        fab_share=(FloatingActionButton)findViewById(R.id.fab_set_wall);
+        fab_share=(FloatingActionButton)findViewById(R.id.fab_share);
         LinearFabLayout=(LinearLayout)findViewById(R.id.LinearFablayout);
 
         //initialising the animation variable
@@ -54,12 +54,13 @@ public class displayImage extends AppCompatActivity {
                     fab_share.setClickable(false);
                     fab_set_wall.setClickable(false);
                     fab_download.setClickable(false);
+
                     LinearFabLayout.setVisibility(View.INVISIBLE);
                     isOpen=false;
 
+
                 }
                 else{
-                    LinearFabLayout.setVisibility(View.VISIBLE);
                     fab_download.startAnimation(OpenAnimation);
                     fab_set_wall.startAnimation(OpenAnimation);
                     fab_more.startAnimation(clockwiseAnimation);
@@ -67,6 +68,7 @@ public class displayImage extends AppCompatActivity {
                     fab_share.setClickable(true);
                     fab_set_wall.setClickable(true);
                     fab_download.setClickable(true);
+                    LinearFabLayout.setVisibility(View.VISIBLE);
                     isOpen=true;
                 }
 
