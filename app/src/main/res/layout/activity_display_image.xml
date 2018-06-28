@@ -18,12 +18,56 @@
         app:srcCompat="@drawable/splash" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/fab_set_wall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+
+        app:backgroundTint="@color/colorWhite"
+
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="180dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+
+        />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+
+        />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:layout_marginRight="@dimen/fab_margin_right"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+
+        />
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>
