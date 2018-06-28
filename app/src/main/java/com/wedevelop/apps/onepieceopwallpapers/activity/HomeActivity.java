@@ -4,11 +4,13 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.adapter.fragmentAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -19,11 +21,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        // setting up the adapter, adapter tells which fragment to load
+        fragmentAdapter adapter = new fragmentAdapter(getSupportFragmentManager());// call of consturctor
 
-        displayFragment(new HomeFragment());
+        viewPager.setAdapter(adapter);
+       // displayFragment(new HomeFragment());
+
+
     }
 
     private void displayFragment(Fragment fragment){
