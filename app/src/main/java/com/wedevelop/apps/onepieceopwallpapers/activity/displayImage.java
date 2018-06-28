@@ -16,7 +16,7 @@ import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 public class displayImage extends AppCompatActivity {
 
     FloatingActionButton fab_more, fab_download, fab_set_wall,fab_share; // fab buttons on layout
-    Animation OpenAnimation,CloseAnimation,clockwiseAnimatioin,AnticlockwiseAnimation;
+    Animation OpenAnimation,CloseAnimation,clockwiseAnimation,AnticlockwiseAnimation;
     Boolean isOpen= false;
 
     @Override
@@ -31,7 +31,7 @@ public class displayImage extends AppCompatActivity {
         OpenAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
 
         CloseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
-        clockwiseAnimatioin= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
+        clockwiseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_clockwise);
         AnticlockwiseAnimation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_anticlockwise);
 
         Bitmap bitmap = Wallpaper.image;
@@ -41,7 +41,8 @@ public class displayImage extends AppCompatActivity {
         fab_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isOpen){
+                if(isOpen){ // checking if the button is already clicked or not
+
                     fab_download.startAnimation(CloseAnimation);
                     fab_set_wall.startAnimation(CloseAnimation);
                     fab_more.startAnimation(AnticlockwiseAnimation);
@@ -50,11 +51,12 @@ public class displayImage extends AppCompatActivity {
                     fab_set_wall.setClickable(false);
                     fab_download.setClickable(false);
                     isOpen=false;
+
                 }
                 else{
                     fab_download.startAnimation(OpenAnimation);
                     fab_set_wall.startAnimation(OpenAnimation);
-                    fab_more.startAnimation(clockwiseAnimatioin);
+                    fab_more.startAnimation(clockwiseAnimation);
                     fab_share.startAnimation(OpenAnimation);
                     fab_share.setClickable(true);
                     fab_set_wall.setClickable(true);
