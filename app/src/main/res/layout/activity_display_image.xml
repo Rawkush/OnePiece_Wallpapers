@@ -31,6 +31,7 @@
         app:srcCompat="@android:drawable/ic_input_add"
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
 
         />
 
@@ -48,6 +49,7 @@
         app:srcCompat="@android:drawable/ic_input_add"
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
 
         />
 
