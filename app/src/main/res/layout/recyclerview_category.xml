@@ -11,18 +11,20 @@
             android:scaleType="fitXY"
             android:id="@+id/image_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"/>
 
         <TextView
             android:text="@string/luffy"
             android:background="@color/colorCategoryBackground"
             android:textColor="@color/colorWhite"
             android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:layout_alignParentBottom="true"
             android:id="@+id/text_view_cat_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"/>
 
     </RelativeLayout>
 

@@ -8,6 +8,8 @@ import com.wedevelop.apps.onepieceopwallpapers.fragment.HomeFragment;
 
 public class fragmentAdapter extends FragmentPagerAdapter {
 
+
+
     public fragmentAdapter(FragmentManager fm) {
 
         // this is constructor of the adapter
@@ -46,10 +48,10 @@ public class fragmentAdapter extends FragmentPagerAdapter {
             return "Home";
         else
         if(position==1)
-            return "Favourite";
+            return "Random";
             //setting deafult
         else
-            return "Random"; // for position 3
+            return "Favourite"; // for position 3
 
     }
 

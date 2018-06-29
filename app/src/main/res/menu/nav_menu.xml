@@ -15,7 +15,7 @@
         />
 
     <item
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_random"
         android:id="@+id/nav_set"
         android:title="@string/nav_settings"
         />

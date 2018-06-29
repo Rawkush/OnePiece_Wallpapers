@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splash" />
+        app:srcCompat="@drawable/splash"
+        android:scaleType="fitXY"/>
 
 
 
@@ -42,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="set Wallpaper"
+                android:text="Set Wallpaper"
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"/>
 
@@ -78,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:text="download"
+                android:text="Download"
                 />
 
 
@@ -113,7 +114,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
 
-                android:text="share" />
+                android:text="Share" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_share"
