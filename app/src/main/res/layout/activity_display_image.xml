@@ -7,6 +7,8 @@
     tools:context=".activity.displayImage">
 
 
+
+
     <ImageView
         android:id="@+id/displayImageView"
         android:layout_width="match_parent"
@@ -16,7 +18,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/splash"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:contentDescription="@string/todk" />
+
+    <LinearLayout
+        android:paddingTop="35dp"
+        android:paddingEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:layout_gravity="right"
+            android:id="@+id/checkBox_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/fav_checbox_selected" />
+
+    </LinearLayout>
 
 
 
@@ -41,9 +61,12 @@
             <TextView
                 android:id="@+id/setWallText"
                 android:layout_width="0dp"
+                android:background="@color/colorNavDefault"
+                android:textColor="@color/colorWhite"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Set Wallpaper"
+                android:text="@string/set_wallpaper"
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"/>
 
@@ -53,12 +76,14 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:elevation="6dp"
+                android:focusable="true"
+                android:src="@drawable/tab_set_wallpaper"
                 android:visibility="invisible"
                 app:backgroundTint="@color/colorWhite"
-                app:pressedTranslationZ="12dp"
-                app:srcCompat="@android:drawable/ic_input_add"
 
-                />
+                app:fabCustomSize="45dp"
+                app:pressedTranslationZ="12dp"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
         </LinearLayout>
 
@@ -78,8 +103,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:background="@color/colorNavDefault"
+                android:textColor="@color/colorWhite"
                 android:layout_marginTop="10dp"
-                android:text="Download"
+                android:text="@string/download"
                 />
 
 
@@ -89,8 +117,11 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:elevation="6dp"
+                android:focusable="true"
+                android:src="@drawable/tab_download"
                 android:visibility="invisible"
                 app:backgroundTint="@color/colorPrimary"
+                app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -111,10 +142,13 @@
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorNavDefault"
+                android:textColor="@color/colorWhite"
                 android:layout_marginEnd="10dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_marginTop="10dp"
 
-                android:text="Share" />
+                android:text="@string/share" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_share"
@@ -122,8 +156,11 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:elevation="6dp"
+                android:focusable="true"
+                android:src="@drawable/tab_share"
                 android:visibility="invisible"
                 app:backgroundTint="@color/colorPrimary"
+                app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
                 app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -134,24 +171,20 @@
     </LinearLayout>
 
 
-
-
-
-
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:layout_marginEnd="@dimen/fab_margin_right"
-        app:srcCompat="@android:drawable/ic_input_add"
+        android:clickable="true"
         android:elevation="6dp"
-        app:pressedTranslationZ="12dp"
+        android:focusable="true"
+        app:fabCustomSize="50dp"
 
-        />
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 
 

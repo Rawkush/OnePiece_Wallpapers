@@ -6,4 +6,9 @@
     <string name="luffy">TODO</string>
     <string name="Todo">Luffy</string>
     <string name="todo">TODO</string>
+    <string name="string_not_signed_in">Oops You have to sign in first..</string>
+    <string name="set_wallpaper"> Set Wallpaper </string>
+    <string name="download"> Download </string>
+    <string name="share"> Share </string>
+    <string name="todk">TODO</string>
 </resources>
