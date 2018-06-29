@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.wedevelop.apps.onepieceopwallpapers.fragment.HomeFragment;
+import com.wedevelop.apps.onepieceopwallpapers.fragment.FavouriteFragment;
 
 public class fragmentAdapter extends FragmentPagerAdapter {
 
@@ -28,7 +29,7 @@ public class fragmentAdapter extends FragmentPagerAdapter {
             return new HomeFragment();
             //setting deafult
         else
-            return new HomeFragment();     // for position 3
+            return new FavouriteFragment();     // for position 3
     }
 
     @Override
