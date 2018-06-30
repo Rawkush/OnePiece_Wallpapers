@@ -6,180 +6,180 @@
     android:layout_height="match_parent"
     tools:context=".activity.displayImage">
 
-
-
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/photo_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:paddingTop="35dp"
-            android:paddingEnd="20dp"
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photo_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:orientation="vertical">
+            android:scaleType="centerCrop"
+            />
 
-            <CheckBox
-                android:layout_gravity="right"
-                android:id="@+id/checkBox_fav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/fav_checbox_selected" />
 
-        </LinearLayout>
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:paddingEnd="20dp"
+        android:paddingTop="35dp">
+
+        <CheckBox
+            android:id="@+id/checkBox_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:button="@drawable/fav_checbox_selected" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/LinearFablayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
 
         <LinearLayout
-            android:id="@+id/LinearFablayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:layout_marginEnd="@dimen/fab_margin_right"
-            android:visibility="invisible"
-            >
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/setWallText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorNavDefault"
+                android:text="@string/set_wallpaper"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorWhite" />
 
-            <LinearLayout
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_set_wall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom|end">
+                android:clickable="true"
+                android:elevation="6dp"
+                android:focusable="true"
+                android:src="@drawable/tab_set_wallpaper"
+                android:visibility="invisible"
+                app:backgroundTint="@color/colorWhite"
 
-                <TextView
-                    android:id="@+id/setWallText"
-                    android:layout_width="0dp"
-                    android:background="@color/colorNavDefault"
-                    android:textColor="@color/colorWhite"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/set_wallpaper"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1"/>
+                app:fabCustomSize="45dp"
+                app:pressedTranslationZ="12dp"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_set_wall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:elevation="6dp"
-                    android:focusable="true"
-                    android:src="@drawable/tab_set_wallpaper"
-                    android:visibility="invisible"
-                    app:backgroundTint="@color/colorWhite"
-
-                    app:fabCustomSize="45dp"
-                    app:pressedTranslationZ="12dp"
-                    app:srcCompat="@android:drawable/ic_input_add" />
-
-            </LinearLayout>
+        </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom|end"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="50dp"
-                >
-
-                <TextView
-                    android:id="@+id/download"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:background="@color/colorNavDefault"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/download"
-                    />
+                android:background="@color/colorNavDefault"
+                android:text="@string/download"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorWhite" />
 
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_download"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:elevation="6dp"
-                    android:focusable="true"
-                    android:src="@drawable/tab_download"
-                    android:visibility="invisible"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:fabCustomSize="45dp"
-                    app:pressedTranslationZ="12dp"
-                    app:srcCompat="@android:drawable/ic_input_add" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_download"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                >
-
-
-                <TextView
-                    android:id="@+id/share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorNavDefault"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginEnd="10dp"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:layout_marginTop="10dp"
-
-                    android:text="@string/share" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab_share"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:elevation="6dp"
-                    android:focusable="true"
-                    android:src="@drawable/tab_share"
-                    android:visibility="invisible"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:fabCustomSize="45dp"
-                    app:pressedTranslationZ="12dp"
-                    app:srcCompat="@android:drawable/ic_input_add" />
-
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:elevation="6dp"
+                android:focusable="true"
+                android:src="@drawable/tab_download"
+                android:visibility="invisible"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabCustomSize="45dp"
+                app:pressedTranslationZ="12dp"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
 
         </LinearLayout>
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_more"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:layout_marginEnd="@dimen/fab_margin_right"
-            android:clickable="true"
-            android:elevation="6dp"
-            android:focusable="true"
-            app:fabCustomSize="50dp"
-
-            app:pressedTranslationZ="12dp"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
 
+            <TextView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorNavDefault"
+                android:text="@string/share"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+
+                android:textColor="@color/colorWhite" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:elevation="6dp"
+                android:focusable="true"
+                android:src="@drawable/tab_share"
+                android:visibility="invisible"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabCustomSize="45dp"
+                app:pressedTranslationZ="12dp"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
 
-    </android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="@dimen/fab_margin_right"
+        android:clickable="true"
+        android:elevation="6dp"
+        android:focusable="true"
+        app:fabCustomSize="50dp"
+
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+
+</android.support.design.widget.CoordinatorLayout>

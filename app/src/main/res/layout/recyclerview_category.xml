@@ -8,11 +8,13 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"/>
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="9dp"/>
 
         <TextView
             android:text="@string/luffy"
