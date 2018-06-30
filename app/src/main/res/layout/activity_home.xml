@@ -17,6 +17,7 @@
             app:title="@string/app_name"
             app:layout_scrollFlags="scroll|enterAlways"
             app:titleTextColor="@color/colorTitle"
+            app:titleMarginStart="90dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -33,7 +34,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
     </android.support.design.widget.TabLayout>
