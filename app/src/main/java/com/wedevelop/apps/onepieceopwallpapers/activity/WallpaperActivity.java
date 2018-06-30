@@ -3,6 +3,7 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -39,7 +40,7 @@ public class WallpaperActivity extends AppCompatActivity {
         wallpaperList = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         adapter = new WallpaperAdapter(this, wallpaperList);
 
         recyclerView.setAdapter(adapter);

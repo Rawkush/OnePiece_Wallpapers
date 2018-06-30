@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         categoryList = new ArrayList<>();
         adapter = new CategoriesAdapter(getActivity(), categoryList);
         recyclerView.setAdapter(adapter);

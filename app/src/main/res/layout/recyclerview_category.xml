@@ -12,13 +12,12 @@
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="9dp"/>
+            android:layout_margin="2dp"
+            android:background="@color/colorCategoryBackground"/>
 
         <TextView
             android:text="@string/luffy"
-            android:background="@color/colorCategoryBackground"
+            android:background="@drawable/category_text_radius"
             android:textColor="@color/colorWhite"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
