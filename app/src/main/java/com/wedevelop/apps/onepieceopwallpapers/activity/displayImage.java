@@ -41,7 +41,6 @@ public class displayImage extends AppCompatActivity {
         Bitmap bitmap = Wallpaper.image;
 
         PhotoView photoView = (PhotoView) findViewById(R.id.photo_view);
-
         photoView.setImageBitmap(bitmap);
 
         fab_more.setOnClickListener(new View.OnClickListener() {
