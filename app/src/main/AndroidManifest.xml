@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.WallpaperActivity" />
-        <activity android:name=".activity.displayImage"></activity>
+        <activity android:name=".activity.displayImage" />
+        <activity android:name=".fragment.NewFragment"></activity>
     </application>
 
 </manifest>
