@@ -50,9 +50,6 @@ public class WallpaperActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
 
-        Toolbar toolbar = findViewById(R.id.toolBar);
-        toolbar.setTitle(category);
-        setSupportActionBar(toolbar);
 
         dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
                 .child(category);
