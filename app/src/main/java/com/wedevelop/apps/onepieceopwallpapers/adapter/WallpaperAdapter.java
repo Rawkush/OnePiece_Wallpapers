@@ -22,6 +22,7 @@ import java.util.List;
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wallpaperViewHolder>{
     private Context mCtx;
     private List<Wallpaper> wallpaperList;
+    private String wallpaper;
 
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
@@ -33,14 +34,15 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     public wallpaperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_wallpaper, parent,false);
         return new wallpaperViewHolder(view);
-    }
+}
 
     @Override
     public void onBindViewHolder(@NonNull wallpaperViewHolder holder, int position) {
-    Wallpaper w = wallpaperList.get(position);
+        Wallpaper w = wallpaperList.get(position);
         Glide.with(mCtx)
                 .load(w.url)
                 .into(holder.imageView);
+        wallpaper=w.url;
 
     }
 
@@ -63,12 +65,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
         @Override
         public void onClick(View v) {
 
+            int p = getAdapterPosition();
             // caching the image loaded from the glide into imageView
-            imageView.buildDrawingCache();
-            Bitmap bitmap = imageView.getDrawingCache();
+//            imageView.buildDrawingCache();
+  //          Bitmap bitmap = imageView.getDrawingCache();
 
             Intent intent = new Intent(mCtx, displayImage.class);
-            Wallpaper.image=bitmap;
+            intent.putExtra("wallpaper_url",wallpaperList.get(p).url);
+          //  Wallpaper.image=bitmap;
             mCtx.startActivity(intent);
         }
     }

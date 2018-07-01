@@ -1,6 +1,8 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +12,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
+import java.util.List;
+
 public class displayImage extends AppCompatActivity {
+    private Context mCtx;
+    private List<Wallpaper> wallpaperList;
 
     FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
     Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
@@ -38,11 +45,14 @@ public class displayImage extends AppCompatActivity {
         clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
         AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
 
-        Bitmap bitmap = Wallpaper.image;
-
+      //  Bitmap bitmap = Wallpaper.image;
+        Intent intent = getIntent();
+        String url= intent.getStringExtra("wallpaper_url");
         PhotoView photoView = (PhotoView) findViewById(R.id.photo_view);
-
-        photoView.setImageBitmap(bitmap);
+        Glide.with(this)
+                .load(url)
+                .into(photoView);
+       // photoView.setImageBitmap(bitmap);
 
         fab_more.setOnClickListener(new View.OnClickListener() {
             @Override
