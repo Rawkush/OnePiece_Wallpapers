@@ -46,10 +46,10 @@ public class fragmentAdapter extends FragmentPagerAdapter {
         //  TODO: change the named  of the tabs here
 
         if(position==0)
-            return "Home";
+            return "New";
         else
         if(position==1)
-            return "Random";
+            return "Category";
             //setting deafult
         else
             return "Favourite"; // for position 3
