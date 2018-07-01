@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.wedevelop.apps.onepieceopwallpapers.fragment.HomeFragment;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.FavouriteFragment;
+import com.wedevelop.apps.onepieceopwallpapers.fragment.NewFragment;
 
 public class fragmentAdapter extends FragmentPagerAdapter {
 
@@ -23,7 +24,7 @@ public class fragmentAdapter extends FragmentPagerAdapter {
         //TODO: return the fragment according to the position
 
         if(position==0)
-            return new HomeFragment();
+            return new NewFragment();
         else
         if(position==1)
             return new HomeFragment();
@@ -46,10 +47,10 @@ public class fragmentAdapter extends FragmentPagerAdapter {
         //  TODO: change the named  of the tabs here
 
         if(position==0)
-            return "Home";
+            return "New";
         else
         if(position==1)
-            return "Random";
+            return "Category";
             //setting deafult
         else
             return "Favourite"; // for position 3
