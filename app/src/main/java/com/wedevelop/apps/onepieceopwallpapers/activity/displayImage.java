@@ -20,8 +20,6 @@ import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 import java.util.List;
 
 public class displayImage extends AppCompatActivity {
-    private Context mCtx;
-    private List<Wallpaper> wallpaperList;
 
     FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
     Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
@@ -32,11 +30,11 @@ public class displayImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_image);
-        fab_more = (FloatingActionButton) findViewById(R.id.fab_more);
-        fab_download = (FloatingActionButton) findViewById(R.id.fab_download);
-        fab_set_wall = (FloatingActionButton) findViewById(R.id.fab_set_wall);
-        fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
-        LinearFabLayout = (LinearLayout) findViewById(R.id.LinearFablayout);
+        fab_more = findViewById(R.id.fab_more);
+        fab_download = findViewById(R.id.fab_download);
+        fab_set_wall = findViewById(R.id.fab_set_wall);
+        fab_share = findViewById(R.id.fab_share);
+        LinearFabLayout = findViewById(R.id.LinearFablayout);
 
         //initialising the animation variable
         OpenAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
@@ -45,14 +43,13 @@ public class displayImage extends AppCompatActivity {
         clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
         AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
 
-      //  Bitmap bitmap = Wallpaper.image;
+
         Intent intent = getIntent();
         String url= intent.getStringExtra("wallpaper_url");
-        PhotoView photoView = (PhotoView) findViewById(R.id.photo_view);
+        PhotoView photoView = findViewById(R.id.photo_view);
         Glide.with(this)
                 .load(url)
                 .into(photoView);
-       // photoView.setImageBitmap(bitmap);
 
         fab_more.setOnClickListener(new View.OnClickListener() {
             @Override

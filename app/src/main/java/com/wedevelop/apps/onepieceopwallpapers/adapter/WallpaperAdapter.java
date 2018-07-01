@@ -19,7 +19,7 @@ import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.util.List;
 
-public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wallpaperViewHolder>{
+public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wallpaperViewHolder> {
     private Context mCtx;
     private List<Wallpaper> wallpaperList;
     private String wallpaper;
@@ -32,9 +32,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     @NonNull
     @Override
     public wallpaperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_wallpaper, parent,false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_wallpaper, parent, false);
         return new wallpaperViewHolder(view);
-}
+    }
 
     @Override
     public void onBindViewHolder(@NonNull wallpaperViewHolder holder, int position) {
@@ -42,7 +42,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
         Glide.with(mCtx)
                 .load(w.url)
                 .into(holder.imageView);
-        wallpaper=w.url;
+        wallpaper = w.url;
 
     }
 
@@ -51,7 +51,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
         return wallpaperList.size();
     }
 
-    class wallpaperViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class wallpaperViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
 
@@ -66,13 +66,10 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
         public void onClick(View v) {
 
             int p = getAdapterPosition();
-            // caching the image loaded from the glide into imageView
-//            imageView.buildDrawingCache();
-  //          Bitmap bitmap = imageView.getDrawingCache();
+            // caching the image loaded from the glide into PhotoView
 
             Intent intent = new Intent(mCtx, displayImage.class);
-            intent.putExtra("wallpaper_url",wallpaperList.get(p).url);
-          //  Wallpaper.image=bitmap;
+            intent.putExtra("wallpaper_url", wallpaperList.get(p).url);
             mCtx.startActivity(intent);
         }
     }
