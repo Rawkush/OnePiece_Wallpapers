@@ -1,7 +1,6 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
     private List<Category> categoryList;
     private ProgressBar progressBar;
@@ -38,7 +37,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
     @Override
@@ -57,6 +56,7 @@ public class HomeFragment extends Fragment {
 
 
         dbCategories = FirebaseDatabase.getInstance().getReference("categories");
+
         dbCategories.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,7 +68,12 @@ public class HomeFragment extends Fragment {
                         String thumb = ds.child("thumbnail").getValue(String.class);
 
                         Category c = new Category(name, desc, thumb);
-                        categoryList.add(c);
+                        if (name.equals("new")) {
+
+                        } else {
+                            categoryList.add(c);
+
+                        }
                     }
                     adapter.notifyDataSetChanged();
                 }

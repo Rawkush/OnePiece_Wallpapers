@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.CategoryActivity" />
         <activity android:name=".activity.WallpaperActivity" />
-        <activity android:name=".activity.displayImage" />
+        <activity android:name=".activity.DisplayImage" />
     </application>
 
 </manifest>

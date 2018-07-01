@@ -19,7 +19,7 @@ import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.util.List;
 
-public class displayImage extends AppCompatActivity {
+public class DisplayImage extends AppCompatActivity {
 
     FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
     Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;

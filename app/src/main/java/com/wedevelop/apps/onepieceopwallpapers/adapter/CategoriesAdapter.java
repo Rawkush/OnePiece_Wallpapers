@@ -37,7 +37,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
     Category c = categoryList.get(position);
-    holder.textView.setText(c.name);
+
+        holder.textView.setText(c.name);
         Glide.with(mCtx)
                 .load(c.thumb)
                 .into(holder.imageView);
@@ -69,7 +70,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
             intent.putExtra("category",c.name);
-
             mCtx.startActivity(intent);
         }
     }

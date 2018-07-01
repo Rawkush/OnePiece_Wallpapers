@@ -4,15 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.wedevelop.apps.onepieceopwallpapers.fragment.HomeFragment;
+import com.wedevelop.apps.onepieceopwallpapers.fragment.CategoryFragment;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.FavouriteFragment;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.NewFragment;
 
-public class fragmentAdapter extends FragmentPagerAdapter {
+public class TabLayoutAdapter extends FragmentPagerAdapter {
 
 
-
-    public fragmentAdapter(FragmentManager fm) {
+    public TabLayoutAdapter(FragmentManager fm) {
 
         // this is constructor of the adapter
         super(fm);
@@ -27,7 +26,7 @@ public class fragmentAdapter extends FragmentPagerAdapter {
             return new NewFragment();
         else
         if(position==1)
-            return new HomeFragment();
+            return new CategoryFragment();
             //setting deafult
         else
             return new FavouriteFragment();     // for position 3

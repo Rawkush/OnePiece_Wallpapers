@@ -2,28 +2,19 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
-import com.wedevelop.apps.onepieceopwallpapers.adapter.fragmentAdapter;
-import com.wedevelop.apps.onepieceopwallpapers.fragment.HomeFragment;
+import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CategoryActivity extends AppCompatActivity {
 
-public class HomeActivity extends AppCompatActivity {
-
-    fragmentAdapter adapter;
+    TabLayoutAdapter adapter;
     private TabLayout tabLayout;
     private int[] tabIcons = {
-            R.drawable.ic_home,
+            R.drawable.ic_tab_new,
             R.drawable.ic_random,
             R.drawable.ic_favorite
     };
@@ -32,18 +23,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setContentView(R.layout.activity_category);
+        ViewPager viewPager = findViewById(R.id.viewpager);
 
 
 
         // setting up the adapter, adapter tells which fragment to load
-         adapter = new fragmentAdapter(getSupportFragmentManager());// call of consturctor
+        adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
         setupViewPager(viewPager);
 
 
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
 
 
         tabLayout.setupWithViewPager(viewPager);
@@ -58,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        adapter = new fragmentAdapter(getSupportFragmentManager());
+        adapter = new TabLayoutAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
     }
