@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mancj.materialsearchbar.SimpleOnSearchActionListener;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.CategoriesAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Category;
@@ -26,13 +29,14 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
+    private List<String> lastSearches;
+    private MaterialSearchBar searchBar;
     private List<Category> categoryList;
     private ProgressBar progressBar;
     private DatabaseReference dbCategories;
-
     private RecyclerView recyclerView;
     private CategoriesAdapter adapter;
-
+    private String searchKey;
 
     @Nullable
     @Override
@@ -43,6 +47,32 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        searchBar = view.findViewById(R.id.searchBar);
+        searchBar.setHint("Luffy");
+        //searchBar.setSpeechMode(true);
+        //enable searchbar callbacks
+        searchBar.setOnSearchActionListener(new SimpleOnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+                super.onSearchStateChanged(enabled);
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+                super.onSearchConfirmed(text);
+                searchKey = text.toString();
+                //Toast.makeText(getActivity(),text,Toast.LENGTH_LONG).show();
+                //showSearchedCategory();
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+                super.onButtonClicked(buttonCode);
+            }
+        });
+
 
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -86,4 +116,6 @@ public class CategoryFragment extends Fragment {
 
 
     }
+
+
 }
