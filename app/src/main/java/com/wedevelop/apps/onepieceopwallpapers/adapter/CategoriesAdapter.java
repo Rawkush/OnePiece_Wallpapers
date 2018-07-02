@@ -27,20 +27,23 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     private Context mCtx;
     private List<Category> categoryList;
     private List<Category> categoryListFiltered;
-    private CategoriesAdapterListener listener;
+  //  private CategoriesAdapterListener listener;
 
 
     public CategoriesAdapter(Context mCtx, List<Category> categoryList) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
-    }
+        categoryListFiltered=categoryList;
 
+    }
+/*
     public CategoriesAdapter(Context mCtx, List<Category> categoryList,CategoriesAdapterListener listener) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
         this.listener=listener;
+        categoryListFiltered=categoryList;
     }
-
+*/
 
 
 
@@ -131,9 +134,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
 
 
-
+/*
     public interface CategoriesAdapterListener {
-        void onContactSelected(Category contact);
+        void onCategorySelected(Category contact);
     }
-
+*/
 }
