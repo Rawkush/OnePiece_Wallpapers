@@ -72,7 +72,6 @@ public class CategoryFragment extends Fragment {
 
                         } else {
                             categoryList.add(c);
-
                         }
                     }
                     adapter.notifyDataSetChanged();

@@ -9,7 +9,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //comment
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         startActivity(intent);
         finish();
