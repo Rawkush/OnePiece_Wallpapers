@@ -9,22 +9,7 @@
     tools:context=".activity.CategoryActivity"
     >
 
-    <android.support.design.widget.AppBarLayout
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            app:title="@string/app_name"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:titleTextColor="@color/colorTitle"
-            app:titleMarginStart="90dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
