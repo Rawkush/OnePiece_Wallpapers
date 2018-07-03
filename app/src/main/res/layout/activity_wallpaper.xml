@@ -16,9 +16,10 @@
             android:id="@+id/toolBar"
             app:title="@string/app_name"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:titleTextColor="@color/colorTitle"
+            android:layout_height="48dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:background="@color/toolBar"
+            app:titleTextColor="@color/colorWhite">
 
         </android.support.v7.widget.Toolbar>
 
@@ -35,13 +36,15 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <ProgressBar
+        <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progressBar"
+            style="@style/SpinKitView.Large.Wave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone" />
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/progressBarColor" />
+
 
     </RelativeLayout>
 

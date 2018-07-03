@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorImageBackground"
 
     tools:context=".activity.CategoryActivity"
     >
@@ -18,7 +19,7 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
-        android:background="@color/colorAccent"
+        android:background="@color/colorTabLayout"
         app:tabIndicatorColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

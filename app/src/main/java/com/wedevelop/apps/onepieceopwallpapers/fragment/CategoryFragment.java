@@ -59,7 +59,7 @@ public class CategoryFragment extends Fragment {
 
 
         searchBar = view.findViewById(R.id.searchBar);
-        searchBar.setHint("Luffy");
+        searchBar.setHint("Luffy...");
         searchBar.setOnSearchActionListener(new SimpleOnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
@@ -77,9 +77,6 @@ public class CategoryFragment extends Fragment {
             public void onSearchConfirmed(CharSequence text) {
                 super.onSearchConfirmed(text);
                 adapter.getFilter().filter(text);   // filtering the result
-                //Toast.makeText(getActivity(),text,Toast.LENGTH_LONG).show();
-                //showSearchedCategory();
-
             }
 
             @Override

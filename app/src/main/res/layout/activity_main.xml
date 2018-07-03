@@ -8,16 +8,27 @@
     tools:context=".activity.MainActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <ProgressBar
-        android:id="@+id/SplashProgressBar"
-        style="?android:attr/progressBarStyleLarge"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="232dp"
+        android:fontFamily="casual"
+        android:text="Welcome"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp" />
+
+    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/SplashProgressBar"
+        style="@style/SpinKitView.Small.ThreeBounce"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="99dp"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        android:visibility="visible" />
+        android:layout_gravity="center"
+        android:layout_marginBottom="169dp"
+        app:SpinKit_Color="@color/progressBarColor" />
 
 
 </RelativeLayout>
