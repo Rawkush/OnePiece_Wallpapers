@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.wedevelop.apps.onepieceopwallpapers.R;
 
 public class MainActivity extends AppCompatActivity {
