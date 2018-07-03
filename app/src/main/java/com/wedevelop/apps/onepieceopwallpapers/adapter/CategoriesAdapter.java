@@ -27,13 +27,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     private Context mCtx;
     private List<Category> categoryList;
     private List<Category> categoryListFiltered;
-  //  private CategoriesAdapterListener listener;
+    //  private CategoriesAdapterListener listener;
 
 
     public CategoriesAdapter(Context mCtx, List<Category> categoryList) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
-        categoryListFiltered=categoryList;
+        categoryListFiltered = categoryList;
 
     }
 /*
@@ -56,7 +56,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-    Category c = categoryListFiltered.get(position);
+        Category c = categoryListFiltered.get(position);
 
         holder.textView.setText(c.name);
         Glide.with(mCtx)
@@ -124,7 +124,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         @Override
         public void onClick(View v) {
             int p = getAdapterPosition();  // getting adap;ter position
-            Category c = categoryList.get(p);
+            Category c = categoryListFiltered.get(p);
 
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
             intent.putExtra("category",c.name);

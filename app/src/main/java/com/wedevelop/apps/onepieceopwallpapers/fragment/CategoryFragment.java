@@ -35,9 +35,7 @@ public class CategoryFragment extends Fragment {
     private ProgressBar progressBar;
     private DatabaseReference dbCategories;
     private RecyclerView recyclerView;
-    private CategoriesAdapter adapter;
-  //  private String searchKey;
-
+    private CategoriesAdapter adapter, duplicateAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,17 +54,23 @@ public class CategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         categoryList = new ArrayList<>();
         adapter = new CategoriesAdapter(getActivity(), categoryList);
+        duplicateAdapter = new CategoriesAdapter(getActivity(), categoryList);
         recyclerView.setAdapter(adapter);
 
 
         searchBar = view.findViewById(R.id.searchBar);
         searchBar.setHint("Luffy");
-        //searchBar.setSpeechMode(true);
-        //enable searchbar callbacks
         searchBar.setOnSearchActionListener(new SimpleOnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
                 super.onSearchStateChanged(enabled);
+
+                if (!enabled) {
+
+                    recyclerView.setAdapter(duplicateAdapter);
+                } else
+                    recyclerView.setAdapter(adapter);
+
             }
 
             @Override
@@ -81,6 +85,8 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onButtonClicked(int buttonCode) {
                 super.onButtonClicked(buttonCode);
+
+
             }
         });
 
@@ -104,6 +110,8 @@ public class CategoryFragment extends Fragment {
                         }
                     }
                     adapter.notifyDataSetChanged();
+                    duplicateAdapter.notifyDataSetChanged();
+
                 }
             }
 

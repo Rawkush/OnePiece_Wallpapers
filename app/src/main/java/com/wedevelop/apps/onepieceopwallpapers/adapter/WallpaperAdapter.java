@@ -64,7 +64,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
 
             int p = getAdapterPosition();
             // caching the image loaded from the glide into PhotoView
-
             Intent intent = new Intent(mCtx, DisplayImage.class);
             intent.putExtra("wallpaper_url", wallpaperList.get(p).url);
             mCtx.startActivity(intent);
