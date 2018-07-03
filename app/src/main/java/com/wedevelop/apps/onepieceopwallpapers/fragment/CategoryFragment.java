@@ -36,8 +36,6 @@ public class CategoryFragment extends Fragment {
     private DatabaseReference dbCategories;
     private RecyclerView recyclerView;
     private CategoriesAdapter adapter, duplicateAdapter;
-    //  private String searchKey;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
