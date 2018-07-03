@@ -70,6 +70,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     }
 
 
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -123,7 +124,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         @Override
         public void onClick(View v) {
             int p = getAdapterPosition();  // getting adap;ter position
-            Category c = categoryList.get(p);
+            Category c = categoryListFiltered.get(p);
 
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
             intent.putExtra("category",c.name);
