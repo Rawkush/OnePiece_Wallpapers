@@ -86,7 +86,6 @@ public class CategoryFragment extends Fragment {
             public void onButtonClicked(int buttonCode) {
                 super.onButtonClicked(buttonCode);
 
-
             }
         });
 
@@ -101,7 +100,6 @@ public class CategoryFragment extends Fragment {
                         String name = ds.getKey();
                         String desc = ds.child("desc").getValue(String.class);
                         String thumb = ds.child("thumbnail").getValue(String.class);
-
                         Category c = new Category(name, desc, thumb);
                         if (name.equals("new")) {
 
@@ -120,7 +118,6 @@ public class CategoryFragment extends Fragment {
 
             }
         });
-
 
     }
 
