@@ -14,7 +14,7 @@
             android:id="@+id/searchBar"
             style="@style/MaterialSearchBarLight"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             app:mt_hint="Zoro"
             app:mt_maxSuggestionsCount="10"
             app:mt_placeholder="Category" />

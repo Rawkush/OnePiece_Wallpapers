@@ -37,7 +37,6 @@ public class NewFragment extends Fragment {
     ProgressBar progressBar;
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
