@@ -18,7 +18,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:titleTextColor="@color/colorTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
         </android.support.v7.widget.Toolbar>
 
