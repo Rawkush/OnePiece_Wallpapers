@@ -36,7 +36,7 @@ public class CategoryFragment extends Fragment {
     private DatabaseReference dbCategories;
     private RecyclerView recyclerView;
     private CategoriesAdapter adapter;
-    private String searchKey;
+    //  private String searchKey;
 
     @Nullable
     @Override
@@ -47,6 +47,16 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        categoryList = new ArrayList<>();
+        adapter = new CategoriesAdapter(getActivity(), categoryList);
+        recyclerView.setAdapter(adapter);
 
 
         searchBar = view.findViewById(R.id.searchBar);
@@ -62,9 +72,10 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onSearchConfirmed(CharSequence text) {
                 super.onSearchConfirmed(text);
-                searchKey = text.toString();
+                adapter.getFilter().filter(text);   // filtering the result
                 //Toast.makeText(getActivity(),text,Toast.LENGTH_LONG).show();
                 //showSearchedCategory();
+
             }
 
             @Override
@@ -72,18 +83,6 @@ public class CategoryFragment extends Fragment {
                 super.onButtonClicked(buttonCode);
             }
         });
-
-
-        progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
-
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        categoryList = new ArrayList<>();
-        adapter = new CategoriesAdapter(getActivity(), categoryList);
-        recyclerView.setAdapter(adapter);
-
 
         dbCategories = FirebaseDatabase.getInstance().getReference("categories");
 
