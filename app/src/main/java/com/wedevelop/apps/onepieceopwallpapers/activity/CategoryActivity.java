@@ -1,6 +1,7 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +14,8 @@ public class CategoryActivity extends AppCompatActivity {
 
     TabLayoutAdapter adapter;
     private TabLayout tabLayout;
-    private int[] tabIcons = {
-            R.drawable.ic_tab_new,
-            R.drawable.ic_random,
-            R.drawable.ic_favorite
-    };
+
+
 
 
     @Override
@@ -28,19 +26,19 @@ public class CategoryActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewpager);
         // setting up the adapter, adapter tells which fragment to load
         adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
-        viewPager.setAdapter(adapter);
         //  setupViewPager(viewPager);
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+        tabLayout.setSelected(true);
+        adapter.setupTabIcons(tabLayout);
+        viewPager.setAdapter(adapter);
 
     }
 
-    private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-    }
+
+
+
+
 
   /*
     private void setupViewPager(ViewPager viewPager) {
