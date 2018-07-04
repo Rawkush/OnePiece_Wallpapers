@@ -34,7 +34,7 @@ public class NewFragment extends Fragment {
     WallpaperAdapter adapter;
 
     DatabaseReference dbWallpapers;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
 
     @Nullable

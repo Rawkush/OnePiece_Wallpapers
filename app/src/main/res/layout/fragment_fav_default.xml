@@ -23,6 +23,7 @@
             android:fontFamily="casual"
             android:text="@string/string_not_signed_in"
             android:textAlignment="center"
+            android:textColor="@color/colorWhite"
             android:textSize="30sp" />
         
         <com.google.android.gms.common.SignInButton
