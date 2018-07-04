@@ -1,7 +1,9 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,13 +33,32 @@ public class CategoryActivity extends AppCompatActivity {
         // setting up the adapter, adapter tells which fragment to load
         adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
         setupViewPager(viewPager);
-
-
         tabLayout = findViewById(R.id.tabs);
-
-
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int tabIconColor = ContextCompat.getColor(getBaseContext(), R.color.selectedTabColor); // change color of selected tab
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                int tabIconColor = ContextCompat.getColor(getBaseContext(), R.color.tabUnselectedColor);
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
 
 
     }
@@ -49,7 +70,6 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new TabLayoutAdapter(getSupportFragmentManager());
-
         viewPager.setAdapter(adapter);
     }
 

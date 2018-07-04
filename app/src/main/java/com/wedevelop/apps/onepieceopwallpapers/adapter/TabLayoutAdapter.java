@@ -1,14 +1,17 @@
 package com.wedevelop.apps.onepieceopwallpapers.adapter;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.CategoryFragment;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.FavouriteFragment;
 import com.wedevelop.apps.onepieceopwallpapers.fragment.NewFragment;
 
 public class TabLayoutAdapter extends FragmentPagerAdapter {
+
 
 
     public TabLayoutAdapter(FragmentManager fm) {
@@ -23,12 +26,21 @@ public class TabLayoutAdapter extends FragmentPagerAdapter {
         //TODO: return the fragment according to the position
 
         if(position==0)
+
+
+
+
             return new NewFragment();
         else
         if(position==1)
+
+
+
             return new CategoryFragment();
             //setting deafult
         else
+
+
             return new FavouriteFragment();     // for position 3
     }
 
@@ -53,7 +65,9 @@ public class TabLayoutAdapter extends FragmentPagerAdapter {
             //setting deafult
         else
             return "Favourite"; // for position 3
-
     }
+
+
+
 
 }
