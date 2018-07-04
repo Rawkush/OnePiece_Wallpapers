@@ -14,7 +14,11 @@ public class CategoryActivity extends AppCompatActivity {
 
     TabLayoutAdapter adapter;
     private TabLayout tabLayout;
-
+    private int[] tabIcons = {
+            R.drawable.ic_tab_new,
+            R.drawable.ic_random,
+            R.drawable.ic_favorite
+    };
 
 
 
@@ -30,12 +34,18 @@ public class CategoryActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setSelected(true);
-        adapter.setupTabIcons(tabLayout);
+        setupTabIcons();
         viewPager.setAdapter(adapter);
 
     }
 
 
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+    }
 
 
 

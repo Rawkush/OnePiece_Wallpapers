@@ -12,11 +12,7 @@ import com.wedevelop.apps.onepieceopwallpapers.fragment.NewFragment;
 
 public class TabLayoutAdapter extends FragmentPagerAdapter {
 
-    private int[] tabIcons = {
-            R.drawable.ic_tab_new,
-            R.drawable.ic_random,
-            R.drawable.ic_favorite
-    };
+
 
     public TabLayoutAdapter(FragmentManager fm) {
 
@@ -69,12 +65,6 @@ public class TabLayoutAdapter extends FragmentPagerAdapter {
             //setting deafult
         else
             return "Favourite"; // for position 3
-    }
-
-    public void setupTabIcons(TabLayout tabLayout) {
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
 
