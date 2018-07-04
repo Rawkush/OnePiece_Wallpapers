@@ -39,15 +39,21 @@
 
 
     <LinearLayout
-        android:id="@+id/LinearFablayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:layout_marginEnd="@dimen/fab_margin_right"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
+    <LinearLayout
+        android:id="@+id/LinearFablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +93,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
@@ -164,6 +170,9 @@
 
         </LinearLayout>
 
+
+    </LinearLayout>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_more"
             android:layout_width="match_parent"
@@ -178,9 +187,7 @@
             app:pressedTranslationZ="12dp"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-
     </LinearLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>
