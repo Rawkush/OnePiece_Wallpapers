@@ -59,4 +59,11 @@
     <color name="middleTextSelectorColorDark">@color/searchBarIconColorDark</color>
     <color name="rightTextSelectorColorDark">@color/searchBarIconColorDark</color>
 
+
+    //Tabs
+    <color name="selectedTabColor">#FFFFFF</color>
+    <color name="tabUnselectedColor">#FF000000</color>
+
+
+
 </resources>
