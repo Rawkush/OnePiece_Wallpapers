@@ -53,7 +53,13 @@ public class NewFragment extends Fragment {
         wallpaperList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        gridLayoutManager.setReverseLayout(true);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        // recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         adapter = new WallpaperAdapter(getActivity(), wallpaperList);
 
         recyclerView.setAdapter(adapter);
