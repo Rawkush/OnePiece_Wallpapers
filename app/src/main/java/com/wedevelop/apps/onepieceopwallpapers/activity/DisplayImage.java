@@ -1,9 +1,11 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +15,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
+import java.io.File;
 import java.util.List;
 
 public class DisplayImage extends AppCompatActivity {
@@ -25,6 +32,8 @@ public class DisplayImage extends AppCompatActivity {
     Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
     Boolean isOpen = false;
     LinearLayout LinearFabLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +47,12 @@ public class DisplayImage extends AppCompatActivity {
 
         //initialising the animation variable
         OpenAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-
         CloseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
         AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
 
-
         Intent intent = getIntent();
-        String url= intent.getStringExtra("wallpaper_url");
+         url= intent.getStringExtra("wallpaper_url");
         PhotoView photoView = findViewById(R.id.photo_view);
         Glide.with(this)
                 .load(url)
@@ -86,4 +93,41 @@ public class DisplayImage extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+    public void imageDownload(View view){
+        // DatabaseReference imageData= databaseReference.child("photos").child("a");
+
+    // location where to store the image
+        File storageDir = new File(            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            + "/One Piece Wallpapers");
+
+        boolean success = true;
+
+        if (!storageDir.exists()) {
+        success = storageDir.mkdirs(); // folder is not present create the folder
+        }
+
+
+        if(success){
+
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+
 }
+

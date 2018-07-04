@@ -46,7 +46,7 @@
         android:layout_margin="16dp"
         android:layout_marginEnd="@dimen/fab_margin_right"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="invisible">
 
 
         <LinearLayout
@@ -75,7 +75,7 @@
                 android:elevation="6dp"
                 android:focusable="true"
                 android:src="@drawable/tab_set_wallpaper"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:backgroundTint="@color/colorWhite"
 
                 app:fabCustomSize="45dp"
@@ -115,7 +115,7 @@
                 android:elevation="6dp"
                 android:focusable="true"
                 android:src="@drawable/tab_download"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:backgroundTint="@color/colorPrimary"
                 app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
@@ -155,7 +155,7 @@
                 android:elevation="6dp"
                 android:focusable="true"
                 android:src="@drawable/tab_share"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:backgroundTint="@color/colorPrimary"
                 app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
