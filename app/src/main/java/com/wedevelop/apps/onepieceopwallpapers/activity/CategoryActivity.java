@@ -22,37 +22,32 @@ public class CategoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         ViewPager viewPager = findViewById(R.id.viewpager);
-
-
-
         // setting up the adapter, adapter tells which fragment to load
         adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
-        setupViewPager(viewPager);
-
-
+        viewPager.setAdapter(adapter);
+        //  setupViewPager(viewPager);
         tabLayout = findViewById(R.id.tabs);
-
-
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-
     }
+
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
+  /*
     private void setupViewPager(ViewPager viewPager) {
         adapter = new TabLayoutAdapter(getSupportFragmentManager());
-
         viewPager.setAdapter(adapter);
     }
-
+*/
 
 
 }
