@@ -40,9 +40,13 @@ public class WallpaperActivity extends AppCompatActivity {
         wallpaperList = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        adapter = new WallpaperAdapter(this, wallpaperList);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
+        //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
+        gridLayoutManager.setReverseLayout(true);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        // recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
 
         progressBar = findViewById(R.id.progressBar);

@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="25dp"
+    android:background="@color/colorImageBackground"
     android:layout_height="220dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorImageBackground">
 
         <ImageView
             android:scaleType="centerCrop"
@@ -15,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:background="@color/colorCategoryBackground"/>
+            android:background="@color/colorImageBackground" />
 
         <TextView
             android:text="@string/luffy"

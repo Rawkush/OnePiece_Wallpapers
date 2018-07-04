@@ -53,4 +53,6 @@ public class CategoryActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    }
+
+
+}
