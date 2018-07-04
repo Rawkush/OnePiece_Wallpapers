@@ -32,7 +32,7 @@ public class DisplayImage extends AppCompatActivity {
     Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
     Boolean isOpen = false;
     LinearLayout LinearFabLayout;
-
+    String url;
 
 
     @Override
@@ -109,9 +109,11 @@ public class DisplayImage extends AppCompatActivity {
 
         boolean success = true;
 
+
         if (!storageDir.exists()) {
         success = storageDir.mkdirs(); // folder is not present create the folder
         }
+
 
 
         if(success){
