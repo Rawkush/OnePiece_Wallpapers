@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorImageBackground"
 
-    tools:context=".activity.CategoryActivity"
+    tools:context=".activity.HomeActivity"
     >
     
 

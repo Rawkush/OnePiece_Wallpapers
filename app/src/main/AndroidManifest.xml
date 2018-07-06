@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wedevelop.apps.onepieceopwallpapers">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
@@ -19,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CategoryActivity" />
+        <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.WallpaperActivity" />
         <activity android:name=".activity.DisplayImage" />
     </application>

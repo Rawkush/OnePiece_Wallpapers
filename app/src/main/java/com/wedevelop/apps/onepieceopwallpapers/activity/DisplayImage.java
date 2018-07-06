@@ -3,16 +3,20 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -20,10 +24,14 @@ import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class DisplayImage extends AppCompatActivity {
@@ -34,7 +42,6 @@ public class DisplayImage extends AppCompatActivity {
     LinearLayout LinearFabLayout;
     String url;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class DisplayImage extends AppCompatActivity {
         fab_download = findViewById(R.id.fab_download);
         fab_set_wall = findViewById(R.id.fab_set_wall);
         fab_share = findViewById(R.id.fab_share);
+
         LinearFabLayout = findViewById(R.id.LinearFablayout);
 
         //initialising the animation variable
@@ -97,34 +105,6 @@ public class DisplayImage extends AppCompatActivity {
 
 
 
-
-
-
-    public void imageDownload(View view){
-        // DatabaseReference imageData= databaseReference.child("photos").child("a");
-
-    // location where to store the image
-        File storageDir = new File(            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            + "/One Piece Wallpapers");
-
-        boolean success = true;
-
-
-        if (!storageDir.exists()) {
-        success = storageDir.mkdirs(); // folder is not present create the folder
-        }
-
-
-
-        if(success){
-
-
-
-
-
-        }
-
-    }
 
 
 
