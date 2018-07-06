@@ -26,6 +26,10 @@
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.WallpaperActivity" />
         <activity android:name=".activity.DisplayImage" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
