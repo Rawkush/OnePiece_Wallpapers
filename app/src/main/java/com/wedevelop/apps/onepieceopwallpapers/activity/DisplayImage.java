@@ -162,6 +162,8 @@ public class DisplayImage extends AppCompatActivity {
                                  // intent.setDataAndType(uri, "image/*");
                                   //startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
 
+                                  sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+
                               }
                           }
                       }
