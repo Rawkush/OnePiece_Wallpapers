@@ -74,7 +74,6 @@ public class WallpaperActivity extends AppCompatActivity {
                         w.id=dataSnapshot.getKey();
                         w.id = w.id + wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
-
                     }
                     adapter.notifyDataSetChanged();
                 }
