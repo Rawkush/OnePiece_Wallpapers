@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
 
-    tools:context=".activity.CategoryActivity"
+    tools:context=".activity.HomeActivity"
     >
     
 

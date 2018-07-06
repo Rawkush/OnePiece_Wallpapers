@@ -66,16 +66,17 @@ public class WallpaperActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
+              //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
-                        w.id = dataSnapshot.getKey();
-                        Toast.makeText(getApplicationContext(), w.id, Toast.LENGTH_SHORT).show();
+                        w.id=dataSnapshot.getKey();
+                        w.id = w.id + wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
                     }
                     adapter.notifyDataSetChanged();
                 }
-
 
             }
 

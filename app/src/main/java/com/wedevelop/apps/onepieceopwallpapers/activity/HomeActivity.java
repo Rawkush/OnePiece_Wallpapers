@@ -1,17 +1,20 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
 
-public class CategoryActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     TabLayoutAdapter adapter;
     private TabLayout tabLayout;
@@ -21,14 +24,11 @@ public class CategoryActivity extends AppCompatActivity {
             R.drawable.ic_favorite
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         ViewPager viewPager = findViewById(R.id.viewpager);
-
-
 
         // setting up the adapter, adapter tells which fragment to load
         adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
@@ -36,6 +36,7 @@ public class CategoryActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -56,18 +57,13 @@ public class CategoryActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
     }
+
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
-
     private void setupViewPager(ViewPager viewPager) {
         adapter = new TabLayoutAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
