@@ -1,8 +1,11 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
+import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
@@ -20,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.firebase.database.Exclude;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,6 +38,7 @@ public class DisplayImage extends AppCompatActivity {
     LinearLayout LinearFabLayout;
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
     String url, id;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +110,13 @@ public class DisplayImage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 downloadWallpaper();
+            }
+        });
+
+        fab_set_wall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setWallpaper();
             }
         });
 
@@ -208,6 +220,30 @@ public class DisplayImage extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void setWallpaper() {
+        WallpaperManager myWallManager = WallpaperManager.getInstance(getApplicationContext());
+
+        Toast.makeText(this, "Wallpaper Set..", Toast.LENGTH_SHORT).show();
+
+        Glide.with(this)
+                .asBitmap()
+                .load(url)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+
+                        try {
+                            WallpaperManager.getInstance(getApplicationContext()).setBitmap(resource);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
     }
 
 
