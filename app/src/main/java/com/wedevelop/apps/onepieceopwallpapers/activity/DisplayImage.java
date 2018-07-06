@@ -1,17 +1,9 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
-
-import android.Manifest;
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -24,21 +16,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.wedevelop.apps.onepieceopwallpapers.R;
-import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 public class DisplayImage extends AppCompatActivity {
 
@@ -173,7 +159,7 @@ public class DisplayImage extends AppCompatActivity {
 
                               Uri uri = saveWallpaperAndGetUri(resource, id);
                               if (uri != null) {
-                                  //intent.setDataAndType(uri, "image/*");
+                                 // intent.setDataAndType(uri, "image/*");
                                   //startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
 
                               }
@@ -193,10 +179,8 @@ public class DisplayImage extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-
                 Uri uri = Uri.fromParts("package", getPackageName(), null);
                 intent.setData(uri);
-
                 startActivity(intent);
 
             } else {
@@ -208,7 +192,7 @@ public class DisplayImage extends AppCompatActivity {
         File folder = new File(Environment.getExternalStorageDirectory().toString() + "/OnePiece_Wallpapers");
         folder.mkdirs();
 
-        File file = new File(folder, id + System.currentTimeMillis() + ".jpg");
+        File file = new File(folder, id  + ".jpg");
         try {
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
