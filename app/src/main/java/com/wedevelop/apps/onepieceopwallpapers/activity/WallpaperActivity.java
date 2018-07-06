@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -65,14 +66,17 @@ public class WallpaperActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
+              //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
+                        w.id=dataSnapshot.getKey();
+                        w.id = w.id + wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
                     }
                     adapter.notifyDataSetChanged();
                 }
-
 
             }
 

@@ -75,7 +75,9 @@ public class NewFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
+
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
+                        w.id = wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
                     }
                     adapter.notifyDataSetChanged();
