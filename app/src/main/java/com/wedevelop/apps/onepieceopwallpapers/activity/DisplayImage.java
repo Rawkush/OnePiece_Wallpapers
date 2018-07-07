@@ -67,7 +67,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         Intent intent = getIntent();
         url = intent.getStringExtra("wallpaper_url");
         id = intent.getStringExtra("id");
-
         checkBoxFav = findViewById(R.id.checkBox_fav);
 
 
@@ -76,8 +75,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
             DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("favourites")
-                    .child(id);
+                    .child("favourites");
 
             final Wallpaper wallpaper = new Wallpaper(id, id, id, url);
 
@@ -329,8 +327,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
         DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("favourites")
-                .child(id);
+                .child("favourites");
 
 
         Wallpaper w = new Wallpaper(id, id, id, url);
