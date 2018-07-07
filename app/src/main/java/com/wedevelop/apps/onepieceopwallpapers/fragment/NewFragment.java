@@ -25,6 +25,7 @@ import com.wedevelop.apps.onepieceopwallpapers.adapter.WallpaperAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NewFragment extends Fragment {
@@ -56,7 +57,7 @@ public class NewFragment extends Fragment {
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
         //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        gridLayoutManager.setReverseLayout(true);
+        ////gridLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         // recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
@@ -80,6 +81,8 @@ public class NewFragment extends Fragment {
                         w.id = wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
                     }
+
+                    Collections.reverse(wallpaperList);
                     adapter.notifyDataSetChanged();
                 }
 

@@ -90,6 +90,7 @@ public class FavouriteFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getActivity(), "Login Failure", Toast.LENGTH_LONG).show();

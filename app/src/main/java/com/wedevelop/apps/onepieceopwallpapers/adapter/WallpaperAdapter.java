@@ -16,11 +16,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DisplayImage;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
@@ -35,6 +41,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     private Context mCtx;
     private List<Wallpaper> wallpaperList;
     private String wallpaper;
+
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
         this.wallpaperList = wallpaperList;
@@ -71,6 +78,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
             imageView = itemView.findViewById(R.id.image_view);
             itemView.setOnClickListener(this);
 
+
         }
 
 
@@ -81,6 +89,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
             // caching the image loaded from the glide into PhotoView
             Intent intent = new Intent(mCtx, DisplayImage.class);
             intent.putExtra("wallpaper_url", wallpaperList.get(p).url);
+            intent.putExtra("position ", "" + p);
             intent.putExtra("id", wallpaperList.get(p).id);
             mCtx.startActivity(intent);
 
