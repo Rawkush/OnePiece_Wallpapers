@@ -87,15 +87,11 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                     if (dataSnapshot.exists()) {
                         for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                             String id = wallpaperSnapShot.getKey();
-                            String title = id;
-                            String desc = id;
-
+                            String title = wallpaperSnapShot.child("title").getValue(String.class);
+                            String desc = wallpaperSnapShot.child("desc").getValue(String.class);
                             String url = wallpaperSnapShot.child("url").getValue(String.class);
-
                             Wallpaper w = new Wallpaper(id, title, desc, url);
                             w.id = dataSnapshot.getKey();
-                            w.id = w.id + wallpaperSnapShot.getKey();
-
                             if (w.url.equals(wallpaper.url)) {
                                 checkBoxFav.setChecked(true);
                             }
@@ -328,7 +324,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("favourites");
-
 
         Wallpaper w = new Wallpaper(id, id, id, url);
 
