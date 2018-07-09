@@ -29,6 +29,7 @@ public class FavouriteLoginFragment extends Fragment {
 
     private static final int GOOGLE_SIGN_IN_CODE = 212;
     private GoogleSignInClient mGoogleSignInClient;
+    private View rootView;
 
     @Nullable
     @Override
@@ -54,13 +55,8 @@ public class FavouriteLoginFragment extends Fragment {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
             FavouritesFragment favouritesFragment = new FavouritesFragment(view);
-
             favouritesFragment.setFavWalls(getActivity());
-
-
-
-
-
+            rootView = view;
         } else {
 
             view.findViewById(R.id.button_google_sign_in).setOnClickListener(new View.OnClickListener() {
@@ -109,5 +105,13 @@ public class FavouriteLoginFragment extends Fragment {
                 });
     }
 
+    @Override
+    public void onResume() {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
+        favouritesFragment.setFavWalls(getActivity());
+
+    }
 
 }

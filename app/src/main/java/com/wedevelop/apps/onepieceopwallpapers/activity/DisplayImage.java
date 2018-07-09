@@ -129,7 +129,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             @Override
             public void onClick(View v) {
                 if (isOpen) { // checking if the button is already clicked or not
-
                     fab_download.startAnimation(CloseAnimation);
                     fab_set_wall.startAnimation(CloseAnimation);
                     fab_more.startAnimation(AnticlockwiseAnimation);
@@ -137,7 +136,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                     fab_share.setClickable(false);
                     fab_set_wall.setClickable(false);
                     fab_download.setClickable(false);
-
                     LinearFabLayout.setVisibility(View.INVISIBLE);
                     isOpen = false;
 
