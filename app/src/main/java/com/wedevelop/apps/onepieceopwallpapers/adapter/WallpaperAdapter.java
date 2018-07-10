@@ -16,11 +16,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DisplayImage;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
@@ -35,7 +41,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     private Context mCtx;
     private List<Wallpaper> wallpaperList;
     private String wallpaper;
-    FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share;
 
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
@@ -72,9 +77,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view);
             itemView.setOnClickListener(this);
-            fab_download = itemView.findViewById(R.id.fab_download);
-            fab_set_wall = itemView.findViewById(R.id.fab_set_wall);
-            fab_share = itemView.findViewById(R.id.fab_share);
+
 
         }
 
@@ -86,21 +89,10 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
             // caching the image loaded from the glide into PhotoView
             Intent intent = new Intent(mCtx, DisplayImage.class);
             intent.putExtra("wallpaper_url", wallpaperList.get(p).url);
+            intent.putExtra("position ", "" + p);
             intent.putExtra("id", wallpaperList.get(p).id);
             mCtx.startActivity(intent);
 
-        /*    switch (v.getId()) {
-                case R.id.fab_share:
-
-
-                    break;
-                case R.id.fab_download:
-
-                    downloadWallpaper(wallpaperList.get(getAdapterPosition()));
-
-                    break;
-
-            }*/
         }
 
 

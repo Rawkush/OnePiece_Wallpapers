@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 
-public class FavouriteFragment extends Fragment {
+public class FavouriteLoginFragment extends Fragment {
 
     private static final int GOOGLE_SIGN_IN_CODE = 212;
     private GoogleSignInClient mGoogleSignInClient;
+    private View rootView = null;
 
     @Nullable
     @Override
@@ -35,7 +38,7 @@ public class FavouriteFragment extends Fragment {
             return inflater.inflate(R.layout.fragment_fav_default, container, false);
         }
 
-        return inflater.inflate(R.layout.fragment_fav_default, container, false);
+        return inflater.inflate(R.layout.fragment_favourites, container, false);
     }
 
     @Override
@@ -51,6 +54,9 @@ public class FavouriteFragment extends Fragment {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
+            FavouritesFragment favouritesFragment = new FavouritesFragment(view);
+            favouritesFragment.setFavWalls(getActivity());
+            rootView = view;
         } else {
 
             view.findViewById(R.id.button_google_sign_in).setOnClickListener(new View.OnClickListener() {
@@ -73,7 +79,7 @@ public class FavouriteFragment extends Fragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                fireballAuthWithGoogle(account);
             } catch (ApiException e) {
                 e.printStackTrace();
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -81,7 +87,7 @@ public class FavouriteFragment extends Fragment {
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+    private void fireballAuthWithGoogle(GoogleSignInAccount account) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
@@ -90,7 +96,10 @@ public class FavouriteFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
+
+
                         } else {
                             Toast.makeText(getActivity(), "Login Failure", Toast.LENGTH_LONG).show();
                         }
@@ -98,5 +107,15 @@ public class FavouriteFragment extends Fragment {
                 });
     }
 
+    // refresh after removing the image
+    @Override
+    public void onResume() {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        if (rootView != null) {
+            FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
+            favouritesFragment.setFavWalls(getActivity());
+        }
+    }
 
 }

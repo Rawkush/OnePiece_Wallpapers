@@ -22,6 +22,7 @@ import com.wedevelop.apps.onepieceopwallpapers.adapter.WallpaperAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class WallpaperActivity extends AppCompatActivity {
@@ -41,12 +42,13 @@ public class WallpaperActivity extends AppCompatActivity {
         wallpaperList = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
+        // GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
         //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        gridLayoutManager.setReverseLayout(true);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        // recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        //gridLayoutManager.setReverseLayout(true);
+        //recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
         adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
 
@@ -66,15 +68,21 @@ public class WallpaperActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
-              //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
 
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
-                        Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
-                        w.id=dataSnapshot.getKey();
+                        String id = wallpaperSnapShot.getKey();
+                        String title = wallpaperSnapShot.child("title").getValue(String.class);
+                        String desc = wallpaperSnapShot.child("desc").getValue(String.class);
+                        String url = wallpaperSnapShot.child("url").getValue(String.class);
+
+                        Wallpaper w = new Wallpaper(id, title, desc, url);
+                        w.id = dataSnapshot.getKey();
                         w.id = w.id + wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
                     }
+                    Collections.reverse(wallpaperList);
                     adapter.notifyDataSetChanged();
                 }
 
