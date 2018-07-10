@@ -2,6 +2,7 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 import android.app.WallpaperManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +35,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
 import java.io.File;
@@ -68,6 +71,20 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         url = intent.getStringExtra("wallpaper_url");
         id = intent.getStringExtra("id");
         checkBoxFav = findViewById(R.id.checkBox_fav);
+        HintServiceImpl hintService = new HintServiceImpl();
+        hintService.addHint(new Hint(fab_more, "tit", "des"));
+        hintService.addHint(new Hint(checkBoxFav, "tit", "des"));
+
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = prefs.edit();
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            hintService.showHint(this);
+            editor.putBoolean("firstrun", false).apply();
+
+        }
 
 
         //change check box state

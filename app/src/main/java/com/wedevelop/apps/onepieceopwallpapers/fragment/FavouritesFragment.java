@@ -29,7 +29,6 @@ import java.util.List;
 public class FavouritesFragment {
 
 
-
     List<Wallpaper> favWalls;
     RecyclerView recyclerView;
     ProgressBar progressBar;

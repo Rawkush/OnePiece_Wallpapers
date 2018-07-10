@@ -29,7 +29,7 @@ public class FavouriteLoginFragment extends Fragment {
 
     private static final int GOOGLE_SIGN_IN_CODE = 212;
     private GoogleSignInClient mGoogleSignInClient;
-    private View rootView;
+    private View rootView = null;
 
     @Nullable
     @Override
@@ -98,6 +98,8 @@ public class FavouriteLoginFragment extends Fragment {
                         if (task.isSuccessful()) {
 
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
+
+
                         } else {
                             Toast.makeText(getActivity(), "Login Failure", Toast.LENGTH_LONG).show();
                         }
@@ -105,13 +107,15 @@ public class FavouriteLoginFragment extends Fragment {
                 });
     }
 
+    // refresh after removing the image
     @Override
     public void onResume() {  // After a pause OR at startup
         super.onResume();
         //Refresh your stuff here
-        FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
-        favouritesFragment.setFavWalls(getActivity());
-
+        if (rootView != null) {
+            FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
+            favouritesFragment.setFavWalls(getActivity());
+        }
     }
 
 }
