@@ -7,10 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -30,21 +35,31 @@ public class FavouriteLoginFragment extends Fragment {
     private static final int GOOGLE_SIGN_IN_CODE = 212;
     private GoogleSignInClient mGoogleSignInClient;
     private View rootView = null;
+    android.support.v7.widget.Toolbar mToolbar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            return inflater.inflate(R.layout.fragment_fav_default, container, false);
-        }
 
-        return inflater.inflate(R.layout.fragment_favourites, container, false);
+        View v;
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            v = inflater.inflate(R.layout.fragment_fav_default, container, false);
+        } else
+            v = inflater.inflate(R.layout.fragment_favourites, container, false);
+
+
+        mToolbar = v.findViewById(R.id.menuToolBar);
+
+        if (mToolbar != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        }
+        return v;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.default_web_client_id))
@@ -57,6 +72,8 @@ public class FavouriteLoginFragment extends Fragment {
             FavouritesFragment favouritesFragment = new FavouritesFragment(view);
             favouritesFragment.setFavWalls(getActivity());
             rootView = view;
+            setHasOptionsMenu(true);
+
         } else {
 
             view.findViewById(R.id.button_google_sign_in).setOnClickListener(new View.OnClickListener() {
@@ -116,6 +133,29 @@ public class FavouriteLoginFragment extends Fragment {
             FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
             favouritesFragment.setFavWalls(getActivity());
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO  menu entries here
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fav_menu, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.menuDownload) {
+            Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuFeedback) {
+            Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuBarSignOut) {
+            Toast.makeText(getActivity(), "Sign-Out is here", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

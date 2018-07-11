@@ -4,12 +4,14 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
@@ -23,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
             R.drawable.ic_random,
             R.drawable.ic_favorite
     };
+    boolean doubleTap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
@@ -69,6 +73,21 @@ public class HomeActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    public void onBackPressed() {
+        if (doubleTap) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(this, "Please Back again to Exit", Toast.LENGTH_SHORT).show();
+            doubleTap = true;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleTap = false;
+                }
+            }, 500);
+        }
+    }
 
 
 }

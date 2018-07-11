@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">One Piece Wallpapers</string>
-    <string name="nav_home">Home</string>
-    <string name="nav_favourites">Favourites</string>
-    <string name="nav_settings">Settings</string>
+    <string name="app_feedback">Feedback</string>
+    <string name="fav_sign_out">Sign Out</string>
+    <string name="fav_download">Downloads</string>
     <string name="luffy">TODO</string>
     <string name="Todo">Luffy</string>
     <string name="todo">TODO</string>
