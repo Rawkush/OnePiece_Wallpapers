@@ -70,7 +70,9 @@ public class NewFragment extends Fragment {
 
         dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
                 .child("new");
-        dbWallpapers.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        // limtito Last reads data from bottom
+        dbWallpapers.limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);

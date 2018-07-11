@@ -64,7 +64,7 @@ public class WallpaperActivity extends AppCompatActivity {
         dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
                 .child(category);
         progressBar.setVisibility(View.VISIBLE);
-        dbWallpapers.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpapers.limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
