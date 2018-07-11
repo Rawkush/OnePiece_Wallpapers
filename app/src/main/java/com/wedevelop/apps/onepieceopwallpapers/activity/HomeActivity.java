@@ -62,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
