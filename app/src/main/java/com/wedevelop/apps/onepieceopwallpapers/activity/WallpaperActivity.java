@@ -34,6 +34,7 @@ public class WallpaperActivity extends AppCompatActivity {
     DatabaseReference dbWallpapers;
     ProgressBar progressBar,loadMoreProgress;
     Boolean isScrolling=false;
+    GridLayoutManager manager;
     Boolean shouldScrollMore=true;
     String oldestpost;
 
@@ -45,38 +46,17 @@ public class WallpaperActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        manager= (GridLayoutManager) recyclerView.getLayoutManager();
         adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progressBar);
         loadMoreProgress=findViewById(R.id.loadMoreProgressBar);
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
-        Toolbar toolbar = findViewById(R.id.toolBar);
+        final Toolbar toolbar = findViewById(R.id.toolBar);
         toolbar.setTitle(category);
         setSupportActionBar(toolbar);
         // setting up the listner in the recyclerView For chechking if it is last data if yes load more
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling=true;
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                 if(isScrolling&&(shouldScrollMore)){
-                    //fetch the new data
-                    isScrolling=false;
-                    loadMoreProgress.setVisibility(View.VISIBLE);
-                    fetchData();
-                }
-            }
-        });
-
-
         dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
                 .child(category);
         progressBar.setVisibility(View.VISIBLE);
@@ -110,6 +90,33 @@ public class WallpaperActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    isScrolling=true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = manager.getChildCount();
+                int totalItemCount = manager.getItemCount();
+                int pastVisibleItems = manager.findFirstVisibleItemPosition();
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    if(isScrolling&&(shouldScrollMore)) {
+                        //fetch the new data
+                        isScrolling = false;
+                        loadMoreProgress.setVisibility(View.VISIBLE);
+                        fetchData();
+                    }
+                }
             }
         });
 

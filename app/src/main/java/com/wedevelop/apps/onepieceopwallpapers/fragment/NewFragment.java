@@ -35,10 +35,12 @@ public class NewFragment extends Fragment {
     RecyclerView recyclerView;
     WallpaperAdapter adapter;
     DatabaseReference dbWallpapers;
-    private ProgressBar progressBar;
+    ProgressBar progressBar,loadMoreProgress;
     Boolean isScrolling=false;
+    GridLayoutManager manager;
     Boolean shouldScrollMore=true;
     String oldestpost;
+
 
     @Nullable
     @Override
@@ -52,12 +54,13 @@ public class NewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        loadMoreProgress=view.findViewById(R.id.loadMoreProgressBar);
         wallpaperList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
+        manager= (GridLayoutManager) recyclerView.getLayoutManager();
         adapter = new WallpaperAdapter(getActivity(), wallpaperList);
         recyclerView.setAdapter(adapter);
         progressBar = view.findViewById(R.id.progressBar);
@@ -81,6 +84,7 @@ public class NewFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if(isScrolling&&(shouldScrollMore)){
                     //fetch the new data
+                    loadMoreProgress.setVisibility(View.VISIBLE);
                     isScrolling=false;
                     fetchData();
                 }
@@ -121,6 +125,32 @@ public class NewFragment extends Fragment {
         });
 
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    isScrolling=true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = manager.getChildCount();
+                int totalItemCount = manager.getItemCount();
+                int pastVisibleItems = manager.findFirstVisibleItemPosition();
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    if(isScrolling&&(shouldScrollMore)) {
+                        //fetch the new data
+                        isScrolling = false;
+                        loadMoreProgress.setVisibility(View.VISIBLE);
+                        fetchData();
+                    }
+                }
+            }
+        });
+
 
     }
 
@@ -129,7 +159,7 @@ public class NewFragment extends Fragment {
         dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.GONE);
+                loadMoreProgress.setVisibility(View.GONE);
                 int x=0;
                 List<Wallpaper> wallpaperListTemp=new ArrayList<>();
 
