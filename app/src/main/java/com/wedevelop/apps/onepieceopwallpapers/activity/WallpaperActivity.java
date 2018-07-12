@@ -78,7 +78,7 @@ public class WallpaperActivity extends AppCompatActivity {
         dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
                 .child(category);
         progressBar.setVisibility(View.VISIBLE);
-        dbWallpapers.orderByKey().limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpapers.orderByKey().limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
@@ -117,7 +117,7 @@ public class WallpaperActivity extends AppCompatActivity {
     private void fetchData() {
         DatabaseReference dbWallpaper=dbWallpapers;
 
-        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
