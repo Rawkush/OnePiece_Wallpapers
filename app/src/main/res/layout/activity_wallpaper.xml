@@ -46,6 +46,20 @@
             app:SpinKit_Color="@color/progressBarColor" />
 
 
+        <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/loadMoreProgressBar"
+            style="@style/SpinKitView.Large.Wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/progressBarColor" />
+
+
     </RelativeLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

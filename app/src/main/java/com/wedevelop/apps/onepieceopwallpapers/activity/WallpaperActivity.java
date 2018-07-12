@@ -32,7 +32,7 @@ public class WallpaperActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     WallpaperAdapter adapter;
     DatabaseReference dbWallpapers;
-    ProgressBar progressBar;
+    ProgressBar progressBar,loadMoreProgress;
     Boolean isScrolling=false;
     Boolean shouldScrollMore=true;
     String oldestpost;
@@ -48,6 +48,7 @@ public class WallpaperActivity extends AppCompatActivity {
         adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progressBar);
+        loadMoreProgress=findViewById(R.id.loadMoreProgressBar);
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         Toolbar toolbar = findViewById(R.id.toolBar);
@@ -69,6 +70,7 @@ public class WallpaperActivity extends AppCompatActivity {
                  if(isScrolling&&(shouldScrollMore)){
                     //fetch the new data
                     isScrolling=false;
+                    loadMoreProgress.setVisibility(View.VISIBLE);
                     fetchData();
                 }
             }
@@ -78,7 +80,7 @@ public class WallpaperActivity extends AppCompatActivity {
         dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
                 .child(category);
         progressBar.setVisibility(View.VISIBLE);
-        dbWallpapers.orderByKey().limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpapers.orderByKey().limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
@@ -117,10 +119,10 @@ public class WallpaperActivity extends AppCompatActivity {
     private void fetchData() {
         DatabaseReference dbWallpaper=dbWallpapers;
 
-        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.GONE);
+                loadMoreProgress.setVisibility(View.GONE);
                 //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
                 List<Wallpaper> wallpaperListTemp=new ArrayList<>();
                 int x=0;
