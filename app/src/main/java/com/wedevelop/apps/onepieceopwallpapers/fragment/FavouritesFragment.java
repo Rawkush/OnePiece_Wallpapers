@@ -56,7 +56,6 @@ public class FavouritesFragment {
         dbFavs.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Toast.makeText(activity, "inside the loop ", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
@@ -64,7 +63,6 @@ public class FavouritesFragment {
                         String title = wallpaperSnapShot.child("title").getValue(String.class);
                         String desc = wallpaperSnapShot.child("desc").getValue(String.class);
                         String url = wallpaperSnapShot.child("url").getValue(String.class);
-                        //  Toast.makeText(activity, url, Toast.LENGTH_SHORT).show();
 
                         Wallpaper w = new Wallpaper(id, title, desc, url);
                         favWalls.add(w);

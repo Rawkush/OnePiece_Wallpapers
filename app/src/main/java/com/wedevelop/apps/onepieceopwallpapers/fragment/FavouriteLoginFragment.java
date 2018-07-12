@@ -29,6 +29,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.activity.Downloads;
 
 public class FavouriteLoginFragment extends Fragment {
 
@@ -150,6 +151,7 @@ public class FavouriteLoginFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
             Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getActivity(), Downloads.class));
         } else if (id == R.id.menuFeedback) {
             Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuBarSignOut) {
