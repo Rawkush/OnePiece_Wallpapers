@@ -76,9 +76,9 @@ public class NewFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
-
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
                         w.id = wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
