@@ -1,6 +1,8 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -32,7 +34,7 @@ public class WallpaperActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     WallpaperAdapter adapter;
     DatabaseReference dbWallpapers;
-    ProgressBar progressBar,loadMoreProgress;
+    ProgressBar progressBar;
     Boolean isScrolling=false;
     GridLayoutManager manager;
     Boolean shouldScrollMore=true;
@@ -50,7 +52,6 @@ public class WallpaperActivity extends AppCompatActivity {
         adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progressBar);
-        loadMoreProgress=findViewById(R.id.loadMoreProgressBar);
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         final Toolbar toolbar = findViewById(R.id.toolBar);
@@ -113,7 +114,6 @@ public class WallpaperActivity extends AppCompatActivity {
                     if(isScrolling&&(shouldScrollMore)) {
                         //fetch the new data
                         isScrolling = false;
-                        loadMoreProgress.setVisibility(View.VISIBLE);
                         fetchData();
                     }
                 }
@@ -129,7 +129,6 @@ public class WallpaperActivity extends AppCompatActivity {
         dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                loadMoreProgress.setVisibility(View.GONE);
                 //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
                 List<Wallpaper> wallpaperListTemp=new ArrayList<>();
                 int x=0;
