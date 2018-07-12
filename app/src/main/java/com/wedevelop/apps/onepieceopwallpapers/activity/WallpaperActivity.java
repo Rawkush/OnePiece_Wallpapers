@@ -41,7 +41,6 @@ public class WallpaperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallpaper);
-
         wallpaperList = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -128,12 +127,7 @@ public class WallpaperActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         String id = wallpaperSnapShot.getKey();
-                        String title = wallpaperSnapShot.child("title").getValue(String.class);
-                        String desc = wallpaperSnapShot.child("desc").getValue(String.class);
-                        String url = wallpaperSnapShot.child("url").getValue(String.class);
-                        Wallpaper w = new Wallpaper(id, title, desc, url);
-                        w.id = dataSnapshot.getKey();
-                        w.id = w.id + wallpaperSnapShot.getKey();
+                        Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
                         if(x==0&&(!oldestpost.equals(id))){
                             oldestpost=id;
                             x++;

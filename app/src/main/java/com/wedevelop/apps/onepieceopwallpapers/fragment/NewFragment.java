@@ -95,11 +95,16 @@ public class NewFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
+                int x=0;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
                         w.id = wallpaperSnapShot.getKey();
                         wallpaperList.add(w);
+                        if(x==0){
+                            oldestpost=w.id;
+                            x++;
+                        }
                     }
 
                     Collections.reverse(wallpaperList);
@@ -121,8 +126,7 @@ public class NewFragment extends Fragment {
 
     private void fetchData() {
         DatabaseReference dbWallpaper=dbWallpapers;
-
-        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
@@ -132,13 +136,12 @@ public class NewFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
-                        w.id = wallpaperSnapShot.getKey();
-
-                        if(x==0&&(!oldestpost.equals(w.id))){
-                            oldestpost=w.id;
+                        String id = wallpaperSnapShot.getKey();
+                        if(x==0&&(!oldestpost.equals(id))){
+                            oldestpost=id;
                             x++;
                         }else
-                        if (x==0&&(oldestpost.equals(w.id))){
+                        if (x==0&&(oldestpost.equals(id))){
                             shouldScrollMore=false;
                             return;
                         }
