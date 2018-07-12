@@ -35,7 +35,6 @@ public class WallpaperActivity extends AppCompatActivity {
     ProgressBar progressBar;
     Boolean isScrolling=false;
     Boolean shouldScrollMore=true;
-    GridLayoutManager manager;
     String oldestpost;
 
     @Override
@@ -50,7 +49,6 @@ public class WallpaperActivity extends AppCompatActivity {
         adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progressBar);
-        manager=new GridLayoutManager(this,2);
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
         Toolbar toolbar = findViewById(R.id.toolBar);
@@ -144,11 +142,10 @@ public class WallpaperActivity extends AppCompatActivity {
                             shouldScrollMore=false;
                             return;
                         }
-
                         wallpaperListTemp.add(w);
 
                     }
-                    wallpaperListTemp.remove(wallpaperListTemp.size()-1);
+                   wallpaperListTemp.remove(wallpaperListTemp.size()-1);
                    Collections.reverse(wallpaperList);
                    wallpaperListTemp.addAll(wallpaperList);
                    wallpaperList.clear();

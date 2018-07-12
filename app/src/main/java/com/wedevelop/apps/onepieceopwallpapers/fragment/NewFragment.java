@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +34,11 @@ public class NewFragment extends Fragment {
     List<Wallpaper> wallpaperList;
     RecyclerView recyclerView;
     WallpaperAdapter adapter;
-
     DatabaseReference dbWallpapers;
     private ProgressBar progressBar;
-
+    Boolean isScrolling=false;
+    Boolean shouldScrollMore=true;
+    String oldestpost;
 
     @Nullable
     @Override
@@ -55,27 +57,43 @@ public class NewFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
-        //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-        ////gridLayoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(gridLayoutManager);
-
-        // recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         adapter = new WallpaperAdapter(getActivity(), wallpaperList);
-
         recyclerView.setAdapter(adapter);
-
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-
-        dbWallpapers = FirebaseDatabase.getInstance().getReference("images")
+        dbWallpapers = FirebaseDatabase.getInstance()
+                .getReference("images")
                 .child("new");
 
-        // limtito Last reads data from bottom
+        // setting up the listner in the recyclerView For chechking if it is last data if yes load more
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    isScrolling=true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(isScrolling&&(shouldScrollMore)){
+                    //fetch the new data
+                    isScrolling=false;
+                    fetchData();
+                }
+            }
+        });
+
+
+
+
+        // limit to reads data from bottom
         dbWallpapers.limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
@@ -98,6 +116,52 @@ public class NewFragment extends Fragment {
         });
 
 
+
+    }
+
+    private void fetchData() {
+        DatabaseReference dbWallpaper=dbWallpapers;
+
+        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
+                int x=0;
+                List<Wallpaper> wallpaperListTemp=new ArrayList<>();
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
+                        Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
+                        w.id = wallpaperSnapShot.getKey();
+
+                        if(x==0&&(!oldestpost.equals(w.id))){
+                            oldestpost=w.id;
+                            x++;
+                        }else
+                        if (x==0&&(oldestpost.equals(w.id))){
+                            shouldScrollMore=false;
+                            return;
+                        }
+                        wallpaperListTemp.add(w);
+
+                    }
+                    wallpaperListTemp.remove(wallpaperListTemp.size()-1);
+                    Collections.reverse(wallpaperList);
+                    wallpaperListTemp.addAll(wallpaperList);
+                    wallpaperList.clear();
+                    wallpaperList.addAll(wallpaperListTemp);
+                    Collections.reverse(wallpaperList);
+                    adapter.notifyDataSetChanged();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }
