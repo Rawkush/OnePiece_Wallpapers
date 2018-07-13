@@ -32,7 +32,7 @@ public class NewFragment extends Fragment {
     ProgressBar progressBar;
     Boolean isScrolling=false;
     GridLayoutManager manager;
-    Boolean shouldScrollMore=true;
+    Boolean shouldScrollMore;
     String oldestpost;
 
     @Nullable
@@ -56,6 +56,7 @@ public class NewFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+        shouldScrollMore = true;
         dbWallpapers = FirebaseDatabase.getInstance()
                 .getReference("images")
                 .child("new");
