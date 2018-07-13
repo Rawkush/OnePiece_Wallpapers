@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
 
 public class FavouriteLoginFragment extends Fragment {
 
@@ -150,6 +148,8 @@ public class FavouriteLoginFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
             Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
+            DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
+            downloadsGallery.start();
         } else if (id == R.id.menuFeedback) {
             Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuBarSignOut) {
