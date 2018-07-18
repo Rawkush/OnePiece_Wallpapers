@@ -1,6 +1,7 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -25,8 +27,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
+import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
 public class FavouriteLoginFragment extends Fragment {
 
@@ -34,24 +38,22 @@ public class FavouriteLoginFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
     private View rootView = null;
     android.support.v7.widget.Toolbar mToolbar;
+    RelativeLayout loginlayout, imglayout;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
+    MenuItem download;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v;
-
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             v = inflater.inflate(R.layout.fragment_fav_default, container, false);
-        } else
-            v = inflater.inflate(R.layout.fragment_favourites, container, false);
-
-
         mToolbar = v.findViewById(R.id.menuToolBar);
-
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         }
+
         return v;
     }
 
@@ -63,17 +65,24 @@ public class FavouriteLoginFragment extends Fragment {
                         .requestIdToken(getString(R.string.default_web_client_id))
                         .build();
 
+        prefs = getActivity().getSharedPreferences("MyPref3", 0); // 0 - for private mode
+        editor = prefs.edit();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        loginlayout = view.findViewById(R.id.FavLogin);
+        imglayout = view.findViewById(R.id.favFragment);
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-
-            FavouritesFragment favouritesFragment = new FavouritesFragment(view);
-            favouritesFragment.setFavWalls(getActivity());
+            loginlayout.setVisibility(View.GONE);
+            imglayout.setVisibility(View.VISIBLE);
+            setImglayout();
+            download = view.findViewById(R.id.menuDownload);
             rootView = view;
             setHasOptionsMenu(true);
 
         } else {
 
+            loginlayout.setVisibility(View.VISIBLE);
+            imglayout.setVisibility(View.GONE);
             view.findViewById(R.id.button_google_sign_in).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -112,6 +121,8 @@ public class FavouriteLoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            loginlayout.setVisibility(View.GONE);
+                            imglayout.setVisibility(View.VISIBLE);
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
 
 
@@ -127,10 +138,15 @@ public class FavouriteLoginFragment extends Fragment {
     public void onResume() {  // After a pause OR at startup
         super.onResume();
         //Refresh your stuff here
-        if (rootView != null) {
-            FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
-            favouritesFragment.setFavWalls(getActivity());
+        if (rootView != null && FirebaseAuth.getInstance().getCurrentUser() != null) {
+            setImglayout();
         }
+    }
+
+
+    public void setImglayout() {
+        FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
+        favouritesFragment.setFavWalls(getActivity());
     }
 
 
@@ -152,10 +168,35 @@ public class FavouriteLoginFragment extends Fragment {
             downloadsGallery.start();
         } else if (id == R.id.menuFeedback) {
             Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.menuFeedback) {
-            // Toast.makeText(getActivity(), "Sign-Out is here", Toast.LENGTH_SHORT).show();
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void showHint() {
+        HintServiceImpl hintService = new HintServiceImpl();
+        hintService.addHint(new Hint((View) download, "Here You Can Search Your Favourite Character", " "));
+        if (download != null)
+            hintService.showHint(getActivity());
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //Write down your refresh code here, it will call every time user come to this fragment.
+            if (FirebaseAuth.getInstance().getCurrentUser() != null)
+                if (prefs.getBoolean("firstrun", true)) {
+                    // Do first run stuff here then set 'firstrun' as false
+                    // using the following line to edit/commit prefs
+                    editor.putBoolean("firstrun", false).apply();
+                    showHint();
+
+                }
+
+        }
     }
 
 }
