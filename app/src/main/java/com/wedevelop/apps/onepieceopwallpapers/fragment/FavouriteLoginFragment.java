@@ -152,8 +152,8 @@ public class FavouriteLoginFragment extends Fragment {
             downloadsGallery.start();
         } else if (id == R.id.menuFeedback) {
             Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.menuBarSignOut) {
-            Toast.makeText(getActivity(), "Sign-Out is here", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuFeedback) {
+            // Toast.makeText(getActivity(), "Sign-Out is here", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

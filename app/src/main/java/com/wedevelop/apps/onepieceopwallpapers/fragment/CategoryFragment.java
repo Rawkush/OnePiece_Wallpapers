@@ -129,7 +129,7 @@ public class CategoryFragment extends Fragment {
 
     public void showHint() {
         HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint(viewNeededForSearchbarTapView, "more", "tap this for option"));
+        hintService.addHint(new Hint(viewNeededForSearchbarTapView, "Here You Can Search Your Favourite Character", " "));
         if (viewNeededForSearchbarTapView != null)
             hintService.showHint(getActivity());
     }

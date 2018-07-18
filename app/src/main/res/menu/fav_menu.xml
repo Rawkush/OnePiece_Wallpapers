@@ -14,9 +14,4 @@
         android:title="@string/app_feedback"
         app:showAsAction="collapseActionView" />
 
-    <item
-        android:id="@+id/menuBarSignOut"
-        android:icon="@drawable/ic_sign_out"
-        android:title="@string/fav_sign_out"
-        app:showAsAction="collapseActionView" />
 </menu>
