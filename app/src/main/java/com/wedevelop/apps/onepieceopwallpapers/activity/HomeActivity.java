@@ -2,9 +2,7 @@ package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -34,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.activity_home);
         ViewPager viewPager = findViewById(R.id.viewpager);
         prefs = getSharedPreferences("SharedPreference", 0); // 0 - for private mode
         editor = prefs.edit();
@@ -101,12 +99,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
-
     public void showHint(View view,String title,String desc) {
         HintServiceImpl hintService = new HintServiceImpl();
         hintService.addHint(new Hint(view, title,desc));
-            hintService.showHint(this);
+        hintService.showHint(this);
     }
 
     public void setTabsandShowHints(){

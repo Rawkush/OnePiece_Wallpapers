@@ -5,41 +5,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/menuToolBar"
+        style="@style/AppTheme"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/toolBar"
+        app:srcCompat="@menu/fav_menu"
+        app:title="Favourites"
+        app:titleMarginStart="30dp"
+        app:titleTextColor="@color/colorWhite">
+    </android.support.v7.widget.Toolbar>
+
+
     <RelativeLayout
         android:id="@+id/FavLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/ic_sign" />
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="casual"
-            android:text="@string/string_not_signed_in"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="30sp" />
-        
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/button_google_sign_in"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        </com.google.android.gms.common.SignInButton>
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_sign" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="casual"
+                android:text="@string/string_not_signed_in"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="30sp" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/button_google_sign_in"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content">
+
+            </com.google.android.gms.common.SignInButton>
+
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -48,21 +62,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
-
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/menuToolBar"
-            style="@style/AppTheme"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/toolBar"
-            app:srcCompat="@menu/fav_menu"
-            app:title="Favourites"
-            app:titleMarginStart="30dp"
-            app:titleTextColor="@color/colorWhite">
-
-        </android.support.v7.widget.Toolbar>
-
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
