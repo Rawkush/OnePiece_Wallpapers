@@ -28,12 +28,23 @@ public class HomeActivity extends AppCompatActivity {
             R.drawable.ic_favorite
     };
     boolean doubleTap;
-
+    View download,search,newtab,categorytab,favtab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ViewPager viewPager = findViewById(R.id.viewpager);
+        download=findViewById(R.id.downloadView);
+        search=findViewById(R.id.search);
+        newtab= findViewById(R.id.tab1);
+        categorytab= findViewById(R.id.tab2);
+        favtab=findViewById(R.id.tab3);
+        // setting up the adapter, adapter tells which fragment to load
+        adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
+        setupViewPager(viewPager);
+        tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
         prefs = getSharedPreferences("SharedPreference", 0); // 0 - for private mode
         editor = prefs.edit();
         if (prefs.getBoolean("firstrun", true)) {
@@ -42,13 +53,6 @@ public class HomeActivity extends AppCompatActivity {
             editor.putBoolean("firstrun", false).apply();
             setTabsandShowHints();
         }
-        // setting up the adapter, adapter tells which fragment to load
-        adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
-        setupViewPager(viewPager);
-        tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -107,7 +111,16 @@ public class HomeActivity extends AppCompatActivity {
 
     public void setTabsandShowHints(){
         tabLayout.getTabAt(0).select();
+        showHint(newtab,"new wallpapers","desc");
+        tabLayout.getTabAt(1).select();
+        showHint(categorytab,"category wallpapers","desc");
+        showHint(search,"search bar","desc");
+        tabLayout.getTabAt(2).select();
+        showHint(favtab,"fav wallpapers","desc");
 
     }
+
+
+
 
 }

@@ -39,9 +39,7 @@ public class FavouriteLoginFragment extends Fragment {
     private View rootView = null;
     android.support.v7.widget.Toolbar mToolbar;
     RelativeLayout loginlayout, imglayout;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
-    MenuItem download;
+
 
     @Nullable
     @Override
@@ -65,8 +63,6 @@ public class FavouriteLoginFragment extends Fragment {
                         .requestIdToken(getString(R.string.default_web_client_id))
                         .build();
 
-        prefs = getActivity().getSharedPreferences("MyPref3", 0); // 0 - for private mode
-        editor = prefs.edit();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
         loginlayout = view.findViewById(R.id.FavLogin);
         imglayout = view.findViewById(R.id.favFragment);
@@ -75,7 +71,6 @@ public class FavouriteLoginFragment extends Fragment {
             loginlayout.setVisibility(View.GONE);
             imglayout.setVisibility(View.VISIBLE);
             setImglayout();
-            download = view.findViewById(R.id.menuDownload);
             rootView = view;
             setHasOptionsMenu(true);
 
@@ -173,30 +168,5 @@ public class FavouriteLoginFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void showHint() {
-        HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint((View) download, "Here You Can Search Your Favourite Character", " "));
-        if (download != null)
-            hintService.showHint(getActivity());
-    }
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            //Write down your refresh code here, it will call every time user come to this fragment.
-            if (FirebaseAuth.getInstance().getCurrentUser() != null)
-                if (prefs.getBoolean("firstrun", true)) {
-                    // Do first run stuff here then set 'firstrun' as false
-                    // using the following line to edit/commit prefs
-                    editor.putBoolean("firstrun", false).apply();
-                    showHint();
-
-                }
-
-        }
-    }
 
 }

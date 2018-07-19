@@ -60,7 +60,7 @@ public class CategoryFragment extends Fragment {
         adapter = new CategoriesAdapter(getActivity(), categoryList);
         duplicateAdapter = new CategoriesAdapter(getActivity(), categoryList);
         recyclerView.setAdapter(adapter);
-       searchBar = view.findViewById(R.id.searchBar);
+        searchBar = view.findViewById(R.id.searchBar);
         searchBar.setHint("Luffy...");
         searchBar.setOnSearchActionListener(new SimpleOnSearchActionListener() {
             @Override
