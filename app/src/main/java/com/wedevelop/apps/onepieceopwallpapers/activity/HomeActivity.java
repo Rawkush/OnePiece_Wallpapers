@@ -102,9 +102,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     public void setTabsandShowHints(){
         tabLayout.getTabAt(0).select();
         HintServiceImpl hintService = new HintServiceImpl(tabLayout);
@@ -113,6 +110,7 @@ public class HomeActivity extends AppCompatActivity {
         hintService.addHint(new Hint(categorytab, "category","desc",1));
         hintService.addHint(new Hint(search, "searchBar","desc",1));
         hintService.addHint(new Hint(favtab, "fav","desc",2));
+        hintService.addHint(new Hint(download, "fav","desc",2));
         hintService.showHint(this);
 
     }
