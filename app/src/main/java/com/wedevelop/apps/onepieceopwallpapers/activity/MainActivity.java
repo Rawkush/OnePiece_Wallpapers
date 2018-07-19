@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 if (InternetResult) {
 
                     //open Activity when internet is connected
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(MainActivity.this, OnBoardingActivity.class);
                     startActivity(intent);
 
                     finish();

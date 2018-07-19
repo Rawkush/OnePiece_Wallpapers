@@ -1,5 +1,6 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
+import java.util.Objects;
+
 public class FavouriteLoginFragment extends Fragment {
 
     private static final int GOOGLE_SIGN_IN_CODE = 212;
@@ -39,45 +42,41 @@ public class FavouriteLoginFragment extends Fragment {
     private View rootView = null;
     android.support.v7.widget.Toolbar mToolbar;
     RelativeLayout loginlayout, imglayout;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
-    MenuItem download;
+
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v;
             v = inflater.inflate(R.layout.fragment_fav_default, container, false);
         mToolbar = v.findViewById(R.id.menuToolBar);
+        setHasOptionsMenu(true);
         if (mToolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+            ((AppCompatActivity) (getActivity())).setSupportActionBar(mToolbar);
         }
 
+        rootView = v;
         return v;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.default_web_client_id))
                         .build();
 
-        prefs = getActivity().getSharedPreferences("MyPref3", 0); // 0 - for private mode
-        editor = prefs.edit();
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(Objects.requireNonNull(getActivity()), gso);
         loginlayout = view.findViewById(R.id.FavLogin);
         imglayout = view.findViewById(R.id.favFragment);
+
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             loginlayout.setVisibility(View.GONE);
             imglayout.setVisibility(View.VISIBLE);
             setImglayout();
-            download = view.findViewById(R.id.menuDownload);
-            rootView = view;
-            setHasOptionsMenu(true);
+
 
         } else {
 
@@ -115,7 +114,7 @@ public class FavouriteLoginFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
-        mAuth.signInWithCredential(credential).addOnCompleteListener(getActivity(),
+        mAuth.signInWithCredential(credential).addOnCompleteListener(Objects.requireNonNull(getActivity()),
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -123,6 +122,7 @@ public class FavouriteLoginFragment extends Fragment {
 
                             loginlayout.setVisibility(View.GONE);
                             imglayout.setVisibility(View.VISIBLE);
+                            setImglayout();
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
 
 
@@ -160,7 +160,6 @@ public class FavouriteLoginFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
             Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
@@ -176,27 +175,11 @@ public class FavouriteLoginFragment extends Fragment {
 
     public void showHint() {
         HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint((View) download, "Here You Can Search Your Favourite Character", " "));
-        if (download != null)
-            hintService.showHint(getActivity());
+        //  hintService.addHint(new Hint((View) download, "Here You Can Search Your Favourite Character", " "));
+        //if (download != null)
+        //    hintService.showHint(getActivity());
     }
 
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            //Write down your refresh code here, it will call every time user come to this fragment.
-            if (FirebaseAuth.getInstance().getCurrentUser() != null)
-                if (prefs.getBoolean("firstrun", true)) {
-                    // Do first run stuff here then set 'firstrun' as false
-                    // using the following line to edit/commit prefs
-                    editor.putBoolean("firstrun", false).apply();
-                    showHint();
-
-                }
-
-        }
-    }
 
 }

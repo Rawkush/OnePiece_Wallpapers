@@ -32,7 +32,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".activity.DownloadsGallery"></activity>
+        <activity android:name=".activity.OnBoardingActivity"></activity>
     </application>
 
 </manifest>
