@@ -103,20 +103,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    public void showHint(View view,String title,String desc) {
-        HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint(view, title,desc));
-        hintService.showHint(this);
-    }
+
 
     public void setTabsandShowHints(){
         tabLayout.getTabAt(0).select();
-        showHint(newtab,"new wallpapers","desc");
+        HintServiceImpl hintService = new HintServiceImpl(tabLayout);
+        hintService.addHint(new Hint(newtab, "new wallpapers","desc",0));
         tabLayout.getTabAt(1).select();
-        showHint(categorytab,"category wallpapers","desc");
-        showHint(search,"search bar","desc");
-        tabLayout.getTabAt(2).select();
-        showHint(favtab,"fav wallpapers","desc");
+        hintService.addHint(new Hint(categorytab, "category","desc",1));
+        hintService.addHint(new Hint(search, "searchBar","desc",1));
+        hintService.addHint(new Hint(favtab, "fav","desc",2));
+        hintService.showHint(this);
 
     }
 
