@@ -127,6 +127,28 @@ public class CategoryFragment extends Fragment {
     }
 
 
+    public void showHint() {
+        HintServiceImpl hintService = new HintServiceImpl();
+        hintService.addHint(new Hint(viewNeededForSearchbarTapView, "Here You Can Search Your Favourite Character", " "));
+        if (viewNeededForSearchbarTapView != null)
+            hintService.showHint(getActivity());
+    }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //Write down your refresh code here, it will call every time user come to this fragment.
+            if (prefs.getBoolean("firstrun", true)) {
+                // Do first run stuff here then set 'firstrun' as false
+                // using the following line to edit/commit prefs
+                editor.putBoolean("firstrun", false).apply();
+                showHint();
+
+            }
+
+        }
+    }
 
 }
