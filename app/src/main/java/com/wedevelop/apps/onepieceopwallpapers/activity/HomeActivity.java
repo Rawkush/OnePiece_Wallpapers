@@ -1,6 +1,7 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -13,11 +14,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
+import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
 public class HomeActivity extends AppCompatActivity {
-
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
     TabLayoutAdapter adapter;
     private TabLayout tabLayout;
     private int[] tabIcons = {
@@ -32,7 +36,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         ViewPager viewPager = findViewById(R.id.viewpager);
-
+        prefs = getSharedPreferences("SharedPreference", 0); // 0 - for private mode
+        editor = prefs.edit();
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            editor.putBoolean("firstrun", false).apply();
+            setTabsandShowHints();
+        }
         // setting up the adapter, adapter tells which fragment to load
         adapter = new TabLayoutAdapter(getSupportFragmentManager());// call of consturctor
         setupViewPager(viewPager);
@@ -89,5 +100,18 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+    public void showHint(View view,String title,String desc) {
+        HintServiceImpl hintService = new HintServiceImpl();
+        hintService.addHint(new Hint(view, title,desc));
+            hintService.showHint(this);
+    }
+
+    public void setTabsandShowHints(){
+        tabLayout.getTabAt(0).select();
+
+    }
 
 }
