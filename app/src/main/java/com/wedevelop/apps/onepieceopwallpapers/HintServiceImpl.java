@@ -2,6 +2,7 @@ package com.wedevelop.apps.onepieceopwallpapers;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.support.design.widget.TabLayout;
 import android.view.View;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -16,13 +17,17 @@ public class HintServiceImpl {
     public static int count;
     View currentView;
     ArrayList<Hint> hintList;
+    TabLayout tabLayout=null;
 
     public HintServiceImpl() {
         count = 0;
         hintList = new ArrayList<Hint>();
-
     }
-
+    public HintServiceImpl(TabLayout tabLayout) {
+        count = 0;
+        hintList = new ArrayList<Hint>();
+        this.tabLayout=tabLayout;
+    }
 
     public void addHint(Hint hint) {
 
@@ -33,6 +38,9 @@ public class HintServiceImpl {
 
     public void showHint(final Activity activity) {
 
+        if(tabLayout!=null){
+            tabLayout.getTabAt(hintList.get(count).getTabloc()).select();
+        }
 
         TapTargetView.showFor(activity,                 // `this` is an Activity
                 TapTarget.forView(hintList.get(count).view, hintList.get(count).title, hintList.get(count).desc)
@@ -50,7 +58,7 @@ public class HintServiceImpl {
                         .drawShadow(true)                   // Whether to draw a drop shadow or not
                         .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
                         .tintTarget(true)                   // Whether to tint the target view's color
-                        .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                        .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
                         //.icon(Drawable)                     // Specify a custom drawable to draw as the target
                         .targetRadius(60),                  // Specify the target radius (in dp)
                 new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
@@ -60,9 +68,9 @@ public class HintServiceImpl {
                         // doSomething();
 
                         count++;
-                        if (count < hintList.size())
+                        if (count < hintList.size()) {
                             showHint(activity);
-
+                        }
                     }
                 });
 

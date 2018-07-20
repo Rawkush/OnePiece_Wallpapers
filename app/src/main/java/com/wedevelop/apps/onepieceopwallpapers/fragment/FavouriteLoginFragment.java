@@ -1,6 +1,5 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,8 +32,6 @@ import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
-import java.util.Objects;
-
 public class FavouriteLoginFragment extends Fragment {
 
     private static final int GOOGLE_SIGN_IN_CODE = 212;
@@ -46,37 +43,36 @@ public class FavouriteLoginFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View v;
             v = inflater.inflate(R.layout.fragment_fav_default, container, false);
         mToolbar = v.findViewById(R.id.menuToolBar);
-        setHasOptionsMenu(true);
         if (mToolbar != null) {
-            ((AppCompatActivity) (getActivity())).setSupportActionBar(mToolbar);
+            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         }
 
-        rootView = v;
         return v;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestIdToken(getString(R.string.default_web_client_id))
                         .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(Objects.requireNonNull(getActivity()), gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
         loginlayout = view.findViewById(R.id.FavLogin);
         imglayout = view.findViewById(R.id.favFragment);
-
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             loginlayout.setVisibility(View.GONE);
             imglayout.setVisibility(View.VISIBLE);
             setImglayout();
-
+            rootView = view;
+            setHasOptionsMenu(true);
 
         } else {
 
@@ -114,7 +110,7 @@ public class FavouriteLoginFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
-        mAuth.signInWithCredential(credential).addOnCompleteListener(Objects.requireNonNull(getActivity()),
+        mAuth.signInWithCredential(credential).addOnCompleteListener(getActivity(),
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -122,7 +118,6 @@ public class FavouriteLoginFragment extends Fragment {
 
                             loginlayout.setVisibility(View.GONE);
                             imglayout.setVisibility(View.VISIBLE);
-                            setImglayout();
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
 
 
@@ -160,6 +155,7 @@ public class FavouriteLoginFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
             Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
@@ -171,15 +167,6 @@ public class FavouriteLoginFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    public void showHint() {
-        HintServiceImpl hintService = new HintServiceImpl();
-        //  hintService.addHint(new Hint((View) download, "Here You Can Search Your Favourite Character", " "));
-        //if (download != null)
-        //    hintService.showHint(getActivity());
-    }
-
 
 
 }
