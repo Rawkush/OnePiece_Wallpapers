@@ -12,13 +12,14 @@
     <color name="colorBackground">#df1f2e38</color>
     <color name="progressBarColor">#e6ffffff</color>
     <color name="toolBar">#232F34</color>
+    <color name="dark">#000000</color>
 
 
     //Material SearchBar Light Theme Colors
     <color name="searchBarIconColor">#3a3a3a</color>
     //Base
     <color name="searchBarPrimaryColor">#FFFFFF</color>
-    <color name="searchBarCursorColor">#8000a1ff</color>
+    <color name="searchBarCursorColor">#b32c85b9</color>
     <color name="searchBarDividerColor">#1F000000</color>
 
     //Icons

@@ -11,4 +11,7 @@
     <string name="download"> Download </string>
     <string name="share"> Share </string>
     <string name="todk">TODO</string>
+    <string name="permission_title">For saving image</string>
+    <string name="slide_1_title">Let\'s Start</string>
+    <string name="slide_1_desc">Don\'t Miss A Top One Piece Wallpapers</string>
 </resources>

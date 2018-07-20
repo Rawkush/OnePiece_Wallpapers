@@ -1,40 +1,51 @@
+
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import com.hololo.tutorial.library.Step;
 import com.hololo.tutorial.library.TutorialActivity;
 import com.wedevelop.apps.onepieceopwallpapers.R;
-
 public class OnBoardingActivity extends TutorialActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addFragment(new Step.Builder().setTitle("This is header 1")
-                .setContent("This is content")
-                .setBackgroundColor(Color.parseColor("#FF0957")) // int background color
-                .setDrawable(R.drawable.one) // int top drawable
-                .setSummary("This is summary")
-                .build());
-
-        addFragment(new Step.Builder().setTitle("This is header 2")
-                .setContent("This is content")
-                .setBackgroundColor(Color.parseColor("#FF0957")) // int background color
+        addFragment(new Step.Builder().setTitle("Lets Start")
+                .setContent("Don't miss a Top One Piece Wallpapers")
+                .setBackgroundColor(Color.parseColor("#FF000000")) // int background color
                 .setDrawable(R.drawable.two) // int top drawable
-                .setSummary("This is summary")
+                .setSummary("Continue...")
                 .build());
 
-        addFragment(new Step.Builder().setTitle("This is header 3")
-                .setContent("This is content")
-                .setBackgroundColor(Color.parseColor("#FF0957")) // int background color
+        addFragment(new Step.Builder().setTitle("Updated Daily")
+                .setContent("We'll be constantly designing new backdrops for.This means new High quality Content within the app every day")
+                .setBackgroundColor(Color.parseColor("#FF000000")) // int background color
                 .setDrawable(R.drawable.three) // int top drawable
-                .setSummary("This is summary")
+                .setSummary("Continue...")
                 .build());
+
+        addFragment(new Step.Builder().setTitle("One Piece Wallpapers")
+                .setContent("Find Top Wallpapers of your favourite Anime One Piece")
+                .setBackgroundColor(Color.parseColor("#FF000000")) // int background color
+                .setDrawable(R.drawable.one) // int top drawable
+                .setSummary("Here We Go...")
+                .build());
+
+        setFinishText("Start");
 
     }
-}
 
+    @Override
+    public void finishTutorial() {
+        // Your implementation
+        Intent intent = new Intent(OnBoardingActivity.this, HomeActivity.class);
+        startActivity(intent);
+
+        finish();
+    }
+
+
+}

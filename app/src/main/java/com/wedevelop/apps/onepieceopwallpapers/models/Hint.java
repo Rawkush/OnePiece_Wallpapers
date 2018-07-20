@@ -7,7 +7,7 @@ public class Hint {
     public View view;
     public String title;
     public String desc;
-    int tabloc=-1;
+    int tabloc = -1;
 
     public Hint(View view, String title, String desc) {
         this.view = view;

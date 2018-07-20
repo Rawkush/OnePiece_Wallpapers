@@ -17,16 +17,17 @@ public class HintServiceImpl {
     public static int count;
     View currentView;
     ArrayList<Hint> hintList;
-    TabLayout tabLayout=null;
+    TabLayout tabLayout = null;
 
     public HintServiceImpl() {
         count = 0;
         hintList = new ArrayList<Hint>();
     }
+
     public HintServiceImpl(TabLayout tabLayout) {
         count = 0;
         hintList = new ArrayList<Hint>();
-        this.tabLayout=tabLayout;
+        this.tabLayout = tabLayout;
     }
 
     public void addHint(Hint hint) {
@@ -38,7 +39,7 @@ public class HintServiceImpl {
 
     public void showHint(final Activity activity) {
 
-        if(tabLayout!=null){
+        if (tabLayout != null) {
             tabLayout.getTabAt(hintList.get(count).getTabloc()).select();
         }
 
