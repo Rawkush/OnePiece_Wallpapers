@@ -84,8 +84,7 @@
                 android:focusable="true"
                 android:src="@drawable/tab_set_wallpaper"
                 android:visibility="invisible"
-                app:backgroundTint="@color/colorWhite"
-
+                app:backgroundTint="@color/colorBackground"
                 app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
                 app:srcCompat="@android:drawable/ic_input_add" />
@@ -118,14 +117,14 @@
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab_download"
                 android:layout_width="match_parent"
-
+                app:background="@color/colorBackground"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:elevation="6dp"
                 android:focusable="true"
                 android:src="@drawable/tab_download"
                 android:visibility="invisible"
-                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/colorBackground"
                 app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
                 app:srcCompat="@android:drawable/ic_input_add" />
@@ -165,7 +164,7 @@
                 android:focusable="true"
                 android:src="@drawable/tab_share"
                 android:visibility="invisible"
-                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/colorBackground"
                 app:fabCustomSize="45dp"
                 app:pressedTranslationZ="12dp"
                 app:srcCompat="@android:drawable/ic_input_add" />
@@ -187,6 +186,8 @@
             android:elevation="6dp"
             android:focusable="true"
             app:fabCustomSize="50dp"
+            app:background="@color/colorBackground"
+            app:backgroundTint="@color/colorBackground"
             app:pressedTranslationZ="12dp"
             app:srcCompat="@android:drawable/ic_input_add" />
 

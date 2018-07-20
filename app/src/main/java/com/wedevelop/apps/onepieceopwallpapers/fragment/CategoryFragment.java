@@ -2,6 +2,7 @@ package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,18 +40,14 @@ public class CategoryFragment extends Fragment {
     private DatabaseReference dbCategories;
     private RecyclerView recyclerView;
     private CategoriesAdapter adapter, duplicateAdapter;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
-    private View viewNeededForSearchbarTapView;
-
-    @Nullable
+   @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         progressBar = view.findViewById(R.id.progressBar);
@@ -63,9 +60,6 @@ public class CategoryFragment extends Fragment {
         adapter = new CategoriesAdapter(getActivity(), categoryList);
         duplicateAdapter = new CategoriesAdapter(getActivity(), categoryList);
         recyclerView.setAdapter(adapter);
-        prefs = getActivity().getSharedPreferences("MyPref2", 0); // 0 - for private mode
-        editor = prefs.edit();
-        viewNeededForSearchbarTapView = view.findViewById(R.id.ViewSearch);
         searchBar = view.findViewById(R.id.searchBar);
         searchBar.setHint("Luffy...");
         searchBar.setOnSearchActionListener(new SimpleOnSearchActionListener() {
@@ -127,28 +121,5 @@ public class CategoryFragment extends Fragment {
     }
 
 
-    public void showHint() {
-        HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint(viewNeededForSearchbarTapView, "more", "tap this for option"));
-        if (viewNeededForSearchbarTapView != null)
-            hintService.showHint(getActivity());
-    }
-
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            //Write down your refresh code here, it will call every time user come to this fragment.
-            if (prefs.getBoolean("firstrun", true)) {
-                // Do first run stuff here then set 'firstrun' as false
-                // using the following line to edit/commit prefs
-                editor.putBoolean("firstrun", false).apply();
-                showHint();
-
-            }
-
-        }
-    }
 
 }

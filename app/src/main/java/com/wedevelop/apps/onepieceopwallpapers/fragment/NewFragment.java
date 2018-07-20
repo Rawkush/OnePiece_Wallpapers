@@ -62,7 +62,7 @@ public class NewFragment extends Fragment {
                 .child("new");
 
         // limit to reads data from bottom
-        dbWallpapers.limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpapers.limitToLast(35).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
@@ -121,7 +121,7 @@ public class NewFragment extends Fragment {
 
     private void fetchData() {
         DatabaseReference dbWallpaper=dbWallpapers;
-        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(4).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(35).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int x=0;

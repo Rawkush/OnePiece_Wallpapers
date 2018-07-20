@@ -72,8 +72,8 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         id = intent.getStringExtra("id");
         checkBoxFav = findViewById(R.id.checkBox_fav);
         HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint(fab_more, "tit", "des"));
-        hintService.addHint(new Hint(checkBoxFav, "tit", "des"));
+        hintService.addHint(new Hint(fab_more, "Here You Can Set Wallpaper,Download and Share", " "));
+        hintService.addHint(new Hint(checkBoxFav, "Click Here to Save in Favourites", " "));
 
 
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
