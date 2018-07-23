@@ -33,7 +33,6 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
-    private List<String> lastSearches;
     private MaterialSearchBar searchBar;
     private List<Category> categoryList;
     private ProgressBar progressBar;
