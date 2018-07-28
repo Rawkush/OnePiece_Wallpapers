@@ -28,16 +28,14 @@ public class FavouritesFragment {
     RecyclerView recyclerView;
     ProgressBar progressBar;
     WallpaperAdapter adapter;
-
     private DatabaseReference dbFavs;
 
 
-    public FavouritesFragment(View view) {
+    public FavouritesFragment(RecyclerView recyclerView, ProgressBar progressBar) {
 
         favWalls = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.recycler_view);
-        progressBar = view.findViewById(R.id.progressbar);
-
+        this.recyclerView = recyclerView;
+        this.progressBar = progressBar;
     }
 
 

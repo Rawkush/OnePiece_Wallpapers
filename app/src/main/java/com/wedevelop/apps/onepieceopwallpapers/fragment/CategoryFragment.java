@@ -33,14 +33,14 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment {
 
-    private List<String> lastSearches;
     private MaterialSearchBar searchBar;
     private List<Category> categoryList;
     private ProgressBar progressBar;
     private DatabaseReference dbCategories;
     private RecyclerView recyclerView;
     private CategoriesAdapter adapter, duplicateAdapter;
-   @Nullable
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_category, container, false);

@@ -1,6 +1,7 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,19 +15,32 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.karan.churi.PermissionManager.PermissionManager;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
     private static int SPLASH_TIME_OUT = 1500;
     private boolean InternetCheck = true;
     private ProgressBar spinner;
+    boolean firstTime = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prefs = getSharedPreferences("SharedPreferences", 0); // 0 - for private mode
+        editor = prefs.edit();
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            editor.putBoolean("firstrun", false).apply();
+            firstTime = true;
+
+        }
 
         //progressBar
         spinner = findViewById(R.id.SplashProgressBar);
@@ -58,9 +72,14 @@ public class MainActivity extends AppCompatActivity {
                 if (InternetResult) {
 
                     //open Activity when internet is connected
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
 
+                    if (firstTime) {
+                        Intent intent = new Intent(MainActivity.this, OnBoardingActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
                     finish();
 
                 } else {

@@ -7,12 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.karan.churi.PermissionManager.PermissionManager;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
@@ -39,6 +42,10 @@ public class FavouriteLoginFragment extends Fragment {
     private View rootView = null;
     android.support.v7.widget.Toolbar mToolbar;
     RelativeLayout loginlayout, imglayout;
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
+    FavouritesFragment favouritesFragment;
+    PermissionManager permissionManager;
 
 
     @Nullable
@@ -46,8 +53,10 @@ public class FavouriteLoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v;
-            v = inflater.inflate(R.layout.fragment_fav_default, container, false);
+        v = inflater.inflate(R.layout.fragment_fav_default, container, false);
         mToolbar = v.findViewById(R.id.menuToolBar);
+        setHasOptionsMenu(true);
+
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         }
@@ -56,7 +65,7 @@ public class FavouriteLoginFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,7 +75,9 @@ public class FavouriteLoginFragment extends Fragment {
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
         loginlayout = view.findViewById(R.id.FavLogin);
         imglayout = view.findViewById(R.id.favFragment);
-
+        recyclerView = view.findViewById(R.id.recycler_view);
+        progressBar = view.findViewById(R.id.progressbar);
+        favouritesFragment = new FavouritesFragment(recyclerView, progressBar);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             loginlayout.setVisibility(View.GONE);
             imglayout.setVisibility(View.VISIBLE);
@@ -86,7 +97,11 @@ public class FavouriteLoginFragment extends Fragment {
                 }
             });
         }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        permissionManager.checkResult(requestCode, permissions, grantResults);
     }
 
 
@@ -118,6 +133,7 @@ public class FavouriteLoginFragment extends Fragment {
 
                             loginlayout.setVisibility(View.GONE);
                             imglayout.setVisibility(View.VISIBLE);
+                            setImglayout();
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_LONG).show();
 
 
@@ -140,7 +156,6 @@ public class FavouriteLoginFragment extends Fragment {
 
 
     public void setImglayout() {
-        FavouritesFragment favouritesFragment = new FavouritesFragment(rootView);
         favouritesFragment.setFavWalls(getActivity());
     }
 
@@ -159,8 +174,13 @@ public class FavouriteLoginFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
             Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
-            DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
-            downloadsGallery.start();
+            permissionManager = new PermissionManager() {
+            };
+            if (permissionManager.checkAndRequestPermissions(getActivity())) {
+                DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
+                downloadsGallery.start();
+            }
+
         } else if (id == R.id.menuFeedback) {
             Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
         }
