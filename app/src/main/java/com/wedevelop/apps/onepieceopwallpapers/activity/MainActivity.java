@@ -105,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this);
 
         builder.setTitle("Network Error");   //Title
-        builder.setMessage("No Internet Connectivity");   //Message
+        builder.setMessage("No Internet Connectivity");//Message
+        builder.setCancelable(false);
 
 
         //Negative Message

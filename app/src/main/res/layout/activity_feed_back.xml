@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".activity.FeedBackActivity">
+
+    <include
+        android:id="@+id/feed_toolbar"
+        layout="@layout/app_bar_layout" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="174dp"
+        android:layout_height="175dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="77dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/app_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_view"
+        android:layout_centerHorizontal="true"
+        android:text="Version 1.0"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="240dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/Cont_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="204dp"
+        android:layout_marginStart="16dp"
+        android:text="Connect with us"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btn_ContactUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="136dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_defaultColor="#0038424a"
+        fancy:fb_focusColor="#007a7c74"
+        fancy:fb_iconPosition="left"
+        fancy:fb_iconResource="@drawable/ic_email"
+        fancy:fb_text="Contact us"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textGravity="left"
+        fancy:fb_textSize="20sp" />
+
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btn_RateUs"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="73dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_defaultColor="#00374148"
+        fancy:fb_focusColor="#007a7c74"
+        fancy:fb_fontIconSize="30sp"
+        fancy:fb_iconPosition="left"
+        fancy:fb_iconResource="@drawable/ic_star"
+        fancy:fb_text="Rate us on the Play Store"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="20sp" />
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="60dp"
+        android:background="@color/white" />
+
+
+</RelativeLayout>

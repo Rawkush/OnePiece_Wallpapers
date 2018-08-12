@@ -33,10 +33,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".activity.OnBoardingActivity"></activity>
+        <activity android:name=".activity.OnBoardingActivity" />
         <activity
             android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:parentActivityName=".activity.HomeActivity"></activity>
     </application>
 
 </manifest>

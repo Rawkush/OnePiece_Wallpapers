@@ -16,6 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 ext {
@@ -37,6 +38,7 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.github.msayan:tutorial-view:v1.0.6'
+    implementation 'com.github.medyo:fancybuttons:1.9.0'
     //For Automatic Permission request.
     implementation 'com.github.karanchuri:PermissionManager:0.1.0'
 

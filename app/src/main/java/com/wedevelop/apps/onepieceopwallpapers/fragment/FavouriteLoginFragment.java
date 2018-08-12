@@ -1,5 +1,6 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.karan.churi.PermissionManager.PermissionManager;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
+import com.wedevelop.apps.onepieceopwallpapers.activity.FeedBackActivity;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
 public class FavouriteLoginFragment extends Fragment {
@@ -182,6 +184,8 @@ public class FavouriteLoginFragment extends Fragment {
             }
 
         } else if (id == R.id.menuFeedback) {
+            Intent feedback = new Intent(getContext(), FeedBackActivity.class);
+            startActivity(feedback);
             Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
         }
 
