@@ -40,7 +40,6 @@ public class FavouritesFragment {
 
 
     public void setFavWalls(final Activity activity) {
-
         adapter = new WallpaperAdapter(activity, favWalls);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
@@ -56,15 +55,16 @@ public class FavouritesFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
                 if (dataSnapshot.exists()) {
+                    int x = 0;
+                    favWalls.clear();
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         String id = wallpaperSnapShot.getKey();
                         String title = wallpaperSnapShot.child("title").getValue(String.class);
                         String desc = wallpaperSnapShot.child("desc").getValue(String.class);
                         String url = wallpaperSnapShot.child("url").getValue(String.class);
-
                         Wallpaper w = new Wallpaper(id, title, desc, url);
                         favWalls.add(w);
-
+                        x++;
                     }
 
 

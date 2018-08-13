@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.WallpaperActivity;
 import com.wedevelop.apps.onepieceopwallpapers.models.Category;
@@ -29,11 +33,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     private List<Category> categoryListFiltered;
     //  private CategoriesAdapterListener listener;
 
+    private InterstitialAd mInterstitialAd;
+
 
     public CategoriesAdapter(Context mCtx, List<Category> categoryList) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
         categoryListFiltered = categoryList;
+
+        mInterstitialAd = new InterstitialAd(mCtx);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     }
 /*
@@ -123,6 +133,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         @Override
         public void onClick(View v) {
+
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
+            }
+
             int p = getAdapterPosition();  // getting adap;ter position
             Category c = categoryListFiltered.get(p);
 
