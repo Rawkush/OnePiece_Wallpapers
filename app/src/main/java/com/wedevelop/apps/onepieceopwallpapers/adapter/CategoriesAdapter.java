@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.wedevelop.apps.onepieceopwallpapers.R;
@@ -44,7 +43,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         mInterstitialAd = new InterstitialAd(mCtx);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
+            }
+
+        });
     }
 /*
     public CategoriesAdapter(Context mCtx, List<Category> categoryList,CategoriesAdapterListener listener) {
@@ -135,25 +142,28 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         public void onClick(View v) {
 
             if (mInterstitialAd.isLoaded()) {
+                gotoNextPage();
                 mInterstitialAd.show();
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
             } else {
-                Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
+                //  mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //  Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
+                gotoNextPage();
             }
 
+        }
+
+        public void gotoNextPage() {
             int p = getAdapterPosition();  // getting adap;ter position
             Category c = categoryListFiltered.get(p);
 
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
-            intent.putExtra("category",c.name);
+            intent.putExtra("category", c.name);
             mCtx.startActivity(intent);
         }
+
+
     }
 
-
-
-/*
-    public interface CategoriesAdapterListener {
-        void onCategorySelected(Category contact);
-    }
-*/
 }

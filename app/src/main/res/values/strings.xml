@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">One Piece Wallpapers</string>
-    <string name="app_feedback">Feedback</string>
+    <string name="app_about">About Us</string>
     <string name="fav_sign_out">Sign Out</string>
     <string name="fav_download">Downloads</string>
     <string name="luffy">TODO</string>

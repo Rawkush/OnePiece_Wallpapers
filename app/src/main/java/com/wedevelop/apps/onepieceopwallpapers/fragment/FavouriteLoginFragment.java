@@ -175,7 +175,7 @@ public class FavouriteLoginFragment extends Fragment {
 
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
-            Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
             permissionManager = new PermissionManager() {
             };
             if (permissionManager.checkAndRequestPermissions(getActivity())) {
@@ -186,7 +186,7 @@ public class FavouriteLoginFragment extends Fragment {
         } else if (id == R.id.menuFeedback) {
             Intent feedback = new Intent(getContext(), FeedBackActivity.class);
             startActivity(feedback);
-            Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

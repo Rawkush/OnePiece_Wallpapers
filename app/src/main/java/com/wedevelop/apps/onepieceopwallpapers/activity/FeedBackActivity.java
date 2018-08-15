@@ -25,7 +25,7 @@ public class FeedBackActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.feed_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Feedback");
+        getSupportActionBar().setTitle("About Us");
 
         findViewById(R.id.btn_ContactUs).setOnClickListener(new View.OnClickListener() {
             @Override

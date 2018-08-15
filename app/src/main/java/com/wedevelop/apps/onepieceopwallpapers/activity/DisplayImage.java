@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +50,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 
+import greco.lorenzo.com.lgsnackbar.LGSnackbarManager;
+import greco.lorenzo.com.lgsnackbar.core.LGSnackbar;
+import greco.lorenzo.com.lgsnackbar.style.LGSnackBarThemeManager;
+
 public class DisplayImage extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
@@ -63,6 +69,9 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LGSnackbarManager.prepare(getApplicationContext(),
+                LGSnackBarThemeManager.LGSnackbarThemeName.SHINE);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -191,6 +200,15 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             @Override
             public void onClick(View v) {
                 downloadWallpaper();
+                new LGSnackbar.LGSnackbarBuilder(getApplicationContext(), "Downloaded")
+                        .duration(Snackbar.LENGTH_LONG)
+                        .actionTextColor(Color.GREEN)
+                        .backgroundColor(Color.GRAY)
+                        .minHeightDp(50)
+                        .textColor(Color.WHITE)
+                        .callback(null)
+                        .action(null)
+                        .show();
             }
         });
 
@@ -265,7 +283,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
 
     private Uri saveWallpaperAndGetUri(Bitmap bitmap, String id) {
-        Toast.makeText(this, "Downloaded", Toast.LENGTH_SHORT).show();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
