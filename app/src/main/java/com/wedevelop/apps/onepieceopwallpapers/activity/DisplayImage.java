@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,6 +32,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.components.Component;
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +69,8 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     CheckBox checkBoxFav;
     int position;
 
+    private InterstitialAd mInterstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,20 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+            }
+
+        });
 
         setContentView(R.layout.activity_display_image);
         fab_more = findViewById(R.id.fab_more);
@@ -192,23 +212,39 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         fab_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareWallpaper();
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    shareWallpaper();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    shareWallpaper();
+                }
 
             }
         });
         fab_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downloadWallpaper();
-                new LGSnackbar.LGSnackbarBuilder(getApplicationContext(), "Downloaded")
-                        .duration(Snackbar.LENGTH_LONG)
-                        .actionTextColor(Color.GREEN)
-                        .backgroundColor(Color.GRAY)
-                        .minHeightDp(50)
-                        .textColor(Color.WHITE)
-                        .callback(null)
-                        .action(null)
-                        .show();
+
+
+                if (mInterstitialAd.isLoaded()) {
+                    downloadWallpaper();
+                    new LGSnackbar.LGSnackbarBuilder(getApplicationContext(), "Downloaded")
+                            .duration(Snackbar.LENGTH_LONG)
+                            .actionTextColor(Color.GREEN)
+                            .backgroundColor(Color.GRAY)
+                            .minHeightDp(50)
+                            .textColor(Color.WHITE)
+                            .callback(null)
+                            .action(null)
+                            .show();
+                    mInterstitialAd.show();
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    downloadWallpaper();
+                }
             }
         });
 

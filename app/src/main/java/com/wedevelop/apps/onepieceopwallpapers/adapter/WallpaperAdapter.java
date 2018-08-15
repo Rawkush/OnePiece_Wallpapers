@@ -24,6 +24,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,9 +45,24 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     private List<Wallpaper> wallpaperList;
     private String wallpaper;
 
+    private InterstitialAd mInterstitialAd;
+
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
         this.wallpaperList = wallpaperList;
+
+        mInterstitialAd = new InterstitialAd(mCtx);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+            }
+
+        });
     }
 
     @NonNull
@@ -84,7 +102,19 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
 
         @Override
         public void onClick(View v) {
+            
+            if (mInterstitialAd.isLoaded()) {
+                goToDisplayImage();
+                mInterstitialAd.show();
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
+            } else {
+                goToDisplayImage();
+            }
+
+        }
+
+        public void goToDisplayImage() {
             int p = getAdapterPosition();
             // caching the image loaded from the glide into PhotoView
             Intent intent = new Intent(mCtx, DisplayImage.class);
