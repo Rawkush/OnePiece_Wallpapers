@@ -212,15 +212,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         fab_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                    shareWallpaper();
-                } else {
-                    Log.d("TAG", "The interstitial wasn't loaded yet.");
-                    shareWallpaper();
-                }
-
+                shareWallpaper();
             }
         });
         fab_download.setOnClickListener(new View.OnClickListener() {
