@@ -38,6 +38,9 @@ public class FavouritesFragment {
         this.progressBar = progressBar;
     }
 
+    public void resetList() {
+        favWalls.clear();
+    }
 
     public void setFavWalls(final Activity activity) {
         adapter = new WallpaperAdapter(activity, favWalls);

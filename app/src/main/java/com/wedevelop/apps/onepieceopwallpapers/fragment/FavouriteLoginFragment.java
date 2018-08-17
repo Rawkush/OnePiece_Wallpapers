@@ -79,10 +79,10 @@ public class FavouriteLoginFragment extends Fragment {
         imglayout = view.findViewById(R.id.favFragment);
         recyclerView = view.findViewById(R.id.recycler_view);
         progressBar = view.findViewById(R.id.progressbar);
+        favouritesFragment = new FavouritesFragment(recyclerView, progressBar);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             loginlayout.setVisibility(View.GONE);
             imglayout.setVisibility(View.VISIBLE);
-            favouritesFragment = new FavouritesFragment(recyclerView, progressBar);
             setImglayout();
             rootView = view;
             setHasOptionsMenu(true);
@@ -152,6 +152,7 @@ public class FavouriteLoginFragment extends Fragment {
         super.onResume();
         //Refresh your stuff here
         if (rootView != null && FirebaseAuth.getInstance().getCurrentUser() != null) {
+            favouritesFragment.resetList();
             setImglayout();
         }
     }
