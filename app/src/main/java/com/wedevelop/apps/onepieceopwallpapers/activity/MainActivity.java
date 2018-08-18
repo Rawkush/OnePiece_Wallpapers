@@ -15,7 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.karan.churi.PermissionManager.PermissionManager;
+
 import com.wedevelop.apps.onepieceopwallpapers.R;
 
 public class MainActivity extends AppCompatActivity {

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
-import com.karan.churi.PermissionManager.PermissionManager;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;

@@ -41,8 +41,7 @@ dependencies {
     implementation 'com.github.msayan:tutorial-view:v1.0.6'
     implementation 'com.github.medyo:fancybuttons:1.9.0'
     implementation 'com.github.loregr:lgsnackbar:1.0.2'
-    //For Automatic Permission request.
-    implementation 'com.github.karanchuri:PermissionManager:0.1.0'
+
 
     implementation 'com.google.firebase:firebase-ads:15.0.1'
     testImplementation 'junit:junit:4.12'

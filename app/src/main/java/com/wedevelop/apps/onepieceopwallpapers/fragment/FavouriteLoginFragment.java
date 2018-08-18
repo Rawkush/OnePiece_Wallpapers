@@ -1,14 +1,23 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,12 +39,16 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.karan.churi.PermissionManager.PermissionManager;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
 import com.wedevelop.apps.onepieceopwallpapers.activity.FeedBackActivity;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class FavouriteLoginFragment extends Fragment {
 
@@ -47,7 +60,6 @@ public class FavouriteLoginFragment extends Fragment {
     RecyclerView recyclerView;
     ProgressBar progressBar;
     FavouritesFragment favouritesFragment;
-    PermissionManager permissionManager;
 
 
     @Nullable
@@ -99,11 +111,6 @@ public class FavouriteLoginFragment extends Fragment {
                 }
             });
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        permissionManager.checkResult(requestCode, permissions, grantResults);
     }
 
 
@@ -176,13 +183,8 @@ public class FavouriteLoginFragment extends Fragment {
 
         int id = item.getItemId();
         if (id == R.id.menuDownload) {
-            // Toast.makeText(getActivity(), "Download is here", Toast.LENGTH_SHORT).show();
-            permissionManager = new PermissionManager() {
-            };
-            if (permissionManager.checkAndRequestPermissions(getActivity())) {
-                DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
-                downloadsGallery.start();
-            }
+
+            downloadGallery();
 
         } else if (id == R.id.menuFeedback) {
             Intent feedback = new Intent(getContext(), FeedBackActivity.class);
@@ -191,6 +193,65 @@ public class FavouriteLoginFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void downloadGallery() {
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat
+                    .shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+            }
+            return;
+        }
+
+        if (checkDir()) {
+            DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
+            downloadsGallery.start();
+        }
+    }
+
+    private boolean checkDir() {
+        File folder = new File(Environment.getExternalStorageDirectory().getPath() + "/OnePiece_Wallpapers/");
+
+        if (!folder.exists()) {
+
+            folder.mkdirs();
+            return false;
+
+        } else {
+            Log.e("Found Dir", "Found Dir  ");
+
+            File[] contents = folder.listFiles();
+// the directory file is not really a directory..
+            if (contents == null) {
+                Toast.makeText(getActivity(), "Nothing Downloaded yet", Toast.LENGTH_SHORT).show();
+
+                return false;
+
+            }
+// Folder is empty
+            else if (contents.length == 0) {
+                Toast.makeText(getActivity(), "Nothing Downloaded yet", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+// Folder contains files
+            else {
+                return true;
+
+            }
+        }
     }
 
 
