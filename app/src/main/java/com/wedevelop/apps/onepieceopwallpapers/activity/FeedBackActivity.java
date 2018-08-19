@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
 
-import mehdi.sakout.fancybuttons.FancyButton;
+import mehdi.sakout.aboutpage.AboutPage;
+import mehdi.sakout.aboutpage.Element;
+
 
 public class FeedBackActivity extends AppCompatActivity {
 
@@ -20,32 +22,20 @@ public class FeedBackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_back);
 
-        toolbar = findViewById(R.id.feed_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("About Us");
+        Element versionElement = new Element();
+        versionElement.setTitle("Version 1.0");
 
-        findViewById(R.id.btn_ContactUs).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        View aboutPage = new AboutPage(this)
+                .isRTL(false)
+                .setDescription("If you love the Content in this app then please Rate us")
+                .addItem(versionElement)
+                .addGroup("Connect with us")
+                .addEmail("appswedevelop@gmail.com")
+                .addPlayStore(" ")
+                .create();
 
-                Intent testIntent = new Intent(Intent.ACTION_VIEW);
-                Uri data = Uri.parse("mailto:?subject=" + "Feedback" + "&body=" + " " + "&to=" + "appswedevelop@gmail.com");
-                testIntent.setData(data);
-                startActivity(testIntent);
-
-            }
-        });
-
-        findViewById(R.id.btn_RateUs).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Rate us Button clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        setContentView(aboutPage);
 
     }
 }
