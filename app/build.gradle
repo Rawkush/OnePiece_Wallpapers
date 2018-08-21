@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.github.medyo:android-about-page:1.2.4'
     implementation 'com.github.loregr:lgsnackbar:1.0.2'
 
-
+    implementation 'com.victor:lib:1.0.4'
     implementation 'com.google.firebase:firebase-ads:15.0.1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
