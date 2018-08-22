@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.karan.churi.PermissionManager.PermissionManager;
+import com.google.android.gms.ads.MobileAds;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
@@ -35,6 +35,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        MobileAds.initialize(this,
+                "ca-app-pub-1544647693026779~3122962726");
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         download = findViewById(R.id.downloadView);

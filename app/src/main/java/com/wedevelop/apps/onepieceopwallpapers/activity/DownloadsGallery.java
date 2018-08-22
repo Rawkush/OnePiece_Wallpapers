@@ -14,7 +14,6 @@ public class DownloadsGallery {
     Activity activity;
 
     public DownloadsGallery(Activity activity) {
-
         this.activity = activity;
     }
 

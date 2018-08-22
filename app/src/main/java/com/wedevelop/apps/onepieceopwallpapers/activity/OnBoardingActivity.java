@@ -21,7 +21,7 @@ public class OnBoardingActivity extends TutorialActivity {
                 .build());
 
         addFragment(new Step.Builder().setTitle("Updated Daily")
-                .setContent("We'll be constantly designing new backdrops for.This means new High quality Content within the app every day")
+                .setContent("High quality Content within the app every day")
                 .setBackgroundColor(Color.parseColor("#FF000000")) // int background color
                 .setDrawable(R.drawable.three) // int top drawable
                 .setSummary("Continue...")

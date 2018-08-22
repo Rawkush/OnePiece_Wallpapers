@@ -15,6 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,20 +38,21 @@ public class WallpaperActivity extends AppCompatActivity {
     WallpaperAdapter adapter;
     DatabaseReference dbWallpapers;
     ProgressBar progressBar;
-    Boolean isScrolling=false;
+    Boolean isScrolling = false;
     GridLayoutManager manager;
-    Boolean shouldScrollMore=true;
+    Boolean shouldScrollMore = true;
     String oldestpost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallpaper);
+
         wallpaperList = new ArrayList<>();
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        manager= (GridLayoutManager) recyclerView.getLayoutManager();
+        manager = (GridLayoutManager) recyclerView.getLayoutManager();
         adapter = new WallpaperAdapter(this, wallpaperList);
         recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progressBar);
@@ -66,15 +70,15 @@ public class WallpaperActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
                 //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
-                    int x=0;
+                int x = 0;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         String id = wallpaperSnapShot.getKey();
                         String title = wallpaperSnapShot.child("title").getValue(String.class);
                         String desc = wallpaperSnapShot.child("desc").getValue(String.class);
                         String url = wallpaperSnapShot.child("url").getValue(String.class);
-                        if(x==0){
-                            oldestpost=id;
+                        if (x == 0) {
+                            oldestpost = id;
                             x++;
                         }
                         Wallpaper w = new Wallpaper(id, title, desc, url);
@@ -99,8 +103,8 @@ public class WallpaperActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling=true;
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
                 }
             }
 
@@ -111,7 +115,7 @@ public class WallpaperActivity extends AppCompatActivity {
                 int totalItemCount = manager.getItemCount();
                 int pastVisibleItems = manager.findFirstVisibleItemPosition();
                 if (pastVisibleItems + visibleItemCount >= totalItemCount) {
-                    if(isScrolling&&(shouldScrollMore)) {
+                    if (isScrolling && (shouldScrollMore)) {
                         //fetch the new data
                         isScrolling = false;
                         fetchData();
@@ -124,36 +128,35 @@ public class WallpaperActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        DatabaseReference dbWallpaper=dbWallpapers;
+        DatabaseReference dbWallpaper = dbWallpapers;
 
         dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
-                List<Wallpaper> wallpaperListTemp=new ArrayList<>();
-                int x=0;
+                List<Wallpaper> wallpaperListTemp = new ArrayList<>();
+                int x = 0;
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
                         String id = wallpaperSnapShot.getKey();
                         Wallpaper w = wallpaperSnapShot.getValue(Wallpaper.class);
-                        if(x==0&&(!oldestpost.equals(id))){
-                            oldestpost=id;
+                        if (x == 0 && (!oldestpost.equals(id))) {
+                            oldestpost = id;
                             x++;
-                        }else
-                            if (x==0&&(oldestpost.equals(id))){
-                            shouldScrollMore=false;
+                        } else if (x == 0 && (oldestpost.equals(id))) {
+                            shouldScrollMore = false;
                             return;
                         }
                         wallpaperListTemp.add(w);
 
                     }
-                   wallpaperListTemp.remove(wallpaperListTemp.size()-1);
-                   Collections.reverse(wallpaperList);
-                   wallpaperListTemp.addAll(wallpaperList);
-                   wallpaperList.clear();
-                   wallpaperList.addAll(wallpaperListTemp);
-                   Collections.reverse(wallpaperList);
-                   adapter.notifyDataSetChanged();
+                    wallpaperListTemp.remove(wallpaperListTemp.size() - 1);
+                    Collections.reverse(wallpaperList);
+                    wallpaperListTemp.addAll(wallpaperList);
+                    wallpaperList.clear();
+                    wallpaperList.addAll(wallpaperListTemp);
+                    Collections.reverse(wallpaperList);
+                    adapter.notifyDataSetChanged();
                 }
 
             }
@@ -164,7 +167,6 @@ public class WallpaperActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }
