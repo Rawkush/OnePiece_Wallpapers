@@ -32,7 +32,7 @@ public class FeedBackActivity extends AppCompatActivity {
                 .addItem(versionElement)
                 .addGroup("Connect with us")
                 .addEmail("appswedevelop@gmail.com")
-                .addPlayStore("https://play.google.com/store/apps/details?id=com.wedevelop.apps.onepieceopwallpapers")
+                .addPlayStore("com.wedevelop.apps.onepieceopwallpapers")
                 .create();
 
         setContentView(aboutPage);
