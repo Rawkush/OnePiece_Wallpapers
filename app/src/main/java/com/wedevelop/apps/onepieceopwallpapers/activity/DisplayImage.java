@@ -84,7 +84,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -236,6 +236,15 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                 } else {
                     Log.d("TAG", "The interstitial wasn't loaded yet.");
                     downloadWallpaper();
+                    new LGSnackbar.LGSnackbarBuilder(getApplicationContext(), "Downloaded")
+                            .duration(Snackbar.LENGTH_LONG)
+                            .actionTextColor(Color.GREEN)
+                            .backgroundColor(Color.GRAY)
+                            .minHeightDp(50)
+                            .textColor(Color.WHITE)
+                            .callback(null)
+                            .action(null)
+                            .show();
                 }
             }
         });
