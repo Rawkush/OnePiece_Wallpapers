@@ -67,7 +67,8 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
     String url, id;
     CheckBox checkBoxFav;
-    int position;
+
+    PhotoView photoView;
 
     private InterstitialAd mInterstitialAd;
 
@@ -81,85 +82,18 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_display_image);
 
         ads();
-        setContentView(R.layout.activity_display_image);
-        fab_more = findViewById(R.id.fab_more);
-        fab_download = findViewById(R.id.fab_download);
-        fab_set_wall = findViewById(R.id.fab_set_wall);
-        fab_share = findViewById(R.id.fab_share);
-        LinearFabLayout = findViewById(R.id.LinearFablayout);
-        Intent intent = getIntent();
-        url = intent.getStringExtra("wallpaper_url");
-        id = intent.getStringExtra("id");
-        checkBoxFav = findViewById(R.id.checkBox_fav);
-        HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint(fab_more, "Here You Can Set Wallpaper,Download and Share", " "));
-        hintService.addHint(new Hint(checkBoxFav, "Click Here to Save in Favourites", " "));
-
-
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        SharedPreferences.Editor editor = prefs.edit();
-        if (prefs.getBoolean("firstrun", true)) {
-            // Do first run stuff here then set 'firstrun' as false
-            // using the following line to edit/commit prefs
-            hintService.showHint(this);
-            editor.putBoolean("firstrun", false).apply();
-
-        }
-
+        init();
+        hints();
 
         //change check box state
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-
-            DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("favourites");
-
-            final Wallpaper wallpaper = new Wallpaper(id, id, id, url);
-
-
-            dbFavs.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    if (dataSnapshot.exists()) {
-                        for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
-                            String id = wallpaperSnapShot.getKey();
-                            String title = wallpaperSnapShot.child("title").getValue(String.class);
-                            String desc = wallpaperSnapShot.child("desc").getValue(String.class);
-                            String url = wallpaperSnapShot.child("url").getValue(String.class);
-                            Wallpaper w = new Wallpaper(id, title, desc, url);
-                            w.id = dataSnapshot.getKey();
-                            if (w.url.equals(wallpaper.url)) {
-                                checkBoxFav.setChecked(true);
-                            }
-
-                        }
-
-
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        }
-
-        checkBoxFav.setOnCheckedChangeListener(this);
+        checkBox();
         //initialising the animation variable
-        OpenAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        CloseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-        clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
-        AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
-
+        anim();
         //  position = Integer.parseInt(intent.getStringExtra("position"));
 
-        PhotoView photoView = findViewById(R.id.photo_view);
         Glide.with(this)
                 .load(url)
                 .into(photoView);
@@ -264,6 +198,9 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                       }
                 );
     }
+
+
+
 
     private Uri getLocalBitmapUri(Bitmap bmp) {
         Uri bmpUri = null;
@@ -412,6 +349,94 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         });
 
     }
+
+    private void init(){
+        photoView = findViewById(R.id.photo_view);
+        fab_more = findViewById(R.id.fab_more);
+        fab_download = findViewById(R.id.fab_download);
+        fab_set_wall = findViewById(R.id.fab_set_wall);
+        fab_share = findViewById(R.id.fab_share);
+        LinearFabLayout = findViewById(R.id.LinearFablayout);
+        Intent intent = getIntent();
+        url = intent.getStringExtra("wallpaper_url");
+        id = intent.getStringExtra("id");
+        checkBoxFav = findViewById(R.id.checkBox_fav);
+
+    }
+
+    private void hints(){
+        HintServiceImpl hintService = new HintServiceImpl();
+        hintService.addHint(new Hint(fab_more, "Here You Can Set Wallpaper,Download and Share", " "));
+        hintService.addHint(new Hint(checkBoxFav, "Click Here to Save in Favourites", " "));
+
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = prefs.edit();
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            hintService.showHint(this);
+            editor.putBoolean("firstrun", false).apply();
+
+        }
+
+    }
+
+    private void checkBox(){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+
+            DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("favourites");
+
+            final Wallpaper wallpaper = new Wallpaper(id, id, id, url);
+
+
+            dbFavs.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
+                            String id = wallpaperSnapShot.getKey();
+                            String title = wallpaperSnapShot.child("title").getValue(String.class);
+                            String desc = wallpaperSnapShot.child("desc").getValue(String.class);
+                            String url = wallpaperSnapShot.child("url").getValue(String.class);
+                            Wallpaper w = new Wallpaper(id, title, desc, url);
+                            w.id = dataSnapshot.getKey();
+                            if (w.url.equals(wallpaper.url)) {
+                                checkBoxFav.setChecked(true);
+                            }
+
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        checkBoxFav.setOnCheckedChangeListener(this);
+    }
+
+
+
+    private void anim(){
+        OpenAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        CloseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
+        AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
+
+    }
+
+
 
 }
 
