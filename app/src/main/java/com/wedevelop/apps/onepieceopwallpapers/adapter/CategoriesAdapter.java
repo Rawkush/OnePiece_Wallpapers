@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.WallpaperActivity;
 import com.wedevelop.apps.onepieceopwallpapers.models.Category;
@@ -54,15 +55,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         });
     }
-/*
-    public CategoriesAdapter(Context mCtx, List<Category> categoryList,CategoriesAdapterListener listener) {
-        this.mCtx = mCtx;
-        this.categoryList = categoryList;
-        this.listener=listener;
-        categoryListFiltered=categoryList;
-    }
-*/
-
 
 
     @NonNull
@@ -77,8 +69,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         Category c = categoryListFiltered.get(position);
 
         holder.textView.setText(c.name);
-        Glide.with(mCtx)
+       /* Glide.with(mCtx)
                 .load(c.thumb)
+                .into(holder.imageView);
+    */
+        Picasso.with(mCtx)
+                .load(c.thumb)
+                .fit()
                 .into(holder.imageView);
     }
 
@@ -141,15 +138,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         @Override
         public void onClick(View v) {
+            gotoNextPage();
 
             if (mInterstitialAd.isLoaded()) {
-                gotoNextPage();
                 mInterstitialAd.show();
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-            } else {
-                // Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
-                gotoNextPage();
+
             }
 
         }
