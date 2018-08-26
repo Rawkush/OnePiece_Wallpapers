@@ -82,20 +82,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-            }
-
-        });
-
+        ads();
         setContentView(R.layout.activity_display_image);
         fab_more = findViewById(R.id.fab_more);
         fab_download = findViewById(R.id.fab_download);
@@ -307,9 +294,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
                               Uri uri = saveWallpaperAndGetUri(resource, id);
                               if (uri != null) {
-                                  // intent.setDataAndType(uri, "image/*");
-                                  //startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
-
                                   sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
 
                               }
@@ -408,5 +392,26 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             dbFavs.child(w.id).setValue(null);
         }
     }
+
+
+
+
+    private  void ads(){
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+            }
+
+        });
+
+    }
+
 }
 
