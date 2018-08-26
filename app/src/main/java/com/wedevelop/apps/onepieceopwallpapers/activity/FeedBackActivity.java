@@ -24,7 +24,7 @@ public class FeedBackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Element versionElement = new Element();
-        versionElement.setTitle("Version 1.0");
+        versionElement.setTitle("Version 1.0.2");
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
@@ -32,7 +32,7 @@ public class FeedBackActivity extends AppCompatActivity {
                 .addItem(versionElement)
                 .addGroup("Connect with us")
                 .addEmail("appswedevelop@gmail.com")
-                .addPlayStore(" ")
+                .addPlayStore("com.wedevelop.apps.onepieceopwallpapers")
                 .create();
 
         setContentView(aboutPage);

@@ -37,6 +37,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 import com.victor.loading.rotate.RotateLoading;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DisplayImage;
@@ -53,24 +54,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     private List<Wallpaper> wallpaperList;
     private String wallpaper;
     public RotateLoading rotateLoading;
-    private InterstitialAd mInterstitialAd;
 
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
         this.wallpaperList = wallpaperList;
 
-        mInterstitialAd = new InterstitialAd(mCtx);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-            }
-
-        });
     }
 
     @NonNull
@@ -83,7 +71,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     @Override
     public void onBindViewHolder(@NonNull wallpaperViewHolder holder, int position) {
         Wallpaper w = wallpaperList.get(position);
-        Glide.with(mCtx)
+
+        Picasso.with(mCtx)
+                .load(w.url)
+                .fit()
+                .placeholder(R.drawable.app_icon)
+                .into(holder.imageView);
+
+      /*  Glide.with(mCtx)
                 .load(w.url)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -98,7 +93,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
                         return false;
                     }
                 })
-                .into(holder.imageView);
+                .into(holder.imageView);*/
         wallpaper = w.url;
 
     }
@@ -124,16 +119,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
 
         @Override
         public void onClick(View v) {
-            
-            if (mInterstitialAd.isLoaded()) {
                 goToDisplayImage();
-                mInterstitialAd.show();
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-            } else {
-                goToDisplayImage();
-            }
-
         }
 
         public void goToDisplayImage() {

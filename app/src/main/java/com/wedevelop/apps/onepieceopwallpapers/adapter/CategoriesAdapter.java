@@ -11,11 +11,13 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.squareup.picasso.Picasso;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.WallpaperActivity;
 import com.wedevelop.apps.onepieceopwallpapers.models.Category;
@@ -41,7 +43,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         categoryListFiltered = categoryList;
 
         mInterstitialAd = new InterstitialAd(mCtx);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -53,15 +55,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         });
     }
-/*
-    public CategoriesAdapter(Context mCtx, List<Category> categoryList,CategoriesAdapterListener listener) {
-        this.mCtx = mCtx;
-        this.categoryList = categoryList;
-        this.listener=listener;
-        categoryListFiltered=categoryList;
-    }
-*/
-
 
 
     @NonNull
@@ -76,8 +69,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         Category c = categoryListFiltered.get(position);
 
         holder.textView.setText(c.name);
-        Glide.with(mCtx)
+       /* Glide.with(mCtx)
                 .load(c.thumb)
+                .into(holder.imageView);
+    */
+        Picasso.with(mCtx)
+                .load(c.thumb)
+                .fit()
                 .into(holder.imageView);
     }
 
@@ -140,22 +138,19 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         @Override
         public void onClick(View v) {
+            gotoNextPage();
 
             if (mInterstitialAd.isLoaded()) {
-                gotoNextPage();
                 mInterstitialAd.show();
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-            } else {
-                //  mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                //  Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
-                gotoNextPage();
+
             }
 
         }
 
         public void gotoNextPage() {
-            int p = getAdapterPosition();  // getting adap;ter position
+            int p = getAdapterPosition();  // getting adapter position
             Category c = categoryListFiltered.get(p);
 
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
