@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
@@ -44,6 +45,7 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
@@ -186,7 +188,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
     private void shareWallpaper() {
 
-        Glide.with(this)
+      /*  Glide.with(this)
                 .asBitmap()
                 .load(url)
                 .into(new SimpleTarget<Bitmap>() {
@@ -200,6 +202,32 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                           }
                       }
                 );
+    */
+
+        Picasso.with(this)
+                .load(url)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("image/*");
+                        intent.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
+                        startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
+
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        Toast.makeText(getApplicationContext(),"failed to share",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+
     }
 
 
@@ -224,7 +252,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
     private void downloadWallpaper() {
 
-        Glide.with(this)
+        /*Glide.with(this)
                 .asBitmap()
                 .load(url)
                 .into(new SimpleTarget<Bitmap>() {
@@ -240,6 +268,35 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                           }
                       }
                 );
+        */
+
+        Picasso.with(this)
+                .load(url)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                        Uri uri = saveWallpaperAndGetUri(bitmap, id);
+                        if (uri != null) {
+                            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+
+                        }
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        Toast.makeText(getApplicationContext(),"failed to complete your request",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+
+
     }
 
 
@@ -283,7 +340,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
     public void setWallpaper() {
         WallpaperManager myWallManager = WallpaperManager.getInstance(getApplicationContext());
-
+/*
       
         Glide.with(this)
                 .asBitmap()
@@ -299,15 +356,33 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                                 intent, "Set as:"));
 /*
 
-                        try {
-                            WallpaperManager.getInstance(getApplicationContext()).setBitmap(resource);
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }*/
-                    }
+                   }
                 });
 
+*/ Picasso.with(this)
+                .load(url)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                        Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+                        intent.setDataAndType(getLocalBitmapUri(bitmap), "image/*");
+                        intent.putExtra("jpg", "image/*");
+                        startActivity(Intent.createChooser(
+                                intent, "Set as:"));
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        Toast.makeText(getApplicationContext(),"failed to complete your request",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
 
     }
 
