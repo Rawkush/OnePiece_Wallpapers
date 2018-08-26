@@ -197,20 +197,27 @@ public class FavouriteLoginFragment extends Fragment {
 
 
     private void downloadGallery() {
+
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat
-                    .shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
 
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
+            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-            } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                if (ActivityCompat
+                        .shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                }
             }
             return;
         }
@@ -225,7 +232,6 @@ public class FavouriteLoginFragment extends Fragment {
         File folder = new File(Environment.getExternalStorageDirectory().getPath() + "/OnePiece_Wallpapers/");
 
         if (!folder.exists()) {
-
             folder.mkdirs();
             return false;
 
