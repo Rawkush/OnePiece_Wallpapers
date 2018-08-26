@@ -98,6 +98,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         Picasso.with(this)
                 .load(url)
                 .fit()
+                .placeholder(R.drawable.app_icon)
                 .into(photoView);
 
         fab_more.setOnClickListener(new View.OnClickListener() {

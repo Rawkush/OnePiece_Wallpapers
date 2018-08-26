@@ -75,6 +75,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
         Picasso.with(mCtx)
                 .load(w.url)
                 .fit()
+                .placeholder(R.drawable.app_icon)
                 .into(holder.imageView);
 
       /*  Glide.with(mCtx)
