@@ -17,12 +17,14 @@ import android.widget.ProgressBar;
 
 
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    SharedPreferences appSettings;
     private static int SPLASH_TIME_OUT = 1500;
     private boolean InternetCheck = true;
     private ProgressBar spinner;
@@ -32,13 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        appSettings = getSharedPreferences("APP_NAME", MODE_PRIVATE);
-        // Make sure you only run addShortcut() once, not to create duplicate shortcuts.
-        if (!appSettings.getBoolean("shortcut", false)) {
-            addShortcut();
-        }
 
         prefs = getSharedPreferences("SharedPreferences", 0); // 0 - for private mode
         editor = prefs.edit();
@@ -57,27 +55,6 @@ public class MainActivity extends AppCompatActivity {
         spinner.setVisibility(View.VISIBLE);
         PostDelayedMethod();
 
-    }
-
-    private void addShortcut() {
-        //Adding shortcut for MainActivity
-        //on Home screen
-        Intent shortcutIntent = new Intent(getApplicationContext(), MainActivity.class);
-        shortcutIntent.setAction(Intent.ACTION_MAIN);
-
-        Intent addIntent = new Intent();
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "One Piece Wallpapers");
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                Intent.ShortcutIconResource.fromContext(getApplicationContext(),
-                        R.drawable.app_icon));
-        addIntent.putExtra("duplicate", false);
-        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-        getApplicationContext().sendBroadcast(addIntent);
-
-        SharedPreferences.Editor prefEditor = appSettings.edit();
-        prefEditor.putBoolean("shortcut", true);
-        prefEditor.commit();
     }
 
 
