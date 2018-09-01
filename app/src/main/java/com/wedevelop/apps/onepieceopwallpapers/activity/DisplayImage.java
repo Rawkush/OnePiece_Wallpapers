@@ -243,6 +243,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                               Intent intent = new Intent(Intent.ACTION_SEND);
                               intent.setType("image/*");
                               intent.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(resource));
+                              intent.putExtra(Intent.EXTRA_TEXT, "Hey check this Amazing One Piece HD Wallpaper application " + "https://play.google.com/store/apps/details?id=" + getPackageName());
                               startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
                           }
                       }
@@ -255,7 +256,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                     "OP_Wallpaper_" + System.currentTimeMillis() + ".png");
             FileOutputStream out = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.close();
             bmpUri = Uri.fromFile(file);
         } catch (IOException e) {
