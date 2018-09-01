@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
                 HomeActivity.this);
 
         builder.setTitle("Exit?");//Title
-        builder.setMessage("If you love the One Piece Wallpapers,please rate us");//Message
+        builder.setMessage("If you love One Piece Wallpapers,please rate us");//Message
         builder.setIcon(R.drawable.app_icon);
         builder.setCancelable(false);
 
