@@ -9,8 +9,6 @@
     <!-- Wallpaper permission -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
 
     <application
@@ -38,9 +36,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".activity.OnBoardingActivity" />
-        <activity
-            android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".activity.FeedBackActivity"
             android:parentActivityName=".activity.HomeActivity"></activity>

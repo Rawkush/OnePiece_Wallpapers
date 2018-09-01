@@ -11,6 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
@@ -41,7 +42,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         categoryListFiltered = categoryList;
 
         mInterstitialAd = new InterstitialAd(mCtx);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -147,15 +148,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
             } else {
-                //  mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                //  Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
+                // Toast.makeText(mCtx, "ads is not loaded", Toast.LENGTH_LONG).show();
                 gotoNextPage();
             }
 
         }
 
         public void gotoNextPage() {
-            int p = getAdapterPosition();  // getting adap;ter position
+            int p = getAdapterPosition();  // getting adapter position
             Category c = categoryListFiltered.get(p);
 
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
