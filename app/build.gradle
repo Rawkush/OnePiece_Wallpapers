@@ -56,7 +56,6 @@ dependencies {
     implementation 'com.github.msayan:tutorial-view:v1.0.6'
     implementation 'com.github.medyo:android-about-page:1.2.4'
 
-    implementation 'com.victor:lib:1.0.4'
     implementation 'com.google.firebase:firebase-ads:15.0.1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'

@@ -161,6 +161,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         PhotoView photoView = findViewById(R.id.photo_view);
         Glide.with(this)
                 .load(url)
+                .thumbnail(Glide.with(this).load(R.drawable.loading))
                 .into(photoView);
 
         fab_more.setOnClickListener(new View.OnClickListener() {
