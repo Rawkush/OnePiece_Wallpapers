@@ -44,6 +44,11 @@
         <activity
             android:name=".activity.FeedBackActivity"
             android:parentActivityName=".activity.HomeActivity"></activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="87353cd25208b93e0600de8b8a59d4fec4f30191" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

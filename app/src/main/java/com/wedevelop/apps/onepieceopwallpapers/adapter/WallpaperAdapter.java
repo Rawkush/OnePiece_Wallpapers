@@ -127,8 +127,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
             
             if (mInterstitialAd.isLoaded()) {
                 goToDisplayImage();
-                mInterstitialAd.show();
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                // mInterstitialAd.show();
+                // mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
             } else {
                 goToDisplayImage();

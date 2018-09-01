@@ -5,14 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -36,11 +32,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.components.Component;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
@@ -52,11 +46,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collections;
 
-import greco.lorenzo.com.lgsnackbar.LGSnackbarManager;
-import greco.lorenzo.com.lgsnackbar.core.LGSnackbar;
-import greco.lorenzo.com.lgsnackbar.style.LGSnackBarThemeManager;
 
 public class DisplayImage extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -67,7 +57,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
     String url, id;
     CheckBox checkBoxFav;
-    int position;
 
     private InterstitialAd mInterstitialAd;
 
@@ -75,9 +64,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        LGSnackbarManager.prepare(getApplicationContext(),
-                LGSnackBarThemeManager.LGSnackbarThemeName.SHINE);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -222,20 +208,14 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
                 if (mInterstitialAd.isLoaded()) {
                     downloadWallpaper();
-                    new LGSnackbar.LGSnackbarBuilder(getApplicationContext(), "Downloaded")
-                            .duration(Snackbar.LENGTH_LONG)
-                            .actionTextColor(Color.GREEN)
-                            .backgroundColor(Color.GRAY)
-                            .minHeightDp(50)
-                            .textColor(Color.WHITE)
-                            .callback(null)
-                            .action(null)
-                            .show();
+                    Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
                     mInterstitialAd.show();
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 } else {
                     Log.d("TAG", "The interstitial wasn't loaded yet.");
                     downloadWallpaper();
+                    Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -278,8 +258,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
             bmpUri = Uri.fromFile(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

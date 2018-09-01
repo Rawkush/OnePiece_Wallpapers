@@ -1,8 +1,13 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +18,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
+import com.shashank.sony.fancydialoglib.Animation;
+import com.shashank.sony.fancydialoglib.FancyAlertDialog;
+import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
+import com.shashank.sony.fancydialoglib.Icon;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
@@ -62,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
+        PopUp();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -107,7 +118,7 @@ public class HomeActivity extends AppCompatActivity {
                 public void run() {
                     doubleTap = false;
                 }
-            }, 500);
+            }, 1000);
         }
     }
 
@@ -122,6 +133,53 @@ public class HomeActivity extends AppCompatActivity {
         hintService.addHint(new Hint(download, "All the Downloads is here", " ", 2));
         hintService.showHint(this);
 
+    }
+
+    public void PopUp() {
+        new FancyAlertDialog.Builder(this)
+                .setTitle("Rate us if you like the app")
+                .setBackgroundColor(Color.parseColor("#000000"))  //Don't pass R.color.colorvalue
+                .setMessage("Do you really want to Exit ?")
+                .setNegativeBtnText("Cancel")
+                .setPositiveBtnBackground(Color.parseColor("#FF4081"))  //Don't pass R.color.colorvalue
+                .setPositiveBtnText("Rate")
+                .setNegativeBtnBackground(Color.parseColor("#FFA9A7A8"))  //Don't pass R.color.colorvalue
+                .setAnimation(Animation.POP)
+                .isCancellable(true)
+                .setIcon(R.drawable.ic_star_border_black_24dp, Icon.Visible)
+                .OnPositiveClicked(new FancyAlertDialogListener() {
+                    @Override
+                    public void OnClick() {
+                        String playStoreMarketUrl = "market://details?id=";
+                        String playStoreWebUrl = "https://play.google.com/store/apps/details?id=";
+                        String packageName = getPackageName();
+                        try {
+                            Intent intent = getApplicationContext()
+                                    .getPackageManager()
+                                    .getLaunchIntentForPackage("com.android.vending");
+                            if (intent != null) {
+                                ComponentName androidComponent = new ComponentName("com.android.vending",
+                                        "com.wedevelop.apps.onepieceopwallpapers.activity");
+                                intent.setComponent(androidComponent);
+                                intent.setData(Uri.parse(playStoreMarketUrl + packageName));
+                            } else {
+                                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreMarketUrl + packageName));
+                            }
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreWebUrl + packageName));
+                            startActivity(intent);
+                        }
+                        // Toast.makeText(getApplicationContext(),"Rate",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .OnNegativeClicked(new FancyAlertDialogListener() {
+                    @Override
+                    public void OnClick() {
+                        //Toast.makeText(getApplicationContext(),"Cancel",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
     }
 
 
