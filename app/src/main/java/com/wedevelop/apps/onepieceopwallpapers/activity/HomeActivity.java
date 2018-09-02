@@ -67,7 +67,8 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
-
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         download = findViewById(R.id.downloadView);
@@ -243,7 +244,6 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        //TODO pass the textView here for timer and also stop the ads
         int x=adsTimer.getTimeLeft();
         adsTimer.resetTimer();
         adsTimer.stopAds(x+30,textView);
