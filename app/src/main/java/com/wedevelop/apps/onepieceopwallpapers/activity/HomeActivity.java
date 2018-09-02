@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -37,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
     TabLayoutAdapter adapter;
     boolean doubleTap;
     private RewardedVideoAd mRewardedVideoAd;
-
+    TextView textView;
     View download, search, newtab, categorytab, favtab;
     private TabLayout tabLayout;
     //TODO call the function showAds in onlick in menu button
@@ -56,6 +57,9 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
         setContentView(R.layout.activity_home);
         adsTimer= new AdsTimer();
 
+        //TODO find the id of the textView to show the timer
+
+        //textView=(TextView) findViewByid(R.id.);
 
 
         MobileAds.initialize(this,
@@ -197,7 +201,13 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     }
 
+/*
 
+
+ call the below function when user opts ti see ads
+
+
+ */
     private void showAds(){
 
         //TODO load the reawrding ads here
@@ -236,7 +246,7 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
         //TODO pass the textView here for timer and also stop the ads
         int x=adsTimer.getTimeLeft();
         adsTimer.resetTimer();
-        adsTimer.stopAds(x+30);
+        adsTimer.stopAds(x+30,textView);
     }
 
     @Override
