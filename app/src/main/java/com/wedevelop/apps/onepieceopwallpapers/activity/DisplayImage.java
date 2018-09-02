@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
@@ -58,7 +59,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     private String url, id;
     private CheckBox checkBoxFav;
     private PhotoView photoView;
-
+    AdsTimer adsTimer;
     private InterstitialAd mInterstitialAd;
 
 

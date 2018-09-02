@@ -6,8 +6,14 @@ import android.view.View;
 public class AdsTimer {
 
     CountDownTimer countDownTimer;
-    static boolean showAds=true;
-    int timeLeft=0;
+    boolean showAdsOrNot;
+    int timeLeft;
+
+    public AdsTimer(){
+        showAdsOrNot=true;
+        timeLeft=0;
+
+    }
 
     public void controlTimer(int time){
 
@@ -25,7 +31,7 @@ public class AdsTimer {
                 public void onFinish() {
                     // when conter is finished(after 10 sec)
                     resetTimer();
-                    showAds=true;
+                    showAdsOrNot=true;
                     //TODO: display ads
 
                 }
@@ -58,6 +64,7 @@ public class AdsTimer {
       //  timerTextView.setVisibility(View.GONE);
     }
 
-
-
+    public boolean ShowAdsOrNot() {
+        return showAdsOrNot;
+    }
 }
