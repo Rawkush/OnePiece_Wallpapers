@@ -54,16 +54,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         });
     }
-/*
-    public CategoriesAdapter(Context mCtx, List<Category> categoryList,CategoriesAdapterListener listener) {
-        this.mCtx = mCtx;
-        this.categoryList = categoryList;
-        this.listener=listener;
-        categoryListFiltered=categoryList;
-    }
-*/
-
-
 
     @NonNull
     @Override
