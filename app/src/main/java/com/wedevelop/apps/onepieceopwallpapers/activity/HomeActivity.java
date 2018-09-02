@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -30,18 +31,32 @@ public class HomeActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     TabLayoutAdapter adapter;
     boolean doubleTap;
+
     View download, search, newtab, categorytab, favtab;
     private TabLayout tabLayout;
+    //TODO change the fab with menu button
+    FloatingActionButton fab;
+
     private int[] tabIcons = {
             R.drawable.ic_tab_new,
             R.drawable.ic_random,
             R.drawable.ic_favorite
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        fab =(FloatingActionButton)findViewById(R.id.floatingActionButton);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAds();
+            }
+        });
+
 
         MobileAds.initialize(this,
                 "ca-app-pub-1544647693026779~3122962726");
@@ -175,6 +190,12 @@ public class HomeActivity extends AppCompatActivity {
         hintService.addHint(new Hint(favtab, "Get All the favourite clicked Wallpaper Here", " ", 2));
         hintService.addHint(new Hint(download, "All the Downloads is here", " ", 2));
         hintService.showHint(this);
+
+    }
+
+
+    private void showAds(){
+
 
     }
 

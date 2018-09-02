@@ -69,6 +69,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        adsTimer=new AdsTimer();
 
         ads();
         init();
@@ -126,18 +127,14 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             @Override
             public void onClick(View v) {
 
+                downloadWallpaper();
+                Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
 
-                if (mInterstitialAd.isLoaded()) {
-                    downloadWallpaper();
-                    Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
+                if (mInterstitialAd.isLoaded()&&adsTimer.ShowAdsOrNot()) {
                     mInterstitialAd.show();
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                } else {
-                    Log.d("TAG", "The interstitial wasn't loaded yet.");
-                    downloadWallpaper();
-                    Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
-
                 }
+
             }
         });
 
