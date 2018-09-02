@@ -17,6 +17,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.DisplayImage;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
@@ -27,11 +28,12 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     private List<Wallpaper> wallpaperList;
     private String wallpaper;
     private InterstitialAd mInterstitialAd;
+    private AdsTimer adsTimer;
 
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
         this.wallpaperList = wallpaperList;
-
+        adsTimer= new AdsTimer();
         mInterstitialAd = new InterstitialAd(mCtx);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -84,14 +86,12 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
 
         @Override
         public void onClick(View v) {
-            
-            if (mInterstitialAd.isLoaded()) {
-                goToDisplayImage();
-                // mInterstitialAd.show();
-                // mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            goToDisplayImage();
 
-            } else {
-                goToDisplayImage();
+            if (mInterstitialAd.isLoaded()&&adsTimer.ShowAdsOrNot()) {
+                 mInterstitialAd.show();
+                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
             }
 
         }

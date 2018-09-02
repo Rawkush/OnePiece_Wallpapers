@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -17,34 +18,57 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements RewardedVideoAdListener {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     TabLayoutAdapter adapter;
     boolean doubleTap;
+    private RewardedVideoAd mRewardedVideoAd;
+    TextView textView;
     View download, search, newtab, categorytab, favtab;
     private TabLayout tabLayout;
+    //TODO call the function showAds in onlick in menu button
+    AdsTimer adsTimer;
+
     private int[] tabIcons = {
             R.drawable.ic_tab_new,
             R.drawable.ic_random,
             R.drawable.ic_favorite
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        adsTimer= new AdsTimer();
+
+        //TODO find the id of the textView to show the timer
+
+        //textView=(TextView) findViewByid(R.id.);
+
 
         MobileAds.initialize(this,
                 "ca-app-pub-1544647693026779~3122962726");
+
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         download = findViewById(R.id.downloadView);
@@ -178,5 +202,65 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+/*
 
+
+ call the below function when user opts ti see ads
+
+
+ */
+    private void showAds(){
+
+        //TODO load the reawrding ads here
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+
+        if (mRewardedVideoAd.isLoaded()) {
+            mRewardedVideoAd.show();
+        }
+
+    }
+
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        int x=adsTimer.getTimeLeft();
+        adsTimer.resetTimer();
+        adsTimer.stopAds(x+30,textView);
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+    }
 }
