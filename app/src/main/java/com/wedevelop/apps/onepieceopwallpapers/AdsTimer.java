@@ -7,7 +7,7 @@ public class AdsTimer {
 
     CountDownTimer countDownTimer;
     static boolean showAds=true;
-
+    int timeLeft=0;
 
     public void controlTimer(int time){
 
@@ -43,15 +43,20 @@ public class AdsTimer {
 
   public void updateTime(int secondsLeft){
 
+        timeLeft=secondsLeft;
         int minutes =(int) secondsLeft/ 60;
         int seconds= secondsLeft-minutes*60;
         //timerTextView.setText(Integer.toString(minutes)+":"+Integer.toString(seconds));
     }
 
+    public int getTimeLeft(){
+      return timeLeft;
+    }
+
     public void resetTimer(){
         countDownTimer.cancel();
       //  timerTextView.setVisibility(View.GONE);
-  }
+    }
 
 
 
