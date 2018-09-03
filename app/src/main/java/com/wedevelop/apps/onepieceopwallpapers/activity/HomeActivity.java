@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
     TextView textView;
     View download, search, newtab, categorytab, favtab;
     private TabLayout tabLayout;
-    //TODO call the function showAds in onlick in menu button
+    //TODO call the function showAds in onClick in menu button
     AdsTimer adsTimer;
 
     private int[] tabIcons = {

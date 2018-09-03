@@ -51,15 +51,15 @@ import java.io.IOException;
 
 public class DisplayImage extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
+    private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
+    AdsTimer adsTimer;
     private FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
     private Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
     private  Boolean isOpen = false;
     private LinearLayout LinearFabLayout;
-    private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
     private String url, id;
     private CheckBox checkBoxFav;
     private PhotoView photoView;
-    AdsTimer adsTimer;
     private InterstitialAd mInterstitialAd;
 
 
@@ -161,7 +161,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                               Intent intent = new Intent(Intent.ACTION_SEND);
                               intent.setType("image/*");
                               intent.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(resource));
-                              intent.putExtra(Intent.EXTRA_TEXT, "Hey check this Amazing One Piece HD Wallpaper application " + "https://play.google.com/store/apps/details?id=" + getPackageName());
+                              intent.putExtra(Intent.EXTRA_TEXT, "Hey check this Amazing One Piece HD Wallpaper App " + "https://play.google.com/store/apps/details?id=" + getPackageName());
                               startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
                           }
                       }
@@ -237,8 +237,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             out.close();
 
             return Uri.fromFile(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

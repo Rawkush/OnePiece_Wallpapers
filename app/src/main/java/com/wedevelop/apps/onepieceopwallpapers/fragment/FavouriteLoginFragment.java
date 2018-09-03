@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -190,6 +191,10 @@ public class FavouriteLoginFragment extends Fragment {
             Intent feedback = new Intent(getContext(), FeedBackActivity.class);
             startActivity(feedback);
             // Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuAdsFree) {
+            FragmentManager manager = getFragmentManager();
+            AdFreeDialogFragment dialogFragment = new AdFreeDialogFragment();
+            dialogFragment.show(manager, "AD Free Dialog");
         }
 
         return super.onOptionsItemSelected(item);
