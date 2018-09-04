@@ -51,15 +51,17 @@ import java.io.IOException;
 
 public class DisplayImage extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
-    private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
-    AdsTimer adsTimer;
     private FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
     private Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
     private  Boolean isOpen = false;
     private LinearLayout LinearFabLayout;
+    private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
     private String url, id;
     private CheckBox checkBoxFav;
     private PhotoView photoView;
+
+    AdsTimer adsTimer;
+
     private InterstitialAd mInterstitialAd;
 
 
@@ -69,17 +71,100 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         adsTimer=new AdsTimer();
 
-        ads();
-        init();
-        hints();
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+            }
+
+        });
+
+        setContentView(R.layout.activity_display_image);
+        fab_more = findViewById(R.id.fab_more);
+        fab_download = findViewById(R.id.fab_download);
+        fab_set_wall = findViewById(R.id.fab_set_wall);
+        fab_share = findViewById(R.id.fab_share);
+        LinearFabLayout = findViewById(R.id.LinearFablayout);
+        Intent intent = getIntent();
+        url = intent.getStringExtra("wallpaper_url");
+        id = intent.getStringExtra("id");
+        checkBoxFav = findViewById(R.id.checkBox_fav);
+        HintServiceImpl hintService = new HintServiceImpl();
+        hintService.addHint(new Hint(fab_more, "Here You Can Set Wallpaper,Download and Share", " "));
+        hintService.addHint(new Hint(checkBoxFav, "Click Here to Save in Favourites", " "));
+
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = prefs.edit();
+        if (prefs.getBoolean("firstrun", true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            // using the following line to edit/commit prefs
+            hintService.showHint(this);
+            editor.putBoolean("firstrun", false).apply();
+
+        }
+
 
         //change check box state
-        checkBox();
-        //initialising the animation variable
-        anim();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
+            DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("favourites");
+
+            final Wallpaper wallpaper = new Wallpaper(id, id, id, url);
+
+
+            dbFavs.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
+                            String id = wallpaperSnapShot.getKey();
+                            String title = wallpaperSnapShot.child("title").getValue(String.class);
+                            String desc = wallpaperSnapShot.child("desc").getValue(String.class);
+                            String url = wallpaperSnapShot.child("url").getValue(String.class);
+                            Wallpaper w = new Wallpaper(id, title, desc, url);
+                            w.id = dataSnapshot.getKey();
+                            if (w.url.equals(wallpaper.url)) {
+                                checkBoxFav.setChecked(true);
+                            }
+
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        checkBoxFav.setOnCheckedChangeListener(this);
+        //initialising the animation variable
+        OpenAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        CloseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
+        AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
+
+        //  position = Integer.parseInt(intent.getStringExtra("position"));
+
+        PhotoView photoView = findViewById(R.id.photo_view);
         Glide.with(this)
                 .load(url)
                 .thumbnail(Glide.with(this).load(R.drawable.loading))
@@ -126,7 +211,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         fab_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 downloadWallpaper();
                 Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
 
@@ -134,7 +218,6 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                     mInterstitialAd.show();
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 }
-
             }
         });
 
@@ -161,7 +244,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                               Intent intent = new Intent(Intent.ACTION_SEND);
                               intent.setType("image/*");
                               intent.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(resource));
-                              intent.putExtra(Intent.EXTRA_TEXT, "Hey check this Amazing One Piece HD Wallpaper App " + "https://play.google.com/store/apps/details?id=" + getPackageName());
+                              intent.putExtra(Intent.EXTRA_TEXT, "Hey check this Amazing One Piece HD Wallpaper application " + "https://play.google.com/store/apps/details?id=" + getPackageName());
                               startActivity(Intent.createChooser(intent, "One Piece Wallpaper"));
                           }
                       }
@@ -237,6 +320,8 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             out.close();
 
             return Uri.fromFile(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -246,7 +331,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
     public void setWallpaper() {
         WallpaperManager myWallManager = WallpaperManager.getInstance(getApplicationContext());
 
-      
+
         Glide.with(this)
                 .asBitmap()
                 .load(url)
@@ -294,116 +379,4 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
             dbFavs.child(w.id).setValue(null);
         }
     }
-
-
-
-
-    private  void ads(){
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-            }
-
-        });
-
-    }
-
-    private void init(){
-        photoView = findViewById(R.id.photo_view);
-        fab_more = findViewById(R.id.fab_more);
-        fab_download = findViewById(R.id.fab_download);
-        fab_set_wall = findViewById(R.id.fab_set_wall);
-        fab_share = findViewById(R.id.fab_share);
-        LinearFabLayout = findViewById(R.id.LinearFablayout);
-        Intent intent = getIntent();
-        url = intent.getStringExtra("wallpaper_url");
-        id = intent.getStringExtra("id");
-        checkBoxFav = findViewById(R.id.checkBox_fav);
-
-    }
-
-    private void hints(){
-        HintServiceImpl hintService = new HintServiceImpl();
-        hintService.addHint(new Hint(fab_more, "Here You Can Set Wallpaper,Download and Share", " "));
-        hintService.addHint(new Hint(checkBoxFav, "Click Here to Save in Favourites", " "));
-
-
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        SharedPreferences.Editor editor = prefs.edit();
-        if (prefs.getBoolean("firstrun", true)) {
-            // Do first run stuff here then set 'firstrun' as false
-            // using the following line to edit/commit prefs
-            hintService.showHint(this);
-            editor.putBoolean("firstrun", false).apply();
-
-        }
-
-    }
-
-    private void checkBox(){
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-
-            DatabaseReference dbFavs = FirebaseDatabase.getInstance().getReference("users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("favourites");
-
-            final Wallpaper wallpaper = new Wallpaper(id, id, id, url);
-
-
-            dbFavs.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    if (dataSnapshot.exists()) {
-                        for (DataSnapshot wallpaperSnapShot : dataSnapshot.getChildren()) {
-                            String id = wallpaperSnapShot.getKey();
-                            String title = wallpaperSnapShot.child("title").getValue(String.class);
-                            String desc = wallpaperSnapShot.child("desc").getValue(String.class);
-                            String url = wallpaperSnapShot.child("url").getValue(String.class);
-                            Wallpaper w = new Wallpaper(id, title, desc, url);
-                            w.id = dataSnapshot.getKey();
-                            if (w.url.equals(wallpaper.url)) {
-                                checkBoxFav.setChecked(true);
-                            }
-
-                        }
-
-
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        }
-
-        checkBoxFav.setOnCheckedChangeListener(this);
-    }
-
-
-
-    private void anim(){
-        OpenAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        CloseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-        clockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
-        AnticlockwiseAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
-
-    }
-
-
-
-
-
 }
-
