@@ -32,17 +32,13 @@ import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Hint;
 
-public class HomeActivity extends AppCompatActivity implements RewardedVideoAdListener {
+public class HomeActivity extends AppCompatActivity {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     TabLayoutAdapter adapter;
-    boolean doubleTap;
-    private RewardedVideoAd mRewardedVideoAd;
-    TextView textView;
     View download, search, newtab, categorytab, favtab;
     private TabLayout tabLayout;
     //TODO call the function showAds in onlick in menu button
-    AdsTimer adsTimer;
 
     private int[] tabIcons = {
             R.drawable.ic_tab_new,
@@ -55,7 +51,6 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        adsTimer= new AdsTimer();
 
         //TODO find the id of the textView to show the timer
 
@@ -64,12 +59,6 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
 
         MobileAds.initialize(this,
                 "ca-app-pub-1544647693026779~3122962726");
-
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
-
         ViewPager viewPager = findViewById(R.id.viewpager);
         download = findViewById(R.id.downloadView);
         search = findViewById(R.id.search);
@@ -207,60 +196,6 @@ public class HomeActivity extends AppCompatActivity implements RewardedVideoAdLi
 
  call the below function when user opts ti see ads
 
+*/
 
- */
-    private void showAds(){
-
-        //TODO load the reawrding ads here
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
-
-        if (mRewardedVideoAd.isLoaded()) {
-            mRewardedVideoAd.show();
-        }
-
-    }
-
-
-    @Override
-    public void onRewardedVideoAdLoaded() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        int x=adsTimer.getTimeLeft();
-        adsTimer.resetTimer();
-        adsTimer.stopAds(x+30,textView);
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-
-    }
 }

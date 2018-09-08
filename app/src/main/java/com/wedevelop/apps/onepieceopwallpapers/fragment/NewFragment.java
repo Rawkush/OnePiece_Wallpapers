@@ -11,12 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.WallpaperAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
@@ -25,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class NewFragment extends Fragment {
+public class NewFragment extends Fragment implements RewardedVideoAdListener {
 
     List<Wallpaper> wallpaperList;
     RecyclerView recyclerView;
@@ -36,6 +43,10 @@ public class NewFragment extends Fragment {
     GridLayoutManager manager;
     Boolean shouldScrollMore;
     String oldestpost;
+    AdsTimer adsTimer;
+    TextView textView;
+    private RewardedVideoAd mRewardedVideoAd;
+
 
     @Nullable
     @Override
@@ -49,8 +60,12 @@ public class NewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         wallpaperList = new ArrayList<>();
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getContext());
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+        adsTimer = new AdsTimer();
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
+        textView=view.findViewById(R.id.textView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         manager = (GridLayoutManager) recyclerView.getLayoutManager();
@@ -162,5 +177,89 @@ public class NewFragment extends Fragment {
             }
         });
 
+    }
+
+
+
+private void showAds(){
+
+    if (mRewardedVideoAd.isLoaded()) {
+        mRewardedVideoAd.show();
+    }
+}
+
+
+
+
+    private void loadAds(){
+
+        //TODO load the reawrding ads here
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+
+
+    }
+
+
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        loadAds();
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        int x=adsTimer.getTimeLeft();
+        adsTimer.resetTimer();
+        adsTimer.stopAds(x+30,textView);
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+       loadAds();
+    }
+ //activivty life cycle
+
+    @Override
+    public void onResume() {
+        mRewardedVideoAd.resume(getContext());
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mRewardedVideoAd.pause(getContext());
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        mRewardedVideoAd.destroy(getContext());
+        super.onDestroy();
     }
 }
