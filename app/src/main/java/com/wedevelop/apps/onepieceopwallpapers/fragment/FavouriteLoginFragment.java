@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -69,7 +70,6 @@ public class FavouriteLoginFragment extends Fragment {
         View v;
         v = inflater.inflate(R.layout.fragment_fav_default, container, false);
         mToolbar = v.findViewById(R.id.menuToolBar);
-        setHasOptionsMenu(true);
 
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
@@ -170,89 +170,7 @@ public class FavouriteLoginFragment extends Fragment {
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO  menu entries here
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fav_menu, menu);
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.menuDownload) {
-
-            downloadGallery();
-
-        } else if (id == R.id.menuFeedback) {
-            Intent feedback = new Intent(getContext(), FeedBackActivity.class);
-            startActivity(feedback);
-            // Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    private void downloadGallery() {
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat
-                    .shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
-
-            } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
-            }
-            return;
-        }
-
-        if (checkDir()) {
-            DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
-            downloadsGallery.start();
-        }
-    }
-
-    private boolean checkDir() {
-        File folder = new File(Environment.getExternalStorageDirectory().getPath() + "/OnePiece_Wallpapers/");
-
-        if (!folder.exists()) {
-
-            folder.mkdirs();
-            return false;
-
-        } else {
-            Log.e("Found Dir", "Found Dir  ");
-
-            File[] contents = folder.listFiles();
-// the directory file is not really a directory..
-            if (contents == null) {
-                Toast.makeText(getActivity(), "Nothing Downloaded yet", Toast.LENGTH_SHORT).show();
-
-                return false;
-
-            }
-// Folder is empty
-            else if (contents.length == 0) {
-                Toast.makeText(getActivity(), "Nothing Downloaded yet", Toast.LENGTH_SHORT).show();
-
-                return false;
-            }
-// Folder contains files
-            else {
-                return true;
-
-            }
-        }
-    }
 
 
 }
