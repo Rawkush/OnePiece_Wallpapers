@@ -41,7 +41,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         this.mCtx = mCtx;
         this.categoryList = categoryList;
         categoryListFiltered = categoryList;
-        adsTimer= new AdsTimer();
+        adsTimer = new AdsTimer();
         mInterstitialAd = new InterstitialAd(mCtx);
         mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -133,7 +133,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         public void onClick(View v) {
 
             gotoNextPage();
-            if (mInterstitialAd.isLoaded()&&adsTimer.ShowAdsOrNot()) {
+            if (mInterstitialAd.isLoaded() && adsTimer.ShowAdsOrNot()) {
                 mInterstitialAd.show();
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }

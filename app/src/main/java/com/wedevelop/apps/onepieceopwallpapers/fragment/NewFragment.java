@@ -1,38 +1,48 @@
 package com.wedevelop.apps.onepieceopwallpapers.fragment;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.wedevelop.apps.onepieceopwallpapers.activity.DownloadsGallery;
+import com.wedevelop.apps.onepieceopwallpapers.activity.FeedBackActivity;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.WallpaperAdapter;
 import com.wedevelop.apps.onepieceopwallpapers.models.Wallpaper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class NewFragment extends Fragment implements RewardedVideoAdListener {
+public class NewFragment extends Fragment {
 
     List<Wallpaper> wallpaperList;
     RecyclerView recyclerView;
@@ -43,29 +53,31 @@ public class NewFragment extends Fragment implements RewardedVideoAdListener {
     GridLayoutManager manager;
     Boolean shouldScrollMore;
     String oldestpost;
-    AdsTimer adsTimer;
-    TextView textView;
-    private RewardedVideoAd mRewardedVideoAd;
+    android.support.v7.widget.Toolbar mToolbar;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_wallpaper, container, false);
-        return rootView;
+        View v;
+        v = inflater.inflate(R.layout.activity_wallpaper, container, false);
+        mToolbar = v.findViewById(R.id.toolBar);
+
+        if (mToolbar != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        }
+
+        return v;
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
         wallpaperList = new ArrayList<>();
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getContext());
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
-        adsTimer = new AdsTimer();
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        textView=view.findViewById(R.id.textView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         manager = (GridLayoutManager) recyclerView.getLayoutManager();
@@ -179,87 +191,91 @@ public class NewFragment extends Fragment implements RewardedVideoAdListener {
 
     }
 
-
-
-private void showAds(){
-
-    if (mRewardedVideoAd.isLoaded()) {
-        mRewardedVideoAd.show();
-    }
-}
-
-
-
-
-    private void loadAds(){
-
-        //TODO load the reawrding ads here
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
-
-
-    }
-
-
-
     @Override
-    public void onRewardedVideoAdLoaded() {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO  menu entries here
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fav_menu, menu);
 
     }
 
     @Override
-    public void onRewardedVideoAdOpened() {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+        if (id == R.id.menuDownload) {
+
+            downloadGallery();
+
+        } else if (id == R.id.menuFeedback) {
+            Intent feedback = new Intent(getContext(), FeedBackActivity.class);
+            startActivity(feedback);
+            // Toast.makeText(getActivity(), "feedback is here", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuAdsFree) {
+            FragmentManager manager = getFragmentManager();
+            AdFreeDialogFragment dialogFragment = new AdFreeDialogFragment();
+            dialogFragment.show(manager, "AD Free Dialog");
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onRewardedVideoStarted() {
 
+    private void downloadGallery() {
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat
+                    .shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+            }
+            return;
+        }
+
+        if (checkDir()) {
+            DownloadsGallery downloadsGallery = new DownloadsGallery(getActivity());
+            downloadsGallery.start();
+        }
     }
 
-    @Override
-    public void onRewardedVideoAdClosed() {
-        loadAds();
-    }
+    private boolean checkDir() {
+        File folder = new File(Environment.getExternalStorageDirectory().getPath() + "/OnePiece_Wallpapers/");
 
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        int x=adsTimer.getTimeLeft();
-        adsTimer.resetTimer();
-        adsTimer.stopAds(x+30,textView);
-    }
+        if (!folder.exists()) {
 
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
+            folder.mkdirs();
+            return false;
 
-    }
+        } else {
+            Log.e("Found Dir", "Found Dir  ");
 
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
+            File[] contents = folder.listFiles();
+// the directory file is not really a directory..
+            if (contents == null) {
+                Toast.makeText(getActivity(), "Nothing Downloaded yet", Toast.LENGTH_SHORT).show();
 
-    }
+                return false;
 
-    @Override
-    public void onRewardedVideoCompleted() {
-       loadAds();
-    }
- //activivty life cycle
+            }
+// Folder is empty
+            else if (contents.length == 0) {
+                Toast.makeText(getActivity(), "Nothing Downloaded yet", Toast.LENGTH_SHORT).show();
 
-    @Override
-    public void onResume() {
-        mRewardedVideoAd.resume(getContext());
-        super.onResume();
-    }
+                return false;
+            }
+// Folder contains files
+            else {
+                return true;
 
-    @Override
-    public void onPause() {
-        mRewardedVideoAd.pause(getContext());
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        mRewardedVideoAd.destroy(getContext());
-        super.onDestroy();
+            }
+        }
     }
 }

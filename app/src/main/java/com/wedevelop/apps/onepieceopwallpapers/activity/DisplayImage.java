@@ -51,19 +51,17 @@ import java.io.IOException;
 
 public class DisplayImage extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
+    AdsTimer adsTimer;
     private FloatingActionButton fab_more, fab_download, fab_set_wall, fab_share; // fab buttons on layout
     private Animation OpenAnimation, CloseAnimation, clockwiseAnimation, AnticlockwiseAnimation;
-    private  Boolean isOpen = false;
-    private LinearLayout LinearFabLayout;
+    private Boolean isOpen = false;
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
+    private LinearLayout LinearFabLayout;
     private String url, id;
     private CheckBox checkBoxFav;
     private PhotoView photoView;
 
-    AdsTimer adsTimer;
-
     private InterstitialAd mInterstitialAd;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +70,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        adsTimer=new AdsTimer();
+        adsTimer = new AdsTimer();
 
 
         mInterstitialAd = new InterstitialAd(this);
@@ -214,7 +212,7 @@ public class DisplayImage extends AppCompatActivity implements CompoundButton.On
                 downloadWallpaper();
                 Toast.makeText(getApplicationContext(), "Downloaded", Toast.LENGTH_SHORT).show();
 
-                if (mInterstitialAd.isLoaded()&&adsTimer.ShowAdsOrNot()) {
+                if (mInterstitialAd.isLoaded() && adsTimer.ShowAdsOrNot()) {
                     mInterstitialAd.show();
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 }

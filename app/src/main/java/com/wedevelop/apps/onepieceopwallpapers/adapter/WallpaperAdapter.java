@@ -33,9 +33,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
     public WallpaperAdapter(Context mCtx, List<Wallpaper> wallpaperList) {
         this.mCtx = mCtx;
         this.wallpaperList = wallpaperList;
-        adsTimer= new AdsTimer();
+        adsTimer = new AdsTimer();
         mInterstitialAd = new InterstitialAd(mCtx);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -88,9 +88,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.wall
         public void onClick(View v) {
             goToDisplayImage();
 
-            if (mInterstitialAd.isLoaded()&&adsTimer.ShowAdsOrNot()) {
-                 mInterstitialAd.show();
-                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            if (mInterstitialAd.isLoaded() && adsTimer.ShowAdsOrNot()) {
+                mInterstitialAd.show();
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
             }
 
