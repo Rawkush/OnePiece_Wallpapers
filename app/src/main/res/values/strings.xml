@@ -12,6 +12,11 @@
     <string name="share"> Share </string>
     <string name="todk">TODO</string>
     <string name="permission_title">For saving image</string>
+    <string name="watch_video">WATCH AN VIDEO</string>
+    <string name="cancel">CANCEL</string>
     <string name="slide_1_title">Let\'s Start</string>
     <string name="slide_1_desc">Don\'t Miss A Top One Piece Wallpapers</string>
+    <string name="adfreeText">Get Ad Free Experience by watching an video Ad. You\'ll get 10 mins time of Ad Free Version of App for every Video you watch! \n  \n Eg. \n 1 Video = 10 minutes \n 2 Videos = 20 minute \n . \n . \n and so on.</string>
+    <string name="you_have_x_minutes_remaining_of_ad_free_experience">You have X minutes remaining of Ad Free Experience</string>
+    <string name="enjoy">Enjoy! :)</string>
 </resources>

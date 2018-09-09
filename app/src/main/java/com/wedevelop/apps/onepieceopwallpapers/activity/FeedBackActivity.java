@@ -29,10 +29,10 @@ public class FeedBackActivity extends AppCompatActivity {
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setDescription("If you love the Content in this app then please Rate us")
-                .addItem(versionElement)
                 .addGroup("Connect with us")
                 .addEmail("appswedevelop@gmail.com")
                 .addPlayStore("com.wedevelop.apps.onepieceopwallpapers")
+                .addItem(versionElement)
                 .create();
 
         setContentView(aboutPage);
