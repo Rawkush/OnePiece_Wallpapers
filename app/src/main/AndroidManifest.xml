@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wedevelop.apps.onepieceopwallpapers">
+    package="com.triple.astudio.onepieceopwallpapers">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- External storage permission -->
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.triple.astudio.onepieceopwallpapers.activity.MainActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,19 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.WallpaperActivity" />
-        <activity android:name=".activity.DisplayImage" />
+        <activity android:name="com.triple.astudio.onepieceopwallpapers.activity.HomeActivity" />
+        <activity android:name="com.triple.astudio.onepieceopwallpapers.activity.WallpaperActivity" />
+        <activity android:name="com.triple.astudio.onepieceopwallpapers.activity.DisplayImage" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".activity.OnBoardingActivity" />
+        <activity android:name="com.triple.astudio.onepieceopwallpapers.activity.OnBoardingActivity" />
 
         <activity
-            android:name=".activity.FeedBackActivity"
-            android:parentActivityName=".activity.HomeActivity"></activity>
+            android:name="com.triple.astudio.onepieceopwallpapers.activity.FeedBackActivity"
+            android:parentActivityName="com.triple.astudio.onepieceopwallpapers.activity.HomeActivity"></activity>
 
         <meta-data
             android:name="io.fabric.ApiKey"

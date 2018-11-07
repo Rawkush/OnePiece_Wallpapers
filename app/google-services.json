@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:817655009002:android:778057542b765145",
         "android_client_info": {
-          "package_name": "com.wedevelop.apps.onepieceopwallpapers"
+          "package_name": "com.triple.astudio.onepieceopwallpapers"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "817655009002-5do3uqd88cksnqjtoociml4ri5usndfe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.wedevelop.apps.onepieceopwallpapers",
+            "package_name": "com.triple.astudio.onepieceopwallpapers",
             "certificate_hash": "130734da661e4215ac0aafd7600025ad0a130177"
           }
         },

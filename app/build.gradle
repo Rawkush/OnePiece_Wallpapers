@@ -18,11 +18,11 @@ repositories {
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.wedevelop.apps.onepieceopwallpapers"
+        applicationId "com.triple.astudio.onepieceopwallpapers"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.0.2"
+        versionCode 5
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -56,9 +56,10 @@ dependencies {
     implementation 'com.github.msayan:tutorial-view:v1.0.6'
     implementation 'com.github.medyo:android-about-page:1.2.4'
     implementation 'com.github.loregr:lgsnackbar:1.0.2'
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
+
 
     implementation 'com.victor:lib:1.0.4'
-    implementation 'com.google.firebase:firebase-ads:15.0.1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
