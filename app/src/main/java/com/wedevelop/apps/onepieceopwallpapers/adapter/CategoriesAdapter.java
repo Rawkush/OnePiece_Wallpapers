@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.squareup.picasso.Picasso;
+import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.activity.WallpaperActivity;
 import com.wedevelop.apps.onepieceopwallpapers.models.Category;
@@ -28,7 +28,7 @@ import java.util.List;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>
         implements Filterable {
 
-
+    private AdsTimer adsTimer;
     private Context mCtx;
     private List<Category> categoryList;
     private List<Category> categoryListFiltered;
@@ -41,7 +41,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         this.mCtx = mCtx;
         this.categoryList = categoryList;
         categoryListFiltered = categoryList;
-
+        adsTimer= new AdsTimer();
         mInterstitialAd = new InterstitialAd(mCtx);
         mInterstitialAd.setAdUnitId("ca-app-pub-1544647693026779/3641837478");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -50,12 +50,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             public void onAdClosed() {
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
             }
 
         });
     }
-
 
     @NonNull
     @Override
@@ -69,13 +67,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         Category c = categoryListFiltered.get(position);
 
         holder.textView.setText(c.name);
-       /* Glide.with(mCtx)
+        Glide.with(mCtx)
                 .load(c.thumb)
-                .into(holder.imageView);
-    */
-        Picasso.with(mCtx)
-                .load(c.thumb)
-                .fit()
                 .into(holder.imageView);
     }
 
@@ -138,13 +131,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         @Override
         public void onClick(View v) {
-            gotoNextPage();
 
-            if (mInterstitialAd.isLoaded()) {
+            gotoNextPage();
+            if (mInterstitialAd.isLoaded()&&adsTimer.ShowAdsOrNot()) {
                 mInterstitialAd.show();
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-
             }
 
         }
@@ -152,7 +143,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         public void gotoNextPage() {
             int p = getAdapterPosition();  // getting adapter position
             Category c = categoryListFiltered.get(p);
-
             Intent intent = new Intent(mCtx, WallpaperActivity.class);
             intent.putExtra("category", c.name);
             mCtx.startActivity(intent);

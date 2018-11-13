@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/menuAdsFree"
+        android:icon="@drawable/ic_feedback"
+        android:title="Ad-Free Experience"
+        app:showAsAction="collapseActionView" />
+
+    <item
         android:id="@+id/menuFeedback"
         android:icon="@drawable/ic_feedback"
         android:title="@string/app_about"
