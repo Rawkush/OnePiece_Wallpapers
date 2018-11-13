@@ -51,18 +51,6 @@
             android:layout_gravity="center"
             app:SpinKit_Color="@color/progressBarColor" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="60dp"
-            android:textSize="32dp"
-            android:layout_marginTop="96dp"
-            android:text="TextView" />
-
-
     </RelativeLayout>
 
 
