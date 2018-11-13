@@ -15,7 +15,6 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolBar"
             app:title="@string/app_name"
-            app:layout_scrollFlags="scroll|enterAlways"
             android:layout_height="48dp"
             android:layout_width="match_parent"
             android:background="@color/toolBar"
@@ -26,7 +25,8 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +51,7 @@
             android:layout_gravity="center"
             app:SpinKit_Color="@color/progressBarColor" />
 
-
-
     </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

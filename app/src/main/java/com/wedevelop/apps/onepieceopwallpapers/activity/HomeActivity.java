@@ -1,18 +1,32 @@
 package com.wedevelop.apps.onepieceopwallpapers.activity;
 
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
 import com.wedevelop.apps.onepieceopwallpapers.HintServiceImpl;
 import com.wedevelop.apps.onepieceopwallpapers.R;
 import com.wedevelop.apps.onepieceopwallpapers.adapter.TabLayoutAdapter;
@@ -22,23 +36,29 @@ public class HomeActivity extends AppCompatActivity {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     TabLayoutAdapter adapter;
-
+    View download, search, newtab, categorytab, favtab;
     private TabLayout tabLayout;
+    //TODO call the function showAds in onlick in menu button
+
     private int[] tabIcons = {
             R.drawable.ic_tab_new,
             R.drawable.ic_random,
             R.drawable.ic_favorite
     };
-    boolean doubleTap;
-    View download, search, newtab, categorytab, favtab;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //TODO find the id of the textView to show the timer
+
+        //textView=(TextView) findViewByid(R.id.);
+
+
         MobileAds.initialize(this,
                 "ca-app-pub-1544647693026779~3122962726");
-
         ViewPager viewPager = findViewById(R.id.viewpager);
         download = findViewById(R.id.downloadView);
         search = findViewById(R.id.search);
@@ -62,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -84,31 +105,77 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
+
     private void setupViewPager(ViewPager viewPager) {
         adapter = new TabLayoutAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
     }
 
     public void onBackPressed() {
-        if (doubleTap) {
-            super.onBackPressed();
-        } else {
-            Toast.makeText(this, "Please Back again to Exit", Toast.LENGTH_SHORT).show();
-            doubleTap = true;
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleTap = false;
-                }
-            }, 500);
-        }
+        ExitApp();
+    }
+
+
+    //DialogBox Main Function
+    public void ExitApp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                HomeActivity.this);
+
+        builder.setTitle("Exit?");//Title
+        builder.setMessage("If you love the One Piece Wallpapers,please rate us");//Message
+        builder.setIcon(R.drawable.app_icon);
+        builder.setCancelable(false);
+
+
+        //Negative Message
+        builder.setNegativeButton("RATE US",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                        // To count with Play market backstack, After pressing back button,
+                        // to taken back to our application, we need to add following flags to intent.
+                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                        try {
+                            startActivity(goToMarket);
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                        }
+
+
+                    }
+                });
+
+
+        builder.setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        //Positive Message
+        builder.setPositiveButton("EXIT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        /* close this activity
+                         *  When Exit is clicked
+                         */
+                        finish();
+                    }
+                });
+
+        builder.show();
     }
 
     public void setTabsandShowHints() {
@@ -124,7 +191,11 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+/*
 
 
+ call the below function when user opts ti see ads
+
+*/
 
 }
