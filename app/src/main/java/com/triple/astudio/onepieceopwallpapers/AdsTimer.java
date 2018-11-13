@@ -1,4 +1,4 @@
-package com.wedevelop.apps.onepieceopwallpapers;
+package com.triple.astudio.onepieceopwallpapers;
 
 import android.content.Context;
 import android.os.CountDownTimer;

@@ -15,8 +15,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.wedevelop.apps.onepieceopwallpapers.AdsTimer;
-import com.wedevelop.apps.onepieceopwallpapers.R;
+import com.triple.astudio.onepieceopwallpapers.AdsTimer;
+import com.triple.astudio.onepieceopwallpapers.R;
 
 public class AdFreeDialogFragment extends AppCompatDialogFragment {
     AdsTimer adsTimer;
