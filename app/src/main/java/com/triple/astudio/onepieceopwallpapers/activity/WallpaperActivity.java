@@ -123,7 +123,7 @@ public class WallpaperActivity extends AppCompatActivity {
     private void fetchData() {
         DatabaseReference dbWallpaper = dbWallpapers;
 
-        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(20).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbWallpaper.orderByKey().endAt(oldestpost).limitToLast(25).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //  Toast.makeText(getApplicationContext(), dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();

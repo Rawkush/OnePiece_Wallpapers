@@ -8,14 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.victor.loading.rotate.RotateLoading
+            android:id="@+id/rotateloading"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            app:loading_color="#000dfa"
+            app:loading_width="5dp" />
+
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/background"
             android:contentDescription="@string/todo"
+            android:background="@drawable/background"
             android:scaleType="fitXY" />
 
     </RelativeLayout>
