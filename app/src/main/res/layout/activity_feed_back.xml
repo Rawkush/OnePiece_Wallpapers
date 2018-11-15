@@ -9,6 +9,10 @@
     android:background="@drawable/background"
     tools:context=".activity.FeedBackActivity">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar_layout" />
+
 
     <TextView
         android:id="@+id/textView"
@@ -84,7 +88,7 @@
     <Button
         android:id="@+id/btFeedBack"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="148dp"
@@ -100,7 +104,7 @@
     <Button
         android:id="@+id/btLicense"
         android:layout_width="230dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginStart="86dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="84dp"

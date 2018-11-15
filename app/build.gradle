@@ -21,8 +21,8 @@ android {
         applicationId "com.triple.astudio.onepieceopwallpapers"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 5
-        versionName "1.0.3"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -47,7 +47,7 @@ dependencies {
     implementation "com.android.support:design:$support_library_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.google.firebase:firebase-database:16.0.1'
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
