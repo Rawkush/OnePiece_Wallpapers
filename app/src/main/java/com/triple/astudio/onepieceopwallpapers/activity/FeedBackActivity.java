@@ -4,8 +4,10 @@ package com.triple.astudio.onepieceopwallpapers.activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,6 +26,8 @@ public class FeedBackActivity extends AppCompatActivity {
     Shimmer shimmer;
     Typeface tf;
     Button btFeedBack, btLicense;
+    private Toolbar mToolbar;
+
 
     @Override
     protected void onResume() {
@@ -40,6 +44,13 @@ public class FeedBackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
+        mToolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
         tf = Typeface.createFromAsset(getAssets(), "waltograph.regular.ttf");
         btFeedBack = findViewById(R.id.btFeedBack);
         btLicense = findViewById(R.id.btLicense);
