@@ -18,11 +18,11 @@ repositories {
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.wedevelop.apps.onepieceopwallpapers"
+        applicationId "com.triple.astudio.onepieceopwallpapers"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 5
-        versionName "1.0.3"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
