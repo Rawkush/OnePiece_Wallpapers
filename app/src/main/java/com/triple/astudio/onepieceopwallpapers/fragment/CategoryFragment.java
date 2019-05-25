@@ -34,7 +34,7 @@ public class CategoryFragment extends Fragment {
     private ProgressBar progressBar;
     private DatabaseReference dbCategories;
     private RecyclerView recyclerView;
-    private CategoriesAdapter adapter, duplicateAdapter;
+    private CategoriesAdapter adapter;
 
     @Nullable
     @Override
@@ -54,8 +54,8 @@ public class CategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         categoryList = new ArrayList<>();
         adapter = new CategoriesAdapter(getActivity(), categoryList);
-        duplicateAdapter = new CategoriesAdapter(getActivity(), categoryList);
         recyclerView.setAdapter(adapter);
+
         searchBar = view.findViewById(R.id.searchBar);
         searchBar.setHint("Luffy...");
         searchBar.setOnSearchActionListener(new SimpleOnSearchActionListener() {
@@ -63,11 +63,11 @@ public class CategoryFragment extends Fragment {
             public void onSearchStateChanged(boolean enabled) {
                 super.onSearchStateChanged(enabled);
 
-                if (!enabled) {
 
-                    recyclerView.setAdapter(duplicateAdapter);
-                } else
-                    recyclerView.setAdapter(adapter);
+                if (!enabled) {
+                    adapter.getFilter().filter("");   // filtering the result
+                      //      recyclerView.setAdapter(duplicateAdapter);
+                }
 
             }
 
@@ -96,14 +96,10 @@ public class CategoryFragment extends Fragment {
                         String desc = ds.child("desc").getValue(String.class);
                         String thumb = ds.child("thumbnail").getValue(String.class);
                         Category c = new Category(name, desc, thumb);
-                        if (name.equals("new")) {
+                        categoryList.add(c);
 
-                        } else {
-                            categoryList.add(c);
-                        }
                     }
                     adapter.notifyDataSetChanged();
-                    duplicateAdapter.notifyDataSetChanged();
 
                 }
             }
