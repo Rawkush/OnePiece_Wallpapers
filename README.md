@@ -1,9 +1,17 @@
 # One Piece Wallpaper
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+ ![Maintenance](https://img.shields.io/badge/Maintained%3F-No-red.svg)  ![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
+ 
+ ![GitHub last commit](https://img.shields.io/github/last-commit/rawkush/OnePiece_Wallpapers?style=plastic)
+ ![GitHub Release Date](https://img.shields.io/github/release-date/rawkush/OnePiece_Wallpapers?style=plastic) ![Lines of code](https://img.shields.io/tokei/lines/github/rawkush/OnePiece_Wallpapers?style=plastic)
+   ![GitHub issues](https://img.shields.io/github/issues/rawkush/OnePiece_Wallpapers?style=plastic) ![GitHub closed issues](https://img.shields.io/github/issues-closed/rawkush/OnePiece_Wallpapers?style=plastic)    ![GitHub forks](https://img.shields.io/github/forks/rawkush/OnePiece_Wallpapers?style=social)
+   ![GitHub Repo stars](https://img.shields.io/github/stars/rawkush/OnePiece_Wallpapers?style=social)
+   ![GitHub watchers](https://img.shields.io/github/watchers/rawkush/OnePiece_Wallpapers?style=social) <br /> ![GitHub all releases](https://img.shields.io/github/downloads/rawkush/OnePiece_Wallpapers/total?style=plastic) <br />
 
+   ![GitHub](https://img.shields.io/github/license/rawkush/OnePiece_Wallpapers?style=plastic)
+   [![HitCount](http://hits.dwyl.com/rawkush/OnePiece_Wallpapers.svg)](http://hits.dwyl.com/rawkush/OnePiece_Wallpapers)
+   
 One Piece Wallpaper application is stacked with an interseting and innovative gathering of One Piece Wallpaper and One Piece Backgrounds.
 Make your phone Emerge with superb wallpapers and background. Every last One Piece Wallpaper is one of a kind in its own specific manner. 
 
