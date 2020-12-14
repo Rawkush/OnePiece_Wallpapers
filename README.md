@@ -10,8 +10,7 @@
    ![GitHub watchers](https://img.shields.io/github/watchers/rawkush/OnePiece_Wallpapers?style=social) <br /> ![GitHub all releases](https://img.shields.io/github/downloads/rawkush/OnePiece_Wallpapers/total?style=plastic) <br />
 
    ![GitHub](https://img.shields.io/github/license/rawkush/OnePiece_Wallpapers?style=plastic)
-   [![HitCount](http://hits.dwyl.com/rawkush/OnePiece_Wallpapers.svg)](http://hits.dwyl.com/rawkush/OnePiece_Wallpapers)
-   
+   ![ViewCount](https://views.whatilearened.today/views/github/rawkush/onepiece_wallpaper.svg)   
 One Piece Wallpaper application is stacked with an interseting and innovative gathering of One Piece Wallpaper and One Piece Backgrounds.
 Make your phone Emerge with superb wallpapers and background. Every last One Piece Wallpaper is one of a kind in its own specific manner. 
 
